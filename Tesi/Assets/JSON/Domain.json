@@ -1,0 +1,36 @@
+{
+	"domain": 
+			[ "define_domain",
+				"S_Example",				
+				[ "defineTypes",
+					[ "type", [ "array", "robot" ], "object" ],
+					[ "type", [ "array", "collector", "producer" ], "robot" ]
+				],
+				[ "definePredicates",
+					[ "predicate", "free", ["array", [ "parameter", "r", "robot"], [ "parameter", "c", "collector"]]]
+				],
+				[ "defineFunctions",
+					[ "function", "battery-amount", ["array", ["parameter", "r", "robot"]]],
+					[ "function", "posX", ["array", ["parameter", "r", "robot"]]],
+					[ "function", "posY", ["array", ["parameter", "r", "robot"]]],
+					[ "constant", "battery-capacity"]
+				],
+				[ "defineActions",
+					["action",
+						"moveUp",
+						[ "defineParameters", [ "array", ["parameter", "r", "robot" ]]],
+						[ "duration", "5"],
+						[ "andConditions",					
+							[ "at_start", [ ">", [ "function", "battery-amount", ["array",  "r"]], "10"]],
+							[ "at_start", [ "true", [ "predicate", "free", ["array", "r", "c"]]]]
+						],
+						[ "andEffects", 
+							[ "at_start", [ "false",[ "predicate", "free", ["array", "r", "c"]]]],
+							[ "at_end", [ "true", [ "predicate", "free", ["array", "r", "c"]]]],
+							[ "at_end", [ "decrease", ["function", "battery-amount", ["array", "r"]], "5"]],
+							[ "at_end", [ "increase", ["function", "posY", ["array", "r"]], "1"]]
+						]
+					]
+				]
+			]
+}

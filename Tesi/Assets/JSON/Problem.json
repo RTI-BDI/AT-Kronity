@@ -1,0 +1,30 @@
+{
+    "problem":
+        ["defineProblem",
+         "S_Example_P",
+         "S_Example",
+            ["defineObjects", 
+                [ "array", 
+                    ["parameter", "c1", "collector" ],
+                    ["parameter", "p1", "producer" ] 
+                ]
+            ],
+            ["defineInit",
+                ["equal", ["function", "battery-amount", ["array", "c1"]], "100" ],
+                ["equal", ["function", "battery-amount", ["array", "p1"]], "100" ],
+                ["equal", ["function", "posX", ["array", "c1"]], "0" ],
+                ["equal", ["function", "posY", ["array", "c1"]], "0" ],
+                ["equal", ["function", "posX", ["array", "p1"]], "1" ],
+                ["equal", ["function", "posY", ["array", "p1"]], "2" ],
+                ["true", ["predicate", "free", ["array", "p1", "c1"]]],
+                ["true", ["predicate", "free", ["array", "c1", "c1"]]],
+                ["equal", ["constant", "battery-capacity"], "100" ]
+            ],
+  
+            ["defineGoal",
+                ["equal", ["function", "posX", ["array", "c1"]], "1" ],
+                ["equal", ["function", "posY", ["array", "p1"]], "6" ]
+            ]
+        ]
+}
+  
