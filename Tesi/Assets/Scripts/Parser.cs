@@ -80,7 +80,7 @@ public class Parser : MonoBehaviour
                 //create the actual beliefs based on all the versions
                 foreach (List<Parameter> lp in beliefsVersions)
                 {
-                    Belief toAdd = new Belief(b.type, b.name, lp);
+                    Belief toAdd = new Belief(b.type, b.name, new List<Parameter>(lp));
                     generatedBeliefs.Add(toAdd, 0);
                 }
             }
@@ -92,17 +92,21 @@ public class Parser : MonoBehaviour
         {
             foreach (Expression e in problem.initializations)
             {
-                if (e.exp_1.node.belief != null && e.exp_1.node.belief.type != Belief.BeliefType.Constant && e.exp_1.node.belief.Equals(b))
+                if (b.type != Belief.BeliefType.Constant && e.exp_1.node.belief != null && e.exp_1.node.belief.type != Belief.BeliefType.Constant)
                 {
-                    if (b.type == Belief.BeliefType.Function)
+                    if (b.Equals(e.exp_1.node.belief))
                     {
-                        generatedBeliefs[b] = int.Parse(e.exp_2.node.value);
-                    }
-                    else
-                    {
-                        if (e.node.value == "true")
+                        
+                        if (b.type == Belief.BeliefType.Function)
                         {
-                            generatedBeliefs[b] = 1;
+                            generatedBeliefs[b] = int.Parse(e.exp_2.node.value);
+                        }
+                        else
+                        {
+                            if (e.node.value == "true")
+                            {
+                                generatedBeliefs[b] = 1;
+                            }
                         }
                     }
                 }

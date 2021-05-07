@@ -25,17 +25,17 @@ public class Belief
 
     public bool Equals(Belief other)
     {
-        string me = this.name;
-        string notMe = other.name;
-        foreach (Parameter p in this.param)
+        bool result = true;
+        result = result && this.name == other.name && this.type.Equals(other.type);
+        if(this.param.Count == other.param.Count)
         {
-            me = me + p.name;
+            for (int i = 0; i < this.param.Count; i++)
+            {
+                result = result && this.param[i].Equals(other.param[i]);
+            }
         }
-        foreach (Parameter p in other.param)
-        {
-            notMe = notMe + p.name;
-        }
-        return this.type == other.type && me == notMe;
+
+        return result;
     }
 
     public static Belief Evaluate(JToken token)

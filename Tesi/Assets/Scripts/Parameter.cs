@@ -40,6 +40,14 @@ public class Parameter
         
     }
 
+    public bool Equals(Parameter other)
+    {
+        if(this.type == null || other.type == null)
+            return this.name == other.name;
+        else
+            return this.name == other.name && this.type == other.type;
+    }
+
     public string ToPDDL(bool questionMark)
     {
         if (questionMark)
