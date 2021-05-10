@@ -5,10 +5,15 @@ using Newtonsoft.Json.Linq;
 
 public class Problem : MonoBehaviour
 {
+    //Problem's name
     public string name;
+    //Domain used
     public string domain;
+    //List of istances of objects
     public List<Parameter> objects;
+    //List of expressions representing initializations (AND-connected)
     public List<Expression> initializations;
+    //List of expression representing goals (AND-connected)
     public List<Expression> goals;
 
     public Problem(string name, string domain, List<Parameter> objects, List<Expression> initializations, List<Expression> goals)
@@ -20,6 +25,7 @@ public class Problem : MonoBehaviour
         this.goals = goals;
     }
 
+    //Translate from JSON to Object
     public static Problem Evaluate(JToken token)
     {
         if(token.First.ToString() == "defineProblem")
@@ -64,6 +70,7 @@ public class Problem : MonoBehaviour
         }
     }
 
+    //Translate from Object to PDDL
     public string ToPDDL()
     {
         string pddl = "";

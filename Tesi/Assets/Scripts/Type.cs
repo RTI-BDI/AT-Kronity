@@ -5,7 +5,9 @@ using Newtonsoft.Json.Linq;
 
 public class Type
 {
+    //List of types
     public List<string> subjects;
+    //Super type
     public string typeOf;
 
     public Type(List<string> subjects, string typeOf)
@@ -14,6 +16,7 @@ public class Type
         this.typeOf = typeOf;
     }
 
+    //Translate from JSON to Object
     public static Type Evaluate(JToken token)
     {
         if (token.First.ToString() == "type")
@@ -35,6 +38,7 @@ public class Type
         }
     }
 
+    //Translate from Object to PDDL
     public string ToPDDL()
     {
         string pddl = "";

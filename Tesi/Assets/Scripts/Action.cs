@@ -5,10 +5,15 @@ using Newtonsoft.Json.Linq;
 
 public class Action
 {
+    //Action's name
     public string name;
+    //List of parameters (not bound to expressions' parameters)
     public List<Parameter> parameters;
+    //Action's duration
     public string duration;
+    //List of expression representing the preconditions (AND-connected)
     public List<Expression> conditions;
+    //List of expression representing the effects (AND-connected)
     public List<Expression> effects;
 
     public Action(string name, List<Parameter> parameters, string duration, List<Expression> conditions, List<Expression> effects)
@@ -20,6 +25,7 @@ public class Action
         this.effects = effects;
     }
 
+    //Translate from JSON to Object
     public static Action Evaluate(JToken token)
     {
         if(token.First.ToString() == "action")
@@ -60,6 +66,7 @@ public class Action
         }
     }
 
+    //Translate from Object to PDDL
     public string ToPDDL()
     {
         string pddl = "";

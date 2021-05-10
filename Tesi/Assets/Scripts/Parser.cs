@@ -13,12 +13,6 @@ public class Parser : MonoBehaviour
         DoStuff();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void DoStuff()
     {
         //Read Json file to string
@@ -40,13 +34,22 @@ public class Parser : MonoBehaviour
         Domain domainObject = Domain.Evaluate(domain);
         Problem problemObject = Problem.Evaluate(problem);
 
+        //From object to PDDL
         Debug.Log(domainObject.ToPDDL());
         Debug.Log(problemObject.ToPDDL());
 
+        //Belief grounding
         GenerateBeliefSet(domainObject, problemObject);
 
     }
 
+    /*GenerateBeliefSet steps:
+     * 1 - Extract from non-constant beliefs the types of the parameters (called involvedTypes)
+     * 2 - For each belief, generates a list of lists of parameters; each list represents a differents 'version' of the belief
+     * 3 - Creates a new belief for each 'version'
+     * 4 - Initialize the beliefs that appear in the problem file (otherwise, the belief will have value 0)
+     * 5 - Translates the beliefs in JSON
+    */
     public void GenerateBeliefSet(Domain domain, Problem problem)
     {
         string jsonStr = "{ \"0\": [ ";
@@ -83,6 +86,9 @@ public class Parser : MonoBehaviour
                     Belief toAdd = new Belief(b.type, b.name, new List<Parameter>(lp));
                     generatedBeliefs.Add(toAdd, 0);
                 }
+            } else
+            {
+                generatedBeliefs.Add(b, 0);
             }
         }
 
@@ -108,6 +114,12 @@ public class Parser : MonoBehaviour
                                 generatedBeliefs[b] = 1;
                             }
                         }
+                    }
+                } else if (b.type == Belief.BeliefType.Constant && e.exp_1.node.belief != null && e.exp_1.node.belief.type == Belief.BeliefType.Constant)
+                {
+                    if(b.name == e.exp_1.node.belief.name)
+                    {
+                        generatedBeliefs[b] = int.Parse(e.exp_2.node.value);
                     }
                 }
             }
@@ -139,6 +151,7 @@ public class Parser : MonoBehaviour
         }
     }
 
+    //Utility function to extract involved types; Used in GenerateBeliefSet
     public List<string> ExtractInvolvedTypes(string type, Domain domain)
     {
         List<string> result = new List<string>();
@@ -154,6 +167,7 @@ public class Parser : MonoBehaviour
         return result;
     }
 
+    //Utility function to extract all the version of the same belief; Used in GenerateBeliefSet
     public List<List<Parameter>> ExtractBeliefsVersions(List<List<Parameter>> grounding)
     {
         
@@ -196,15 +210,19 @@ public class Parser : MonoBehaviour
         }
     } 
 
+    //Utility function used to translate a single belief into JSON; Used in GenerateBeliefSet
     public string BeliefToJson(int id, Belief belief, int value)
     {
         string result = "";
         result = result + "{ \n";
         result = result + "\"id\" : " + id + ",\n";
         result = result + "\"name\" : \"" + belief.name;
-        foreach (Parameter p in belief.param)
+        if (belief.type != Belief.BeliefType.Constant)
         {
-            result = result + "_" + p.name;
+            foreach (Parameter p in belief.param)
+            {
+                result = result + "_" + p.name;
+            }
         }
         result = result + "\",\n";
         result = result + "\"value\" : " + value + "\n";

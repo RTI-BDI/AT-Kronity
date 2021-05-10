@@ -5,7 +5,9 @@ using Newtonsoft.Json.Linq;
 
 public class Parameter
 {
+    //Parameter's name
     public string name;
+    //Parameter's type
     public string type;
 
     public Parameter(string name, string type)
@@ -14,6 +16,16 @@ public class Parameter
         this.type = type;
     }
 
+    //Utility function determining if two parameters are equal (considering the case where the type is not specified, like in actions)
+    public bool Equals(Parameter other)
+    {
+        if (this.type == null || other.type == null)
+            return this.name == other.name;
+        else
+            return this.name == other.name && this.type == other.type;
+    }
+
+    //Transalte from JSON to Object
     public static List<Parameter> Evaluate(JToken token)
     {
         List<Parameter> parameters = new List<Parameter>();
@@ -40,14 +52,7 @@ public class Parameter
         
     }
 
-    public bool Equals(Parameter other)
-    {
-        if(this.type == null || other.type == null)
-            return this.name == other.name;
-        else
-            return this.name == other.name && this.type == other.type;
-    }
-
+    //Translate from Object to PDDL
     public string ToPDDL(bool questionMark)
     {
         if (questionMark)

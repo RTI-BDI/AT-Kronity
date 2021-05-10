@@ -5,6 +5,7 @@ using Newtonsoft.Json.Linq;
 
 public class Belief
 {
+    //Belief types
     public enum BeliefType
     {
         Predicate,
@@ -12,8 +13,11 @@ public class Belief
         Constant
     }
 
+    //Belief's type
     public BeliefType type;
+    //Belief's name
     public string name;
+    //Belief's parameters
     public List<Parameter> param;
 
     public Belief(BeliefType type, string name, List<Parameter> param)
@@ -23,6 +27,7 @@ public class Belief
         this.param = param;
     }
 
+    //Utility function to determine if two beliefs are the same and applied to the same parameters
     public bool Equals(Belief other)
     {
         bool result = true;
@@ -38,6 +43,7 @@ public class Belief
         return result;
     }
 
+    //Translate from JSON to Object
     public static Belief Evaluate(JToken token)
     {
         switch (token.First.ToString())
@@ -57,6 +63,7 @@ public class Belief
         }
     }
 
+    //Translate from Object to PDDL
     public string ToPDDL(bool questionMark)
     {
         string paramsStr = "";

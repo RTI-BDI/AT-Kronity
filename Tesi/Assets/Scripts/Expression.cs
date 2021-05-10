@@ -5,11 +5,14 @@ using Newtonsoft.Json.Linq;
 
 public class Expression
 {
-
+    //Representing the node of the expression 'tree'
     public Node node;
+    //Left branch
     public Expression exp_1;
+    //Right branch
     public Expression exp_2;
 
+    //Initialization of operator 
     public Expression(Node node, Expression exp_1, Expression exp_2)
     {
         this.node = node;
@@ -17,6 +20,7 @@ public class Expression
         this.exp_2 = exp_2;
     }
 
+    //Initialization of unary operator
     public Expression(Node node, Expression exp_1)
     {
         this.node = node;
@@ -24,6 +28,7 @@ public class Expression
         this.exp_2 = null;
     }
 
+    //Initialization of a leaf (value or belief)
     public Expression(Node node)
     {
         this.node = node;
@@ -31,6 +36,7 @@ public class Expression
         this.exp_2 = null;
     }
 
+    //Transalte from JSON to Object
     public static Expression Evaluate(JToken token)
     {
         Node node = Node.Evaluate(token);
@@ -54,6 +60,7 @@ public class Expression
         }
     }
 
+    //Translate from Object to PDDL
     public string ToPDDL(bool questionMark)
     {
         if(this.node.type == Node.NodeType.Operator)

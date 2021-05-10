@@ -5,6 +5,7 @@ using Newtonsoft.Json.Linq;
 
 public class Node
 {
+    //Node's types 
     public enum NodeType
     {
         Operator,
@@ -17,6 +18,7 @@ public class Node
     public Belief belief;
     public string value;
 
+    //Initialization of a leaf-belief
     public Node(NodeType type, Belief belief)
     {
         this.type = type;
@@ -24,6 +26,7 @@ public class Node
         this.value = null;
     }
 
+    //Initialization of an operator (binary or unary) or a leaf-value
     public Node(NodeType type, string value)
     {
         this.type = type;
@@ -31,6 +34,7 @@ public class Node
         this.value = value;
     }
 
+    //Translate from JSON to Object
     public static Node Evaluate(JToken token)
     {
         if (token.Type == JTokenType.Array)
@@ -79,6 +83,7 @@ public class Node
         }
     }
 
+    //Translate from Object to PDDL
     public string ToPDDL(bool questionMark)
     {
         if(this.type != NodeType.LeafBelief)

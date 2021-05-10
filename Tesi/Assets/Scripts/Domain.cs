@@ -5,10 +5,15 @@ using Newtonsoft.Json.Linq;
 
 public class Domain
 {
+    //Domain's name
     public string name;
+    //List of requirements
     public List<string> requirements;
+    //Types that will appear in the domain (not bound to the types of beliefs)
     public List<Type> types;
+    //Beliefs that will appear in the domain (not bound to the beliefs of expressions)
     public List<Belief> beliefs;
+    //List of actions
     public List<Action> actions;
 
     public Domain(string name, List<Type> types, List<Belief> beliefs, List<Action> actions)
@@ -20,6 +25,7 @@ public class Domain
         this.actions = actions;
     }
 
+    //Hard-coded requirements
     private List<string> InitializeRequirements()
     {
         List<string> requirements = new List<string>();
@@ -32,6 +38,7 @@ public class Domain
         return requirements;
     }
 
+    //Translate from JSON to Object
     public static Domain Evaluate(JToken token)
     {
         if(token.First.ToString() == "define_domain")
@@ -84,6 +91,7 @@ public class Domain
         }
     }
 
+    //Translate from Object to PDDL
     public string ToPDDL()
     {
         string pddl = "";
