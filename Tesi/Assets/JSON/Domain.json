@@ -13,6 +13,7 @@
 					[ "function", "battery-amount", ["array", ["parameter", "r", "robot"]]],
 					[ "function", "posX", ["array", ["parameter", "r", "robot"]]],
 					[ "function", "posY", ["array", ["parameter", "r", "robot"]]],
+					[ "function", "test", ["array", ["parameter", "r", "robot"]]],
 					[ "constant", "battery-capacity"]
 				],
 				[ "defineActions",

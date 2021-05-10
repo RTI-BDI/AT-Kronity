@@ -111,23 +111,24 @@ public class Parser : MonoBehaviour
                     }
                 }
             }
-
         }
 
-        foreach (KeyValuePair<Belief, int> entry in generatedBeliefs)
+        int counter = 0;
+        foreach (Belief b in keys)
         {
-            string debug = "";
-            debug = debug + entry.Key.name + " ";
-            foreach (Parameter p in entry.Key.param)
+            jsonStr = jsonStr + BeliefToJson(counter, b, generatedBeliefs[b]);
+            if(counter != generatedBeliefs.Count)
             {
-                debug = debug + p.name + " ";
+                jsonStr = jsonStr + ",\n";
             }
-            debug = debug + ": " + entry.Value;
-            Debug.Log(debug);
+            counter++;
         }
+
+        
 
         jsonStr = jsonStr + " ] }";
 
+        Debug.Log(jsonStr);
         JObject jobject = JObject.Parse(jsonStr);
 
         // write JSON directly to a file
@@ -194,5 +195,21 @@ public class Parser : MonoBehaviour
 
         }
     } 
+
+    public string BeliefToJson(int id, Belief belief, int value)
+    {
+        string result = "";
+        result = result + "{ \n";
+        result = result + "\"id\" : " + id + ",\n";
+        result = result + "\"name\" : \"" + belief.name;
+        foreach (Parameter p in belief.param)
+        {
+            result = result + "_" + p.name;
+        }
+        result = result + "\",\n";
+        result = result + "\"value\" : " + value + "\n";
+        result = result + "}";
+        return result;
+    }
 
 }
