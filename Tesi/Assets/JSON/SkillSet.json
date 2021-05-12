@@ -1,0 +1,10 @@
+{
+  "0": [
+    {
+      "goal_name": "plan_execution"
+    },
+    {
+      "goal_name": "moveUp"
+    }
+  ]
+}

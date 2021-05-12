@@ -15,14 +15,19 @@ public class Action
     public List<Expression> conditions;
     //List of expression representing the effects (AND-connected)
     public List<Expression> effects;
+    //Kronosim parameters
+    public int period;
+    public int computation_cost;
 
-    public Action(string name, List<Parameter> parameters, string duration, List<Expression> conditions, List<Expression> effects)
+    public Action(string name, List<Parameter> parameters, string duration, List<Expression> conditions, List<Expression> effects, int period, int computation_cost)
     {
         this.name = name;
         this.parameters = parameters;
         this.duration = duration;
         this.conditions = conditions;
         this.effects = effects;
+        this.period = period;
+        this.computation_cost = computation_cost;
     }
 
     //Translate from JSON to Object
@@ -59,7 +64,21 @@ public class Action
                     effects.Add(Expression.Evaluate(j));
             }
 
-            return new Action(name, parameters, duration, conditions, effects);
+            //7th element in token
+            int period = 0;
+            if(token.First.Next.Next.Next.Next.Next.Next.First.ToString() == "kronosim_period")
+            {
+                period = int.Parse(token.First.Next.Next.Next.Next.Next.Next.First.Next.ToString());
+            }
+
+            //8th element in token
+            int computation_cost = 0;
+            if (token.First.Next.Next.Next.Next.Next.Next.Next.First.ToString() == "kronosim_computation_cost")
+            {
+                computation_cost = int.Parse(token.First.Next.Next.Next.Next.Next.Next.Next.First.Next.ToString());
+            }
+
+            return new Action(name, parameters, duration, conditions, effects, period, computation_cost);
 
         } else {
             return null;

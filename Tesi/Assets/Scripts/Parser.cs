@@ -39,8 +39,9 @@ public class Parser : MonoBehaviour
         Debug.Log(problemObject.ToPDDL());
 
         //Belief grounding
-        GenerateBeliefSet(domainObject, problemObject);
-
+        Dictionary<Belief, int> groundedBeliefs = GenerateBeliefSet(domainObject, problemObject);
+        GenerateBeliefSet(groundedBeliefs);
+        GenerateSkillSet(domainObject);
     }
 
     /*GenerateBeliefSet steps:
@@ -50,10 +51,8 @@ public class Parser : MonoBehaviour
      * 4 - Initialize the beliefs that appear in the problem file (otherwise, the belief will have value 0)
      * 5 - Translates the beliefs in JSON
     */
-    public void GenerateBeliefSet(Domain domain, Problem problem)
+    public Dictionary<Belief, int> GenerateBeliefSet(Domain domain, Problem problem)
     {
-        string jsonStr = "{ \"0\": [ ";
-
         Dictionary<Belief, int> generatedBeliefs = new Dictionary<Belief, int>();
         //Belief grounding
         foreach(Belief b in domain.beliefs)
@@ -125,30 +124,7 @@ public class Parser : MonoBehaviour
             }
         }
 
-        int counter = 0;
-        foreach (Belief b in keys)
-        {
-            jsonStr = jsonStr + BeliefToJson(counter, b, generatedBeliefs[b]);
-            if(counter != generatedBeliefs.Count)
-            {
-                jsonStr = jsonStr + ",\n";
-            }
-            counter++;
-        }
-
-        
-
-        jsonStr = jsonStr + " ] }";
-
-        Debug.Log(jsonStr);
-        JObject jobject = JObject.Parse(jsonStr);
-
-        // write JSON directly to a file
-        using (StreamWriter file = File.CreateText("./Assets/JSON/BeliefSet.json"))
-        using (JsonTextWriter writer = new JsonTextWriter(file))
-        {
-            jobject.WriteTo(writer);
-        }
+        return generatedBeliefs;
     }
 
     //Utility function to extract involved types; Used in GenerateBeliefSet
@@ -210,12 +186,41 @@ public class Parser : MonoBehaviour
         }
     } 
 
+    //Function to generate the BeliefSet for Kronosim
+    public void GenerateBeliefSet(Dictionary<Belief, int> beliefs)
+    {
+        string jsonStr = "{ \"0\": [ ";
+
+        List<Belief> keys = new List<Belief>(beliefs.Keys);
+
+        int counter = 0;
+        foreach (Belief b in keys)
+        {
+            jsonStr = jsonStr + BeliefToJson(b, beliefs[b]);
+            if (counter != beliefs.Count - 1)
+            {
+                jsonStr = jsonStr + ",\n";
+            }
+            counter++;
+        }
+
+        jsonStr = jsonStr + " ] }";
+        JObject jobject = JObject.Parse(jsonStr);
+
+        // write JSON directly to a file
+        using (StreamWriter file = File.CreateText("./Assets/JSON/BeliefSet.json"))
+        using (JsonTextWriter writer = new JsonTextWriter(file))
+        {
+            writer.Formatting = Formatting.Indented;
+            jobject.WriteTo(writer);
+        }
+    }
+
     //Utility function used to translate a single belief into JSON; Used in GenerateBeliefSet
-    public string BeliefToJson(int id, Belief belief, int value)
+    public string BeliefToJson(Belief belief, int value)
     {
         string result = "";
         result = result + "{ \n";
-        result = result + "\"id\" : " + id + ",\n";
         result = result + "\"name\" : \"" + belief.name;
         if (belief.type != Belief.BeliefType.Constant)
         {
@@ -230,4 +235,34 @@ public class Parser : MonoBehaviour
         return result;
     }
 
+    //Function to generate the SkillSet for Kronosim
+    public void GenerateSkillSet(Domain domain)
+    {
+        string jsonStr = "{ \"0\": [ ";
+
+        jsonStr = jsonStr + "{ \"goal_name\" : \"plan_execution\" }, ";
+
+        int counter = 0;
+        foreach (Action a in domain.actions)
+        {
+            jsonStr = jsonStr + "{ \"goal_name\" : \"" + a.name + "\" }, ";
+            if (counter != domain.actions.Count - 1)
+            {
+                jsonStr = jsonStr + ",\n";
+            }
+            counter++;
+        }
+
+        jsonStr = jsonStr + " ] }";
+
+        JObject jobject = JObject.Parse(jsonStr);
+
+        // write JSON directly to a file
+        using (StreamWriter file = File.CreateText("./Assets/JSON/SkillSet.json"))
+        using (JsonTextWriter writer = new JsonTextWriter(file))
+        {
+            writer.Formatting = Formatting.Indented;
+            jobject.WriteTo(writer);
+        }
+    }
 }

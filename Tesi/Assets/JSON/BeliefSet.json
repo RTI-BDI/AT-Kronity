@@ -1,1 +1,64 @@
-{"0":[{"id":0,"name":"free_c1_c1","value":1},{"id":1,"name":"free_p1_c1","value":1},{"id":2,"name":"battery-amount_c1","value":100},{"id":3,"name":"battery-amount_p1","value":100},{"id":4,"name":"posX_c1","value":0},{"id":5,"name":"posX_p1","value":1},{"id":6,"name":"posY_c1","value":0},{"id":7,"name":"posY_p1","value":2},{"id":8,"name":"test_c1","value":0},{"id":9,"name":"test_p1","value":0},{"id":10,"name":"battery-capacity","value":100}]}
+{
+  "0": [
+    {
+      "name": "free_c1",
+      "value": 0
+    },
+    {
+      "name": "free_p1",
+      "value": 0
+    },
+    {
+      "name": "battery-amount_c1",
+      "value": 100
+    },
+    {
+      "name": "battery-amount_p1",
+      "value": 100
+    },
+    {
+      "name": "wood-amount_c1",
+      "value": 0
+    },
+    {
+      "name": "wood-amount_p1",
+      "value": 0
+    },
+    {
+      "name": "stone-amount_c1",
+      "value": 0
+    },
+    {
+      "name": "stone-amount_p1",
+      "value": 0
+    },
+    {
+      "name": "chest-amount_p1",
+      "value": 0
+    },
+    {
+      "name": "posX_c1",
+      "value": 0
+    },
+    {
+      "name": "posX_p1",
+      "value": 1
+    },
+    {
+      "name": "posY_c1",
+      "value": 0
+    },
+    {
+      "name": "posY_p1",
+      "value": 2
+    },
+    {
+      "name": "battery-capacity",
+      "value": 100
+    },
+    {
+      "name": "sample-capacity",
+      "value": 0
+    }
+  ]
+}

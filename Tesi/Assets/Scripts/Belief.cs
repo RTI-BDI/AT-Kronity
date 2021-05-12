@@ -38,6 +38,9 @@ public class Belief
             {
                 result = result && this.param[i].Equals(other.param[i]);
             }
+        } else
+        {
+            return false;
         }
 
         return result;
