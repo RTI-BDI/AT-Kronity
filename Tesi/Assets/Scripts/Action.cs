@@ -96,7 +96,7 @@ public class Action
         pddl = pddl + ":parameters (";
         foreach(Parameter p in this.parameters)
         {
-            pddl = pddl + p.ToPDDL(true);
+            pddl = pddl + p.ToPDDL(true) + " ";
         }
         pddl = pddl + ")\n";
 

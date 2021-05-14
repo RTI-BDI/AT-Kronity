@@ -5,25 +5,48 @@
          "S_Example",
             ["defineObjects", 
                 [ "array", 
-                    ["parameter", "c1", "collector" ],
-                    ["parameter", "p1", "producer" ] 
+                    [ "parameter", "c1", "collector" ],
+                    [ "parameter", "p1", "producer" ],
+                    [ "parameter", "w1", "wood" ],
+                    [ "parameter", "st1", "stone" ],
+                    [ "parameter", "s1", "storage" ],
+                    [ "parameter", "rs1", "r_station" ]
                 ]
             ],
             ["defineInit",
-                ["equal", ["function", "battery-amount", ["array", "c1"]], "100" ],
-                ["equal", ["function", "battery-amount", ["array", "p1"]], "100" ],
+                ["equal", ["function", "battery-amount", ["array", "c1"]], "15" ],
+                ["equal", ["function", "battery-amount", ["array", "p1"]], "15" ],
+                ["equal", ["function", "wood-amount", ["array", "c1"]], "0" ],
+                ["equal", ["function", "stone-amount", ["array", "c1"]], "0" ],
+                ["equal", ["function", "wood-amount", ["array", "p1"]], "0" ],
+                ["equal", ["function", "stone-amount", ["array", "p1"]], "0" ],
+                ["equal", ["function", "chest-amount", ["array", "p1"]], "0" ],
                 ["equal", ["function", "posX", ["array", "c1"]], "0" ],
                 ["equal", ["function", "posY", ["array", "c1"]], "0" ],
                 ["equal", ["function", "posX", ["array", "p1"]], "1" ],
                 ["equal", ["function", "posY", ["array", "p1"]], "2" ],
-                ["true", ["predicate", "free", ["array", "p1", "c1"]]],
-                ["true", ["predicate", "free", ["array", "c1", "c1"]]],
-                ["equal", ["constant", "battery-capacity"], "100" ]
+                ["true", ["predicate", "free", ["array", "p1"]]],
+                ["true", ["predicate", "free", ["array", "c1"]]],
+
+                ["equal", ["function", "wood-stored", ["array", "s1"]], "0"],
+                ["equal", ["function", "stone-stored", ["array", "s1"]], "0"],
+                ["equal", ["function", "chest-stored", ["array", "s1"]], "0"],
+
+                ["equal", ["function", "posX", ["array", "w1"]], "1" ],
+                ["equal", ["function", "posY", ["array", "w1"]], "1" ],
+                ["equal", ["function", "posX", ["array", "st1"]], "1" ],
+                ["equal", ["function", "posY", ["array", "st1"]], "1" ],
+                ["equal", ["function", "posX", ["array", "s1"]], "1" ],
+                ["equal", ["function", "posY", ["array", "s1"]], "1" ],
+                ["equal", ["function", "posX", ["array", "rs1"]], "1" ],
+                ["equal", ["function", "posY", ["array", "rs1"]], "1" ],
+
+                ["equal", ["constant", "battery-capacity"], "100" ],
+                ["equal", ["constant", "sample-capacity"], "100" ]
             ],
   
             ["defineGoal",
-                ["equal", ["function", "posX", ["array", "c1"]], "1" ],
-                ["equal", ["function", "posY", ["array", "p1"]], "6" ]
+                ["equal", ["function", "wood-stored", ["array", "s1"]], "1" ]
             ]
         ]
 }

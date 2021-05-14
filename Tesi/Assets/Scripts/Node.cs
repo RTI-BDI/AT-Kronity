@@ -50,6 +50,9 @@ public class Node
                 case (">"):
                     return new Node(NodeType.Operator, ">");
                     break;
+                case ("<"):
+                    return new Node(NodeType.Operator, "<");
+                    break;
                 case ("true"):
                     return new Node(NodeType.Unary, "true");
                     break;
@@ -73,6 +76,9 @@ public class Node
                     break;
                 case ("equal"):
                     return new Node(NodeType.Operator, "=");
+                    break;
+                case ("-"):
+                    return new Node(NodeType.Operator, "-");
                     break;
                 default:
                     return null;

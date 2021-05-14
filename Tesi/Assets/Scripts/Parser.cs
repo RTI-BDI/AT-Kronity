@@ -42,6 +42,7 @@ public class Parser : MonoBehaviour
         Dictionary<Belief, int> groundedBeliefs = GenerateBeliefSet(domainObject, problemObject);
         GenerateBeliefSet(groundedBeliefs);
         GenerateSkillSet(domainObject);
+        GenerateDesireSet(problemObject);
     }
 
     /*GenerateBeliefSet steps:
@@ -245,7 +246,7 @@ public class Parser : MonoBehaviour
         int counter = 0;
         foreach (Action a in domain.actions)
         {
-            jsonStr = jsonStr + "{ \"goal_name\" : \"" + a.name + "\" }, ";
+            jsonStr = jsonStr + "{ \"goal_name\" : \"" + a.name + "\" } ";
             if (counter != domain.actions.Count - 1)
             {
                 jsonStr = jsonStr + ",\n";
@@ -259,6 +260,50 @@ public class Parser : MonoBehaviour
 
         // write JSON directly to a file
         using (StreamWriter file = File.CreateText("./Assets/JSON/SkillSet.json"))
+        using (JsonTextWriter writer = new JsonTextWriter(file))
+        {
+            writer.Formatting = Formatting.Indented;
+            jobject.WriteTo(writer);
+        }
+    }
+
+    //Function to generate the desire of the Plan
+    public void GenerateDesireSet(Problem problem)
+    {
+        string jsonStr = "{ \"0\": [ ";
+
+        jsonStr = jsonStr + "{ \"priority\" : { \"computedDynamically\" : true, \"formula\" : [ 0.8 ], \"reference_table\" : [] },";
+        jsonStr = jsonStr + "\"deadline\" : 1000.0,";
+        jsonStr = jsonStr + "\"preconditions\" : [ [ \"AND\", ";
+
+        int counter = 0;
+        foreach (Expression e in problem.initializations)
+        {
+            if (e.exp_1.node.belief.type != Belief.BeliefType.Predicate)
+            {
+                jsonStr = jsonStr + " [ \"==\", [ \"READ_BELIEF\", \"" + e.exp_1.node.belief.name + "\" ], " + e.exp_2.node.value + " ]";
+                
+            } else
+            {
+                jsonStr = jsonStr + " [ \"==\", [ \"READ_BELIEF\", \"" + e.exp_1.node.belief.name + "\" ], " + e.node.value + " ]";
+            }
+
+            if (counter != problem.initializations.Count - 1)
+            {
+                jsonStr = jsonStr + ", ";
+            }
+            counter++;
+        }
+
+        jsonStr = jsonStr + " ] ],";
+        jsonStr = jsonStr + " \"goal_name\" : \"plan_execution\"";
+        jsonStr = jsonStr + "} ";
+        jsonStr = jsonStr + " ] }";
+
+        JObject jobject = JObject.Parse(jsonStr);
+
+        // write JSON directly to a file
+        using (StreamWriter file = File.CreateText("./Assets/JSON/DesireSet.json"))
         using (JsonTextWriter writer = new JsonTextWriter(file))
         {
             writer.Formatting = Formatting.Indented;

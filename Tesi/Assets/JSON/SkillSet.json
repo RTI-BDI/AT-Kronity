@@ -4,7 +4,43 @@
       "goal_name": "plan_execution"
     },
     {
-      "goal_name": "moveUp"
+      "goal_name": "move-up"
+    },
+    {
+      "goal_name": "move-down"
+    },
+    {
+      "goal_name": "move-right"
+    },
+    {
+      "goal_name": "move-left"
+    },
+    {
+      "goal_name": "collect-wood"
+    },
+    {
+      "goal_name": "collect-stone"
+    },
+    {
+      "goal_name": "recharge"
+    },
+    {
+      "goal_name": "store-wood"
+    },
+    {
+      "goal_name": "store-stone"
+    },
+    {
+      "goal_name": "store-chest"
+    },
+    {
+      "goal_name": "retrieve-wood"
+    },
+    {
+      "goal_name": "retrieve-stone"
+    },
+    {
+      "goal_name": "produce-chest"
     }
   ]
 }
