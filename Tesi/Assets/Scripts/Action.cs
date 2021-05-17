@@ -86,7 +86,7 @@ public class Action
     }
 
     //Translate from Object to PDDL
-    public string ToPDDL()
+    public string ToPDDL(bool questionMark)
     {
         string pddl = "";
 
@@ -96,7 +96,7 @@ public class Action
         pddl = pddl + ":parameters (";
         foreach(Parameter p in this.parameters)
         {
-            pddl = pddl + p.ToPDDL(true) + " ";
+            pddl = pddl + p.ToPDDL(questionMark) + " ";
         }
         pddl = pddl + ")\n";
 
@@ -107,7 +107,7 @@ public class Action
         pddl = pddl + ":condition (and\n";
         foreach (Expression e in this.conditions)
         {
-            pddl = pddl + e.ToPDDL(true) + "\n";
+            pddl = pddl + e.ToPDDL(questionMark) + "\n";
         }
         pddl = pddl + ")\n";
 
@@ -115,12 +115,44 @@ public class Action
         pddl = pddl + ":effect (and\n";
         foreach (Expression e in this.effects)
         {
-            pddl = pddl + e.ToPDDL(true) + "\n";
+            pddl = pddl + e.ToPDDL(questionMark) + "\n";
         }
         pddl = pddl + ")\n";
 
         pddl = pddl + ")";
 
         return pddl;
+    }
+
+    //Translate from Object to Desire (json)
+    public string ToDesire()
+    {
+        string result = "";
+        result = result + "{ \"priority\" : { \"computedDynamically\" : true, \"formula\" : [ 0.8 ], \"reference_table\" : [] },";
+        result = result + "\"deadline\" : 1000.0,";
+        result = result + "\"preconditions\" : [ [ \"AND\", ";
+
+        int counter = 0;
+        foreach (Expression e in this.conditions)
+        {
+            result = result + e.ToDesire();
+
+            if (counter != this.conditions.Count - 1)
+            {
+                result = result + ", ";
+            }
+            counter++;
+        }
+
+        result = result + " ] ],";
+        result = result + " \"goal_name\" : \"" + this.name;
+        foreach (Parameter p in this.parameters)
+        {
+            result = result + "_" + p.name;
+        }
+        result = result + "\"";
+        result = result + "} ";
+
+        return result;
     }
 }

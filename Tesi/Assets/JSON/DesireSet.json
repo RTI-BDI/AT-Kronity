@@ -223,6 +223,1004 @@
         ]
       ],
       "goal_name": "plan_execution"
+    },
+    {
+      "priority": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      },
+      "deadline": 1000.0,
+      "preconditions": [
+        [
+          "AND",
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "battery-amount_c1"
+            ],
+            10
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "goal_name": "move-up_c1"
+    },
+    {
+      "priority": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      },
+      "deadline": 1000.0,
+      "preconditions": [
+        [
+          "AND",
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "battery-amount_p1"
+            ],
+            10
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_p1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "goal_name": "move-up_p1"
+    },
+    {
+      "priority": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      },
+      "deadline": 1000.0,
+      "preconditions": [
+        [
+          "AND",
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "battery-amount_c1"
+            ],
+            10
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "goal_name": "move-down_c1"
+    },
+    {
+      "priority": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      },
+      "deadline": 1000.0,
+      "preconditions": [
+        [
+          "AND",
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "battery-amount_p1"
+            ],
+            10
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_p1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "goal_name": "move-down_p1"
+    },
+    {
+      "priority": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      },
+      "deadline": 1000.0,
+      "preconditions": [
+        [
+          "AND",
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "battery-amount_c1"
+            ],
+            10
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "goal_name": "move-right_c1"
+    },
+    {
+      "priority": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      },
+      "deadline": 1000.0,
+      "preconditions": [
+        [
+          "AND",
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "battery-amount_p1"
+            ],
+            10
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_p1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "goal_name": "move-right_p1"
+    },
+    {
+      "priority": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      },
+      "deadline": 1000.0,
+      "preconditions": [
+        [
+          "AND",
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "battery-amount_c1"
+            ],
+            10
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "goal_name": "move-left_c1"
+    },
+    {
+      "priority": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      },
+      "deadline": 1000.0,
+      "preconditions": [
+        [
+          "AND",
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "battery-amount_p1"
+            ],
+            10
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_p1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "goal_name": "move-left_p1"
+    },
+    {
+      "priority": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      },
+      "deadline": 1000.0,
+      "preconditions": [
+        [
+          "AND",
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "battery-amount_c1"
+            ],
+            10
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "posX_w1"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "posY_w1"
+            ]
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "wood-amount_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "sample-capacity"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "goal_name": "collect-wood_c1_w1"
+    },
+    {
+      "priority": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      },
+      "deadline": 1000.0,
+      "preconditions": [
+        [
+          "AND",
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "battery-amount_c1"
+            ],
+            10
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "posX_st1"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "posY_st1"
+            ]
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "stone-amount_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "sample-capacity"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "goal_name": "collect-stone_c1_st1"
+    },
+    {
+      "priority": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      },
+      "deadline": 1000.0,
+      "preconditions": [
+        [
+          "AND",
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "battery-amount_c1"
+            ],
+            0
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "posX_rs1"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "posY_rs1"
+            ]
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "battery-amount_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "battery-capacity"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "goal_name": "recharge_c1_rs1"
+    },
+    {
+      "priority": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      },
+      "deadline": 1000.0,
+      "preconditions": [
+        [
+          "AND",
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "battery-amount_p1"
+            ],
+            0
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_p1"
+            ],
+            [
+              "READ_BELIEF",
+              "posX_rs1"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_p1"
+            ],
+            [
+              "READ_BELIEF",
+              "posY_rs1"
+            ]
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "battery-amount_p1"
+            ],
+            [
+              "READ_BELIEF",
+              "battery-capacity"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_p1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "goal_name": "recharge_p1_rs1"
+    },
+    {
+      "priority": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      },
+      "deadline": 1000.0,
+      "preconditions": [
+        [
+          "AND",
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "battery-amount_c1"
+            ],
+            10
+          ],
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "wood-amount_c1"
+            ],
+            0
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "posX_s1"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "posY_s1"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "goal_name": "store-wood_c1_s1"
+    },
+    {
+      "priority": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      },
+      "deadline": 1000.0,
+      "preconditions": [
+        [
+          "AND",
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "battery-amount_p1"
+            ],
+            10
+          ],
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "wood-amount_p1"
+            ],
+            0
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_p1"
+            ],
+            [
+              "READ_BELIEF",
+              "posX_s1"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_p1"
+            ],
+            [
+              "READ_BELIEF",
+              "posY_s1"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_p1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "goal_name": "store-wood_p1_s1"
+    },
+    {
+      "priority": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      },
+      "deadline": 1000.0,
+      "preconditions": [
+        [
+          "AND",
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "battery-amount_c1"
+            ],
+            10
+          ],
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "stone-amount_c1"
+            ],
+            0
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "posX_s1"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "posY_s1"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "goal_name": "store-stone_c1_s1"
+    },
+    {
+      "priority": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      },
+      "deadline": 1000.0,
+      "preconditions": [
+        [
+          "AND",
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "battery-amount_p1"
+            ],
+            10
+          ],
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "stone-amount_p1"
+            ],
+            0
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_p1"
+            ],
+            [
+              "READ_BELIEF",
+              "posX_s1"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_p1"
+            ],
+            [
+              "READ_BELIEF",
+              "posY_s1"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_p1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "goal_name": "store-stone_p1_s1"
+    },
+    {
+      "priority": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      },
+      "deadline": 1000.0,
+      "preconditions": [
+        [
+          "AND",
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "battery-amount_p1"
+            ],
+            10
+          ],
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "chest-amount_p1"
+            ],
+            0
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_p1"
+            ],
+            [
+              "READ_BELIEF",
+              "posX_s1"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_p1"
+            ],
+            [
+              "READ_BELIEF",
+              "posY_s1"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_p1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "goal_name": "store-chest_p1_s1"
+    },
+    {
+      "priority": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      },
+      "deadline": 1000.0,
+      "preconditions": [
+        [
+          "AND",
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_p1"
+            ],
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_p1"
+            ],
+            [
+              "READ_BELIEF",
+              "posY_c1"
+            ]
+          ],
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "wood-amount_c1"
+            ],
+            0
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_p1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "goal_name": "retrieve-wood_p1_c1"
+    },
+    {
+      "priority": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      },
+      "deadline": 1000.0,
+      "preconditions": [
+        [
+          "AND",
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_p1"
+            ],
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_p1"
+            ],
+            [
+              "READ_BELIEF",
+              "posY_c1"
+            ]
+          ],
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "stone-amount_c1"
+            ],
+            0
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_p1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "goal_name": "retrieve-stone_p1_c1"
+    },
+    {
+      "priority": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      },
+      "deadline": 1000.0,
+      "preconditions": [
+        [
+          "AND",
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "battery-amount_p1"
+            ],
+            10
+          ],
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "wood-amount_p1"
+            ],
+            0
+          ],
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "stone-amount_p1"
+            ],
+            0
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_p1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "goal_name": "produce-chest_p1"
     }
   ]
 }

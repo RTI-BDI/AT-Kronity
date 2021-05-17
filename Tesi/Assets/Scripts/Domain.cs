@@ -134,7 +134,7 @@ public class Domain
         //Actions
         foreach(Action a in this.actions)
         {
-            pddl = pddl + a.ToPDDL();
+            pddl = pddl + a.ToPDDL(true);
         }
 
         return pddl;

@@ -73,4 +73,58 @@ public class Expression
         }
     }
 
+    //Transalte from Object to Desire (json)
+    public string ToDesire()
+    {
+        string result = "";
+
+        switch (this.node.type)
+        {
+            case (Node.NodeType.Operator):
+                string op = "";
+                if (this.node.value == "=")
+                {
+                    op = "==";
+                } else
+                {
+                    op = this.node.value;
+                }
+                result = result + " [ \"" + op + "\", " + this.exp_1.ToDesire() + ", " + this.exp_2.ToDesire() + " ] "; 
+                break;
+            case (Node.NodeType.Unary):
+                switch (this.node.value) {
+                    case "at start":
+                        result = result + this.exp_1.ToDesire();
+                        break;
+                    case "true":
+                        result = result + " [ \"==\", " + this.exp_1.ToDesire() + ", true ] "; 
+                        break;
+                    case "false":
+                        result = result + " [ \"==\", " + this.exp_1.ToDesire() + ", false ] ";
+                        break;
+                    default:
+                        break;
+                } 
+                break;
+            case (Node.NodeType.LeafBelief):
+                result = result + " [ \"READ_BELIEF\", \"" + this.node.belief.name;
+                if (this.node.belief.type != Belief.BeliefType.Constant)
+                {
+                    foreach (Parameter p in this.node.belief.param)
+                    {
+                        result = result + "_" + p.name;
+                    }
+                }
+                result = result + "\" ] ";
+                break;
+            case (Node.NodeType.LeafValue):
+                result = result + this.node.value;
+                break;
+            default:
+                break;
+        }
+
+        return result;
+    }
+
 }

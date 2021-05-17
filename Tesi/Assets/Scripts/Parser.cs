@@ -44,7 +44,7 @@ public class Parser : MonoBehaviour
 
         List<Action> groundedActions = GenerateActionGrounding(domainObject, problemObject);
         GenerateSkillSet(groundedActions);
-        GenerateDesireSet(problemObject);
+        GenerateDesireSet(problemObject, groundedActions);
 
     }
 
@@ -243,8 +243,6 @@ public class Parser : MonoBehaviour
     public List<Action> GenerateActionGrounding(Domain domain, Problem problem)
     {
         List<Action> generatedActions = new List<Action>();
-        List<Expression> newConditions = new List<Expression>();
-        List<Expression> newEffects = new List<Expression>();
         //Action grounding
         foreach (Action a in domain.actions)
         {
@@ -272,12 +270,18 @@ public class Parser : MonoBehaviour
             //create the actual actions based on all the versions
             foreach (List<Parameter> lp in actionVersions)
             {
+                List<Expression> newConditions = new List<Expression>();
+                List<Expression> newEffects = new List<Expression>();
                 foreach (Expression e in a.conditions)
                 {
                     newConditions.Add(GenerateInstantiatedExpression(e, lp, a.parameters));
                 }
+                foreach (Expression e in a.effects)
+                {
+                    newEffects.Add(GenerateInstantiatedExpression(e, lp, a.parameters));
+                }
                 
-                generatedActions.Add(new Action(a.name, lp, a.duration, a.conditions, a.effects, a.period, a.computation_cost));
+                generatedActions.Add(new Action(a.name, new List<Parameter>(lp), a.duration, new List<Expression>(newConditions), new List<Expression>(newEffects), a.period, a.computation_cost));
             }
         }
         return generatedActions;
@@ -323,7 +327,7 @@ public class Parser : MonoBehaviour
     }
 
     //Function to generate the desire of the Plan
-    public void GenerateDesireSet(Problem problem)
+    public void GenerateDesireSet(Problem problem, List<Action> groundedActions)
     {
         string jsonStr = "{ \"0\": [ ";
 
@@ -364,6 +368,12 @@ public class Parser : MonoBehaviour
         jsonStr = jsonStr + " ] ],";
         jsonStr = jsonStr + " \"goal_name\" : \"plan_execution\"";
         jsonStr = jsonStr + "} ";
+
+        foreach (Action a in groundedActions)
+        {
+            jsonStr = jsonStr + ", " + a.ToDesire();
+        }
+
         jsonStr = jsonStr + " ] }";
 
         JObject jobject = JObject.Parse(jsonStr);
