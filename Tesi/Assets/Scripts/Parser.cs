@@ -39,10 +39,13 @@ public class Parser : MonoBehaviour
         Debug.Log(problemObject.ToPDDL());
 
         //Belief grounding
-        Dictionary<Belief, int> groundedBeliefs = GenerateBeliefSet(domainObject, problemObject);
+        Dictionary<Belief, int> groundedBeliefs = GenerateBeliefGrounding(domainObject, problemObject);
         GenerateBeliefSet(groundedBeliefs);
-        GenerateSkillSet(domainObject);
+
+        List<Action> groundedActions = GenerateActionGrounding(domainObject, problemObject);
+        GenerateSkillSet(groundedActions);
         GenerateDesireSet(problemObject);
+
     }
 
     /*GenerateBeliefSet steps:
@@ -52,7 +55,7 @@ public class Parser : MonoBehaviour
      * 4 - Initialize the beliefs that appear in the problem file (otherwise, the belief will have value 0)
      * 5 - Translates the beliefs in JSON
     */
-    public Dictionary<Belief, int> GenerateBeliefSet(Domain domain, Problem problem)
+    public Dictionary<Belief, int> GenerateBeliefGrounding(Domain domain, Problem problem)
     {
         Dictionary<Belief, int> generatedBeliefs = new Dictionary<Belief, int>();
         //Belief grounding
@@ -78,7 +81,7 @@ public class Parser : MonoBehaviour
                     grounding.Add(involvedObjects);
                 }
 
-                List<List<Parameter>> beliefsVersions = ExtractBeliefsVersions(grounding);
+                List<List<Parameter>> beliefsVersions = ExtractVersions(grounding);
 
                 //create the actual beliefs based on all the versions
                 foreach (List<Parameter> lp in beliefsVersions)
@@ -128,7 +131,7 @@ public class Parser : MonoBehaviour
         return generatedBeliefs;
     }
 
-    //Utility function to extract involved types; Used in GenerateBeliefSet
+    //Utility function to extract involved types; Used in GenerateBeliefGrounding & GenerateActionGrounding
     public List<string> ExtractInvolvedTypes(string type, Domain domain)
     {
         List<string> result = new List<string>();
@@ -144,8 +147,8 @@ public class Parser : MonoBehaviour
         return result;
     }
 
-    //Utility function to extract all the version of the same belief; Used in GenerateBeliefSet
-    public List<List<Parameter>> ExtractBeliefsVersions(List<List<Parameter>> grounding)
+    //Utility function to extract all the version of the same belief/action; Used in GenerateBeliefGrounding & GenerateActionGrounding
+    public List<List<Parameter>> ExtractVersions(List<List<Parameter>> grounding)
     {
         
         if(grounding.Count == 1)
@@ -165,7 +168,7 @@ public class Parser : MonoBehaviour
             List<Parameter> temp = grounding[0];
             grounding.RemoveAt(0);
 
-            List<List<Parameter>> tempResult = ExtractBeliefsVersions(grounding);
+            List<List<Parameter>> tempResult = ExtractVersions(grounding);
             List<List<Parameter>> newTempResult = new List<List<Parameter>>();
 
             foreach (Parameter p_t in temp)
@@ -236,18 +239,70 @@ public class Parser : MonoBehaviour
         return result;
     }
 
+    //Generate all the versions of all the actions present in the domain
+    public List<Action> GenerateActionGrounding(Domain domain, Problem problem)
+    {
+        List<Action> generatedActions = new List<Action>();
+        List<Expression> newConditions = new List<Expression>();
+        List<Expression> newEffects = new List<Expression>();
+        //Action grounding
+        foreach (Action a in domain.actions)
+        {
+            List<List<Parameter>> grounding = new List<List<Parameter>>();
+            foreach (Parameter p in a.parameters)
+            {
+                //extract all related types to this objects
+                List<string> involvedTypes = ExtractInvolvedTypes(p.type, domain);
+
+                //extract from problem the right objects
+                List<Parameter> involvedObjects = new List<Parameter>();
+                foreach (Parameter o in problem.objects)
+                {
+                    if (involvedTypes.Contains(o.type))
+                    {
+                        involvedObjects.Add(o);
+                    }
+                }
+                grounding.Add(involvedObjects);
+
+            }
+
+            List<List<Parameter>> actionVersions = ExtractVersions(grounding);
+
+            //create the actual actions based on all the versions
+            foreach (List<Parameter> lp in actionVersions)
+            {
+                foreach (Expression e in a.conditions)
+                {
+                    newConditions.Add(GenerateInstantiatedExpression(e, lp, a.parameters));
+                }
+                
+                generatedActions.Add(new Action(a.name, lp, a.duration, a.conditions, a.effects, a.period, a.computation_cost));
+            }
+        }
+        return generatedActions;
+    }
+
     //Function to generate the SkillSet for Kronosim
-    public void GenerateSkillSet(Domain domain)
+    public void GenerateSkillSet(List<Action> groundedActions)
     {
         string jsonStr = "{ \"0\": [ ";
 
         jsonStr = jsonStr + "{ \"goal_name\" : \"plan_execution\" }, ";
 
         int counter = 0;
-        foreach (Action a in domain.actions)
+        foreach (Action a in groundedActions)
         {
-            jsonStr = jsonStr + "{ \"goal_name\" : \"" + a.name + "\" } ";
-            if (counter != domain.actions.Count - 1)
+
+            jsonStr = jsonStr + "{ \"goal_name\" : \"" + a.name;
+            foreach (Parameter p in a.parameters)
+            {
+                jsonStr = jsonStr + "_" + p.name;
+            }
+            jsonStr = jsonStr + "\" } ";
+
+
+            if (counter != groundedActions.Count - 1)
             {
                 jsonStr = jsonStr + ",\n";
             }
@@ -281,11 +336,22 @@ public class Parser : MonoBehaviour
         {
             if (e.exp_1.node.belief.type != Belief.BeliefType.Predicate)
             {
-                jsonStr = jsonStr + " [ \"==\", [ \"READ_BELIEF\", \"" + e.exp_1.node.belief.name + "\" ], " + e.exp_2.node.value + " ]";
+                jsonStr = jsonStr + " [ \"==\", [ \"READ_BELIEF\", \"" + e.exp_1.node.belief.name;
+                if(e.exp_1.node.belief.type != Belief.BeliefType.Constant)
+                    foreach (Parameter p in e.exp_1.node.belief.param)
+                    {
+                        jsonStr = jsonStr + "_" + p.name;
+                    }
+                jsonStr = jsonStr + "\" ], " + e.exp_2.node.value + " ]";
                 
             } else
             {
-                jsonStr = jsonStr + " [ \"==\", [ \"READ_BELIEF\", \"" + e.exp_1.node.belief.name + "\" ], " + e.node.value + " ]";
+                jsonStr = jsonStr + " [ \"==\", [ \"READ_BELIEF\", \"" + e.exp_1.node.belief.name;
+                foreach (Parameter p in e.exp_1.node.belief.param)
+                {
+                    jsonStr = jsonStr + "_" + p.name;
+                }
+                jsonStr = jsonStr + "\" ], " + e.node.value + " ]";
             }
 
             if (counter != problem.initializations.Count - 1)
@@ -308,6 +374,49 @@ public class Parser : MonoBehaviour
         {
             writer.Formatting = Formatting.Indented;
             jobject.WriteTo(writer);
+        }
+    }
+
+    //Substitute the parameters with actual instantiations of the beliefs
+    public Expression GenerateInstantiatedExpression(Expression e, List<Parameter> lp, List<Parameter> originalLp)
+    {
+        switch (e.node.type) {
+            case (Node.NodeType.LeafBelief):
+                //Change the belief (not if a constant one)
+                if (e.node.belief.type == Belief.BeliefType.Constant)
+                    return new Expression(new Node(e.node.type, new Belief(e.node.belief.type, e.node.belief.name, null)));
+
+                int index = 0;
+                List<Parameter> tempParams = new List<Parameter>();
+                foreach (Parameter p in e.node.belief.param)
+                {
+                    foreach (Parameter p_2 in originalLp)
+                    {
+                        if (p.Equals(p_2))
+                        {
+                            index = originalLp.IndexOf(p_2);
+                            tempParams.Add(new Parameter(lp[index].name, null));
+                        }
+                    }
+                }
+
+                return new Expression(new Node(e.node.type, new Belief(e.node.belief.type, e.node.belief.name, tempParams)));
+                break;
+            case (Node.NodeType.LeafValue):
+                //Return without doing a thing
+                return (new Expression(new Node(e.node.type, e.node.value)));
+                break;
+            case (Node.NodeType.Unary):
+                //Dive into the expression, then return
+                return (new Expression(new Node(e.node.type, e.node.value), GenerateInstantiatedExpression(e.exp_1, lp, originalLp)));
+                break;
+            case (Node.NodeType.Operator):
+                //Dive into the expression, then return
+                return (new Expression(new Node(e.node.type, e.node.value), GenerateInstantiatedExpression(e.exp_1, lp, originalLp), GenerateInstantiatedExpression(e.exp_2, lp, originalLp)));
+                break;
+            default:
+                return null;
+                break;
         }
     }
 }

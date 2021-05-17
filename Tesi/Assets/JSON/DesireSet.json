@@ -16,7 +16,7 @@
             "==",
             [
               "READ_BELIEF",
-              "battery-amount"
+              "battery-amount_c1"
             ],
             15
           ],
@@ -24,7 +24,7 @@
             "==",
             [
               "READ_BELIEF",
-              "battery-amount"
+              "battery-amount_p1"
             ],
             15
           ],
@@ -32,7 +32,7 @@
             "==",
             [
               "READ_BELIEF",
-              "wood-amount"
+              "wood-amount_c1"
             ],
             0
           ],
@@ -40,7 +40,7 @@
             "==",
             [
               "READ_BELIEF",
-              "stone-amount"
+              "stone-amount_c1"
             ],
             0
           ],
@@ -48,7 +48,7 @@
             "==",
             [
               "READ_BELIEF",
-              "wood-amount"
+              "wood-amount_p1"
             ],
             0
           ],
@@ -56,7 +56,7 @@
             "==",
             [
               "READ_BELIEF",
-              "stone-amount"
+              "stone-amount_p1"
             ],
             0
           ],
@@ -64,7 +64,7 @@
             "==",
             [
               "READ_BELIEF",
-              "chest-amount"
+              "chest-amount_p1"
             ],
             0
           ],
@@ -72,7 +72,7 @@
             "==",
             [
               "READ_BELIEF",
-              "posX"
+              "posX_c1"
             ],
             0
           ],
@@ -80,7 +80,7 @@
             "==",
             [
               "READ_BELIEF",
-              "posY"
+              "posY_c1"
             ],
             0
           ],
@@ -88,7 +88,7 @@
             "==",
             [
               "READ_BELIEF",
-              "posX"
+              "posX_p1"
             ],
             1
           ],
@@ -96,7 +96,7 @@
             "==",
             [
               "READ_BELIEF",
-              "posY"
+              "posY_p1"
             ],
             2
           ],
@@ -104,7 +104,7 @@
             "==",
             [
               "READ_BELIEF",
-              "free"
+              "free_p1"
             ],
             true
           ],
@@ -112,7 +112,7 @@
             "==",
             [
               "READ_BELIEF",
-              "free"
+              "free_c1"
             ],
             true
           ],
@@ -120,7 +120,7 @@
             "==",
             [
               "READ_BELIEF",
-              "wood-stored"
+              "wood-stored_s1"
             ],
             0
           ],
@@ -128,7 +128,7 @@
             "==",
             [
               "READ_BELIEF",
-              "stone-stored"
+              "stone-stored_s1"
             ],
             0
           ],
@@ -136,7 +136,7 @@
             "==",
             [
               "READ_BELIEF",
-              "chest-stored"
+              "chest-stored_s1"
             ],
             0
           ],
@@ -144,7 +144,7 @@
             "==",
             [
               "READ_BELIEF",
-              "posX"
+              "posX_w1"
             ],
             1
           ],
@@ -152,7 +152,7 @@
             "==",
             [
               "READ_BELIEF",
-              "posY"
+              "posY_w1"
             ],
             1
           ],
@@ -160,7 +160,7 @@
             "==",
             [
               "READ_BELIEF",
-              "posX"
+              "posX_st1"
             ],
             1
           ],
@@ -168,7 +168,7 @@
             "==",
             [
               "READ_BELIEF",
-              "posY"
+              "posY_st1"
             ],
             1
           ],
@@ -176,7 +176,7 @@
             "==",
             [
               "READ_BELIEF",
-              "posX"
+              "posX_s1"
             ],
             1
           ],
@@ -184,7 +184,7 @@
             "==",
             [
               "READ_BELIEF",
-              "posY"
+              "posY_s1"
             ],
             1
           ],
@@ -192,7 +192,7 @@
             "==",
             [
               "READ_BELIEF",
-              "posX"
+              "posX_rs1"
             ],
             1
           ],
@@ -200,7 +200,7 @@
             "==",
             [
               "READ_BELIEF",
-              "posY"
+              "posY_rs1"
             ],
             1
           ],
