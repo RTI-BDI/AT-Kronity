@@ -36,6 +36,30 @@ public class Expression
         this.exp_2 = null;
     }
 
+    public Expression(Expression other)
+    {
+        this.node = new Node(other.node);
+        switch (other.node.type)
+        {
+            case Node.NodeType.LeafBelief:
+                this.exp_1 = null;
+                this.exp_2 = null;
+                break;
+            case Node.NodeType.LeafValue:
+                this.exp_1 = null;
+                this.exp_2 = null;
+                break;
+            case Node.NodeType.Unary:
+                this.exp_1 = new Expression(other.exp_1);
+                this.exp_2 = null;
+                break;
+            case Node.NodeType.Operator:
+                this.exp_1 = new Expression(other.exp_1);
+                this.exp_2 = new Expression(other.exp_2);
+                break;
+        }
+    }
+
     //Transalte from JSON to Object
     public static Expression Evaluate(JToken token)
     {

@@ -16,6 +16,12 @@ public class Parameter
         this.type = type;
     }
 
+    public Parameter(Parameter other)
+    {
+        this.name = other.name;
+        this.type = other.type;
+    }
+
     //Utility function determining if two parameters are equal (considering the case where the type is not specified, like in actions)
     public bool Equals(Parameter other)
     {

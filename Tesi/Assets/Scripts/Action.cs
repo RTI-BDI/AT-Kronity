@@ -30,6 +30,29 @@ public class Action
         this.computation_cost = computation_cost;
     }
 
+    public Action(Action other)
+    {
+        this.name = other.name;
+        this.parameters = new List<Parameter>();
+        foreach (Parameter p in other.parameters)
+        {
+            this.parameters.Add(new Parameter(p));
+        }
+        string duration = other.duration;
+        this.conditions = new List<Expression>();
+        foreach (Expression e in other.conditions)
+        {
+            this.conditions.Add(new Expression(e));
+        }
+        this.effects = new List<Expression>();
+        foreach (Expression e in other.effects)
+        {
+            this.effects.Add(new Expression(e));
+        }
+        this.period = other.period;
+        this.computation_cost = other.computation_cost;
+    }
+
     //Translate from JSON to Object
     public static Action Evaluate(JToken token)
     {

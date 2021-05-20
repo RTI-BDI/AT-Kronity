@@ -46,6 +46,9 @@ public class Parser : MonoBehaviour
         GenerateSkillSet(groundedActions);
         GenerateDesireSet(problemObject, groundedActions);
 
+        string[] plainPlan = File.ReadAllLines("./Assets/JSON/PlainPlan.txt");
+        Plan p = Plan.FromPlainToObject(plainPlan, groundedActions);
+
     }
 
     /*GenerateBeliefSet steps:

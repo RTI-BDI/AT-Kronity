@@ -27,6 +27,18 @@ public class Belief
         this.param = param;
     }
 
+    public Belief(Belief other)
+    {
+        this.type = other.type;
+        this.name = other.name;
+        this.param = new List<Parameter>();
+        if(other.param != null)
+            foreach (Parameter p in other.param)
+            {
+                this.param.Add(new Parameter(p));
+            }
+    }
+
     //Utility function to determine if two beliefs are the same and applied to the same parameters
     public bool Equals(Belief other)
     {

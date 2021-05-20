@@ -34,6 +34,20 @@ public class Node
         this.value = value;
     }
 
+    public Node(Node other)
+    {
+        this.type = other.type;
+        if(other.type == NodeType.LeafBelief)
+        {
+            this.value = null;
+            this.belief = new Belief(other.belief);
+        } else
+        {
+            this.belief = null;
+            this.value = other.value;
+        }
+    }
+
     //Translate from JSON to Object
     public static Node Evaluate(JToken token)
     {
