@@ -34,21 +34,32 @@ public class Parser : MonoBehaviour
         Domain domainObject = Domain.Evaluate(domain);
         Problem problemObject = Problem.Evaluate(problem);
 
-        //From object to PDDL
-        Debug.Log(domainObject.ToPDDL());
-        Debug.Log(problemObject.ToPDDL());
+        WritePDDLOnFile(domainObject.ToPDDL(), "DomainPDDL.pddl");
+        WritePDDLOnFile(problemObject.ToPDDL(), "ProblemPDDL.pddl");
 
         //Belief grounding
         Dictionary<Belief, int> groundedBeliefs = GenerateBeliefGrounding(domainObject, problemObject);
         GenerateBeliefSet(groundedBeliefs);
 
+        //ActionGrounding
         List<Action> groundedActions = GenerateActionGrounding(domainObject, problemObject);
         GenerateSkillSet(groundedActions);
         GenerateDesireSet(problemObject, groundedActions);
 
+        //Plan generation
         string[] plainPlan = File.ReadAllLines("./Assets/JSON/PlainPlan.txt");
         Plan p = Plan.FromPlainToObject(plainPlan, groundedActions);
+        GeneratePlanSet(p, problemObject);
 
+    }
+
+    public void WritePDDLOnFile(string PDDL, string file)
+    {
+        string path = "./Assets/PDDL/" + file;
+        using (StreamWriter sw = File.CreateText(path))
+        {
+            sw.WriteLine(PDDL);
+        }
     }
 
     /*GenerateBeliefSet steps:
@@ -338,35 +349,7 @@ public class Parser : MonoBehaviour
         jsonStr = jsonStr + "\"deadline\" : 1000.0,";
         jsonStr = jsonStr + "\"preconditions\" : [ [ \"AND\", ";
 
-        int counter = 0;
-        foreach (Expression e in problem.initializations)
-        {
-            if (e.exp_1.node.belief.type != Belief.BeliefType.Predicate)
-            {
-                jsonStr = jsonStr + " [ \"==\", [ \"READ_BELIEF\", \"" + e.exp_1.node.belief.name;
-                if(e.exp_1.node.belief.type != Belief.BeliefType.Constant)
-                    foreach (Parameter p in e.exp_1.node.belief.param)
-                    {
-                        jsonStr = jsonStr + "_" + p.name;
-                    }
-                jsonStr = jsonStr + "\" ], " + e.exp_2.node.value + " ]";
-                
-            } else
-            {
-                jsonStr = jsonStr + " [ \"==\", [ \"READ_BELIEF\", \"" + e.exp_1.node.belief.name;
-                foreach (Parameter p in e.exp_1.node.belief.param)
-                {
-                    jsonStr = jsonStr + "_" + p.name;
-                }
-                jsonStr = jsonStr + "\" ], " + e.node.value + " ]";
-            }
-
-            if (counter != problem.initializations.Count - 1)
-            {
-                jsonStr = jsonStr + ", ";
-            }
-            counter++;
-        }
+        jsonStr = jsonStr + ToKronosimExpression(problem.initializations);
 
         jsonStr = jsonStr + " ] ],";
         jsonStr = jsonStr + " \"goal_name\" : \"plan_execution\"";
@@ -388,6 +371,45 @@ public class Parser : MonoBehaviour
             writer.Formatting = Formatting.Indented;
             jobject.WriteTo(writer);
         }
+    }
+
+    //Translate list of expressions into a json expression readable by kronosim
+    public string ToKronosimExpression(List<Expression> le)
+    {
+        string jsonStr = "";
+
+        int counter = 0;
+        foreach (Expression e in le)
+        {
+            if (e.exp_1.node.belief.type != Belief.BeliefType.Predicate)
+            {
+                jsonStr = jsonStr + " [ \"==\", [ \"READ_BELIEF\", \"" + e.exp_1.node.belief.name;
+                if (e.exp_1.node.belief.type != Belief.BeliefType.Constant)
+                    foreach (Parameter p in e.exp_1.node.belief.param)
+                    {
+                        jsonStr = jsonStr + "_" + p.name;
+                    }
+                jsonStr = jsonStr + "\" ], " + e.exp_2.node.value + " ]";
+
+            }
+            else
+            {
+                jsonStr = jsonStr + " [ \"==\", [ \"READ_BELIEF\", \"" + e.exp_1.node.belief.name;
+                foreach (Parameter p in e.exp_1.node.belief.param)
+                {
+                    jsonStr = jsonStr + "_" + p.name;
+                }
+                jsonStr = jsonStr + "\" ], " + e.node.value + " ]";
+            }
+
+            if (counter != le.Count - 1)
+            {
+                jsonStr = jsonStr + ", ";
+            }
+            counter++;
+        }
+
+        return jsonStr;
     }
 
     //Substitute the parameters with actual instantiations of the beliefs
@@ -430,6 +452,82 @@ public class Parser : MonoBehaviour
             default:
                 return null;
                 break;
+        }
+    }
+
+    //function to generate the PlanSet fro Kronosim
+    public void GeneratePlanSet(Plan plan, Problem problem)
+    {
+        // -- GENERAL PLAN ---
+
+        string jsonStr = "";
+        //body
+        jsonStr = jsonStr + "{ \"0\": [ { \"body\": [ ";
+
+        int counter = 0;
+        foreach (KeyValuePair<float, Action> entry in plan.steps)
+        {
+            jsonStr = jsonStr + "{ \"action\": { \"deadline\": " + int.Parse(entry.Value.duration) + ", ";
+            jsonStr = jsonStr + "\"goal_name\": \"" + entry.Value.name;
+            foreach (Parameter p in entry.Value.parameters)
+            {
+                jsonStr = jsonStr + "_" + p.name;
+            }
+            jsonStr = jsonStr + "\", ";
+            jsonStr = jsonStr + "\"arrivalTime\": " + Plan.CommaToDot(entry) + " }, ";
+            jsonStr = jsonStr + "\"action_type\": \"GOAL\", ";
+
+            if (counter == 0)
+            {
+                jsonStr = jsonStr + "\"execution\": \"SEQUENTIAL\", ";
+            } else
+            {
+                jsonStr = jsonStr + "\"execution\": \"PARALLEL\", ";
+            }
+
+            jsonStr = jsonStr + "\"priority\": 0 }";
+
+            if (counter != plan.steps.Count - 1)
+            {
+                jsonStr = jsonStr + ", ";
+            }
+            counter++;
+        }
+
+        jsonStr = jsonStr + "], ";
+
+        //cont_conditions
+        jsonStr = jsonStr + "\"cont_conditions\": [ ], ";
+
+        //effects_at_begin
+        jsonStr = jsonStr + "\"effects_at_begin\": [ ], ";
+
+        //effects_at_end
+        jsonStr = jsonStr + "\"effects_at_end\": [ ], ";
+
+        //preference
+        jsonStr = jsonStr + "\"preference\" : { \"computedDynamically\" : true, \"formula\" : [ 0.8 ], \"reference_table\" : [] }, ";
+
+        //preconditions
+        jsonStr = jsonStr + "\"preconditions\": [ [ \"AND\", ";
+        jsonStr = jsonStr + ToKronosimExpression(problem.initializations);
+        jsonStr = jsonStr + " ] ], ";
+
+        //goal_name
+        jsonStr = jsonStr + "\"goal_name\": \"plan_execution\" }";
+
+        jsonStr = jsonStr + " ] }";
+
+        // -- TODO (SUBGOALS)
+
+        JObject jobject = JObject.Parse(jsonStr);
+
+        // write JSON directly to a file
+        using (StreamWriter file = File.CreateText("./Assets/JSON/PlanSet.json"))
+        using (JsonTextWriter writer = new JsonTextWriter(file))
+        {
+            writer.Formatting = Formatting.Indented;
+            jobject.WriteTo(writer);
         }
     }
 }

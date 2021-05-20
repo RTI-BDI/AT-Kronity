@@ -87,11 +87,13 @@ public class Expression
     //Translate from Object to PDDL
     public string ToPDDL(bool questionMark)
     {
-        if(this.node.type == Node.NodeType.Operator)
+        if (this.node.type == Node.NodeType.Operator)
         {
             return "(" + this.node.ToPDDL(questionMark) + " " + this.exp_1.ToPDDL(questionMark) + " " + this.exp_2.ToPDDL(questionMark) + ")";
-        } else if (this.node.type == Node.NodeType.Unary) {
+        } else if (this.node.type == Node.NodeType.Unary && this.node.value != "true") {
             return "(" + this.node.ToPDDL(questionMark) + " " + this.exp_1.ToPDDL(questionMark) + ")";
+        } else if (this.node.value == "true"){
+            return this.exp_1.ToPDDL(questionMark);
         } else {
             return this.node.ToPDDL(questionMark);
         }

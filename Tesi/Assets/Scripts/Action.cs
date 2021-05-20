@@ -38,7 +38,7 @@ public class Action
         {
             this.parameters.Add(new Parameter(p));
         }
-        string duration = other.duration;
+        this.duration = other.duration;
         this.conditions = new List<Expression>();
         foreach (Expression e in other.conditions)
         {

@@ -108,7 +108,7 @@ public class Domain
         pddl = pddl + ")\n";
 
         //Types
-        pddl = pddl + "(:type\n";
+        pddl = pddl + "(:types\n";
         foreach(Type t in this.types)
         {
             pddl = pddl + t.ToPDDL();
@@ -136,6 +136,8 @@ public class Domain
         {
             pddl = pddl + a.ToPDDL(true);
         }
+
+        pddl = pddl + ")\n";
 
         return pddl;
     }

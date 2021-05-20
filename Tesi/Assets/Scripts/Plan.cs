@@ -5,17 +5,18 @@ using System;
 
 public class Plan
 {
-    public Dictionary<float, Action> step;
+    public List<KeyValuePair<float, Action>> steps;
 
-    public Plan(Dictionary<float, Action> step)
+    public Plan(List<KeyValuePair<float, Action>> steps)
     {
-        this.step = new Dictionary<float, Action>();
-        foreach (KeyValuePair<float, Action> entry in step)
+        this.steps = new List<KeyValuePair<float, Action>>();
+        foreach (KeyValuePair<float, Action> entry in steps)
         {
-            this.step.Add(entry.Key, new Action(entry.Value));
+            this.steps.Add(new KeyValuePair<float, Action>(entry.Key, new Action(entry.Value)));
         }
     }
 
+    //Parse the output of optic into the Plan object
     public static Plan FromPlainToObject(string[] plain, List<Action> groundedActions)
     {
         Plan result = null;
@@ -92,30 +93,48 @@ public class Plan
 
             foreach (Action a in groundedActions)
             {
-                if(action == a.name)
+                bool areEqual = true;
+                if (action != a.name)
                 {
-                    for(int j=0; j<a.parameters.Count; j++)
+                    areEqual = false;
+                }
+                else
+                {
+                    for (int j = 0; j < a.parameters.Count; j++)
                     {
-                        if(j < param.Count && param[j] == a.parameters[j].name)
+                        if (j < param.Count && param[j] != a.parameters[j].name)
                         {
-                            tempSteps.Add(new KeyValuePair<float, Action>(float.Parse(arrivalTime), new Action(a)));
+                            areEqual = false;
                         }
                     }
+                }
+
+                if (areEqual)
+                {
+                    tempSteps.Add(new KeyValuePair<float, Action>(float.Parse(arrivalTime), new Action(a)));
                 }
             }
         }
 
-        foreach (KeyValuePair<float, Action> entry in tempSteps)
-        {
-            string log = "AT: " + entry.Key + " - Action: " + entry.Value.name;
-            foreach (Parameter p in entry.Value.parameters)
-            {
-                log = log + " " + p.name;
-            }
-            log = log + " " + entry.Value.effects.Count;
-            Debug.Log(log);
-        }
+        result = new Plan(tempSteps);
 
+        return result;
+    }
+
+    //Change comma to dot
+    public static string CommaToDot(KeyValuePair<float, Action> entry)
+    {
+        string result = string.Empty;
+        foreach (Char c in entry.Key.ToString())
+        {
+            if(c == ',')
+            {
+                result += '.';
+            } else
+            {
+                result += c;
+            }
+        }
         return result;
     }
 }
