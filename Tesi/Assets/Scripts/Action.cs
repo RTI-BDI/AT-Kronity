@@ -10,22 +10,26 @@ public class Action
     //List of parameters (not bound to expressions' parameters)
     public List<Parameter> parameters;
     //Action's duration
-    public string duration;
+    public Expression duration;
     //List of expression representing the preconditions (AND-connected)
     public List<Expression> conditions;
     //List of expression representing the effects (AND-connected)
     public List<Expression> effects;
+    //List of post conditions ('public' effects) (AND-connected)
+    public List<Expression> postConditions;
+
     //Kronosim parameters
     public int period;
     public int computation_cost;
 
-    public Action(string name, List<Parameter> parameters, string duration, List<Expression> conditions, List<Expression> effects, int period, int computation_cost)
+    public Action(string name, List<Parameter> parameters, Expression duration, List<Expression> conditions, List<Expression> effects, List<Expression> postConditions, int period, int computation_cost)
     {
         this.name = name;
         this.parameters = parameters;
-        this.duration = duration;
+        this.duration = new Expression(duration);
         this.conditions = conditions;
         this.effects = effects;
+        this.postConditions = postConditions;
         this.period = period;
         this.computation_cost = computation_cost;
     }
@@ -38,7 +42,7 @@ public class Action
         {
             this.parameters.Add(new Parameter(p));
         }
-        this.duration = other.duration;
+        this.duration = new Expression(other.duration);
         this.conditions = new List<Expression>();
         foreach (Expression e in other.conditions)
         {
@@ -48,6 +52,39 @@ public class Action
         foreach (Expression e in other.effects)
         {
             this.effects.Add(new Expression(e));
+        }
+        this.postConditions = new List<Expression>();
+        foreach (Expression e in other.postConditions)
+        {
+            this.postConditions.Add(new Expression(e));
+        }
+        this.period = other.period;
+        this.computation_cost = other.computation_cost;
+    }
+
+    public Action(Action other, Expression newDuration)
+    {
+        this.name = other.name;
+        this.parameters = new List<Parameter>();
+        foreach (Parameter p in other.parameters)
+        {
+            this.parameters.Add(new Parameter(p));
+        }
+        this.duration = new Expression(newDuration);
+        this.conditions = new List<Expression>();
+        foreach (Expression e in other.conditions)
+        {
+            this.conditions.Add(new Expression(e));
+        }
+        this.effects = new List<Expression>();
+        foreach (Expression e in other.effects)
+        {
+            this.effects.Add(new Expression(e));
+        }
+        this.postConditions = new List<Expression>();
+        foreach (Expression e in other.postConditions)
+        {
+            this.postConditions.Add(new Expression(e));
         }
         this.period = other.period;
         this.computation_cost = other.computation_cost;
@@ -69,7 +106,7 @@ public class Action
             }
 
             //4th element in token
-            string duration = token.First.Next.Next.Next.First.Next.ToString();
+            Expression duration = Expression.Evaluate(token.First.Next.Next.Next.First.Next);
 
             //5th element in token
             List<Expression> conditions = new List<Expression>();
@@ -88,20 +125,30 @@ public class Action
             }
 
             //7th element in token
-            int period = 0;
-            if(token.First.Next.Next.Next.Next.Next.Next.First.ToString() == "kronosim_period")
+            List<Expression> postConditions = new List<Expression>();
+            foreach (JToken j in token.First.Next.Next.Next.Next.Next.Next)
             {
-                period = int.Parse(token.First.Next.Next.Next.Next.Next.Next.First.Next.ToString());
+                if (j != token.First.Next.Next.Next.Next.Next.Next.First)
+                {
+                    postConditions.Add(Expression.Evaluate(j));
+                }
             }
 
             //8th element in token
-            int computation_cost = 0;
-            if (token.First.Next.Next.Next.Next.Next.Next.Next.First.ToString() == "kronosim_computation_cost")
+            int period = 0;
+            if(token.First.Next.Next.Next.Next.Next.Next.Next.First.ToString() == "kronosim_period")
             {
-                computation_cost = int.Parse(token.First.Next.Next.Next.Next.Next.Next.Next.First.Next.ToString());
+                period = int.Parse(token.First.Next.Next.Next.Next.Next.Next.Next.First.Next.ToString());
             }
 
-            return new Action(name, parameters, duration, conditions, effects, period, computation_cost);
+            //9th element in token
+            int computation_cost = 0;
+            if (token.First.Next.Next.Next.Next.Next.Next.Next.Next.First.ToString() == "kronosim_computation_cost")
+            {
+                computation_cost = int.Parse(token.First.Next.Next.Next.Next.Next.Next.Next.Next.First.Next.ToString());
+            }
+
+            return new Action(name, parameters, duration, conditions, effects, postConditions, period, computation_cost);
 
         } else {
             return null;
@@ -124,7 +171,7 @@ public class Action
         pddl = pddl + ")\n";
 
         //Duration
-        pddl = pddl + ":duration (= ?duration " + this.duration + ")\n";
+        pddl = pddl + ":duration (= ?duration " + this.duration.ToPDDL(questionMark) + ")\n";
 
         //Conditions
         pddl = pddl + ":condition (and\n";
@@ -137,6 +184,10 @@ public class Action
         //Effects
         pddl = pddl + ":effect (and\n";
         foreach (Expression e in this.effects)
+        {
+            pddl = pddl + e.ToPDDL(questionMark) + "\n";
+        }
+        foreach (Expression e in this.postConditions)
         {
             pddl = pddl + e.ToPDDL(questionMark) + "\n";
         }
@@ -158,7 +209,7 @@ public class Action
         int counter = 0;
         foreach (Expression e in this.conditions)
         {
-            result = result + e.ToDesire();
+            result = result + e.ToKronosimExpCondition();
 
             if (counter != this.conditions.Count - 1)
             {

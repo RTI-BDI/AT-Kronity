@@ -107,7 +107,7 @@ wood stone - resource
 )
 )(:durative-action recharge
 :parameters (?r - robot ?rs - r_station )
-:duration (= ?duration 5)
+:duration (= ?duration (- (battery-capacity) (battery-amount  ?r)))
 :condition (and
 (at start (> (battery-amount  ?r) 0))
 (at start (= (posX  ?r) (posX  ?rs)))
@@ -135,7 +135,7 @@ wood stone - resource
 (at end (free  ?r))
 (at end (decrease (battery-amount  ?r) 1))
 (at end (increase (wood-stored  ?s) 1))
-(at start (decrease (wood-amount  ?r) 1))
+(at end (decrease (wood-amount  ?r) 1))
 )
 )(:durative-action store-stone
 :parameters (?r - robot ?s - storage )
@@ -152,7 +152,7 @@ wood stone - resource
 (at end (free  ?r))
 (at end (decrease (battery-amount  ?r) 1))
 (at end (increase (stone-stored  ?s) 1))
-(at start (decrease (stone-amount  ?r) 1))
+(at end (decrease (stone-amount  ?r) 1))
 )
 )(:durative-action store-chest
 :parameters (?p - producer ?s - storage )
@@ -169,7 +169,7 @@ wood stone - resource
 (at end (free  ?p))
 (at end (decrease (battery-amount  ?p) 1))
 (at end (increase (chest-stored  ?s) 1))
-(at start (decrease (chest-amount  ?p) 1))
+(at end (decrease (chest-amount  ?p) 1))
 )
 )(:durative-action retrieve-wood
 :parameters (?p - producer ?c - collector )
@@ -186,7 +186,7 @@ wood stone - resource
 (at start (not (free  ?p)))
 (at end (free  ?c))
 (at end (free  ?p))
-(at start (decrease (wood-amount  ?c) 1))
+(at end (decrease (wood-amount  ?c) 1))
 (at end (increase (wood-amount  ?p) 1))
 )
 )(:durative-action retrieve-stone
@@ -204,7 +204,7 @@ wood stone - resource
 (at start (not (free  ?p)))
 (at end (free  ?c))
 (at end (free  ?p))
-(at start (decrease (stone-amount  ?c) 1))
+(at end (decrease (stone-amount  ?c) 1))
 (at end (increase (stone-amount  ?p) 1))
 )
 )(:durative-action produce-chest
@@ -221,8 +221,8 @@ wood stone - resource
 (at end (free  ?p))
 (at end (decrease (battery-amount  ?p) 5))
 (at end (increase (chest-amount  ?p) 1))
-(at start (decrease (wood-amount  ?p) 1))
-(at start (decrease (stone-amount  ?p) 1))
+(at end (decrease (wood-amount  ?p) 1))
+(at end (decrease (stone-amount  ?p) 1))
 )
 ))
 

@@ -41,20 +41,21 @@ public class Plan
             string action = string.Empty;
             string tempParam = string.Empty;
             List<string> param = new List<string>();
+            string duration = string.Empty;
             int considering = 0;
 
             foreach (char c in plain[i])
             {
                 if(c == ':')
                 {
-                    considering = 3;
+                    considering = 4;
                 }
                 else if(c == '(')
                 {
                     considering = 1;
                 } else if(c == ')')
                 {
-                    considering = 3;
+                    considering = 4;
                     param.Add(tempParam);
                     tempParam = string.Empty;
                 } else if(Char.IsWhiteSpace(c) && considering == 1)
@@ -67,6 +68,15 @@ public class Plan
                 } else if(c == '.' && considering == 0)
                 {
                     arrivalTime += ',';
+                } else if(c == '[')
+                {
+                    considering = 3;
+                } else if(c == '.' && considering == 3)
+                {
+                    duration += ',';
+                } else if(c == ']')
+                {
+                    considering = 4;
                 }
                 else
                 {
@@ -84,8 +94,12 @@ public class Plan
                         case 2:
                             tempParam += c;
                             break;
-                        //skipping
+                        //considering duration
                         case 3:
+                            duration += c;
+                            break;
+                        //skipping
+                        case 4:
                             break;
                     }
                 }
@@ -111,18 +125,94 @@ public class Plan
 
                 if (areEqual)
                 {
-                    tempSteps.Add(new KeyValuePair<float, Action>(float.Parse(arrivalTime), new Action(a)));
+                    Expression newDuration = new Expression(new Node(Node.NodeType.LeafValue, duration));
+                    tempSteps.Add(new KeyValuePair<float, Action>(float.Parse(arrivalTime), new Action(a, newDuration)));
                 }
             }
         }
 
         result = new Plan(tempSteps);
 
+
         return result;
     }
 
-    //Change comma to dot
-    public static string CommaToDot(KeyValuePair<float, Action> entry)
+    public string ToSubGoals()
+    {
+        string result = "";
+
+        foreach (KeyValuePair<float, Action> entry in this.steps)
+        {
+            result = result + ", { ";
+
+            //Goal name
+            result = result + "\"goal_name\": \"" + entry.Value.name;
+            foreach (Parameter p in entry.Value.parameters)
+            {
+                result = result + "_" + p.name;
+            }
+            result = result + "\", ";
+
+            //Body
+            result = result + "\"body\": [ { \"action_type\": \"TASK\", \"execution\": \"SEQUENTIAL\", ";
+            result = result + "\"action\": { \"arrivalTime\": 0.0, \"computationTime\": " + entry.Value.computation_cost + ", ";
+            result = result + "\"n_exec\": " + (int)(float.Parse(entry.Value.duration.node.value) / entry.Value.period) + ", ";
+            result = result + "\"period\": " + entry.Value.period + ", \"relativeDeadline\": " + entry.Value.period + ", ";
+            result = result + "\"server\": -1";
+            result = result + " } } ],";
+
+            //Cont conditions
+            result = result + "\"cont_conditions\": [ ], ";
+
+            //Effects at begin
+            result = result + "\"effects_at_begin\": [ [ \"AND\"";
+            foreach (Expression e in entry.Value.effects)
+            {
+                if(e.node.value == "at start")
+                {
+                    result = result + ", " + e.exp_1.ToKronosimExpEffect();
+                }
+            }
+            result = result + "] ], ";
+
+            //Effects at end
+            result = result + "\"effects_at_end\": [ [ \"AND\"";
+            foreach (Expression e in entry.Value.effects)
+            {
+                if (e.node.value == "at end")
+                {
+                    result = result + ", " + e.exp_1.ToKronosimExpEffect();
+                }
+            }
+            result = result + "] ], ";
+
+            //TODO - POST_CONDITIONS
+
+            //Preconditions
+            result = result + "\"preconditions\": [ [ \"AND\", ";
+
+            int counter = 0;
+            foreach (Expression e in entry.Value.conditions)
+            {
+                result = result + e.ToKronosimExpCondition();
+
+                if (counter != entry.Value.conditions.Count - 1)
+                {
+                    result = result + ", ";
+                }
+                counter++;
+            }
+
+            result = result + " ] ], ";
+
+            result = result + "} ";
+        }
+
+        return result;
+    }
+
+    //Change comma to dot in arrival time
+    public static string CommaToDotArrivalTime(KeyValuePair<float, Action> entry)
     {
         string result = string.Empty;
         foreach (Char c in entry.Key.ToString())
@@ -135,6 +225,24 @@ public class Plan
                 result += c;
             }
         }
+        return result;
+    }
+
+    //Change comma to dot in duration
+    public static string CommaToDotDuration(KeyValuePair<float, Action> entry)
+    {
+        string result = string.Empty;
+        foreach (Char c in entry.Value.duration.node.value)
+        {
+            if(c == ',')
+            {
+                result += '.';
+            } else
+            {
+                result += c;
+            }
+        }
+
         return result;
     }
 }

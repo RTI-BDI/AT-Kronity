@@ -1,6 +1,7 @@
 {
   "0": [
     {
+      "goal_name": "plan_execution",
       "body": [
         {
           "action": {
@@ -10,17 +11,7 @@
           },
           "action_type": "GOAL",
           "execution": "SEQUENTIAL",
-          "priority": 0
-        },
-        {
-          "action": {
-            "deadline": 3,
-            "goal_name": "move-down_p1",
-            "arrivalTime": 0
-          },
-          "action_type": "GOAL",
-          "execution": "PARALLEL",
-          "priority": 0
+          "priority": 0.5
         },
         {
           "action": {
@@ -30,49 +21,63 @@
           },
           "action_type": "GOAL",
           "execution": "PARALLEL",
-          "priority": 0
+          "priority": 0.5
+        },
+        {
+          "action": {
+            "deadline": 5,
+            "goal_name": "collect-stone_c1_st1",
+            "arrivalTime": 6.002
+          },
+          "action_type": "GOAL",
+          "execution": "PARALLEL",
+          "priority": 0.5
+        },
+        {
+          "action": {
+            "deadline": 94,
+            "goal_name": "recharge_c1_rs1",
+            "arrivalTime": 11.003
+          },
+          "action_type": "GOAL",
+          "execution": "PARALLEL",
+          "priority": 0.5
+        },
+        {
+          "action": {
+            "deadline": 1,
+            "goal_name": "store-stone_c1_s1",
+            "arrivalTime": 105.004
+          },
+          "action_type": "GOAL",
+          "execution": "PARALLEL",
+          "priority": 0.5
         },
         {
           "action": {
             "deadline": 5,
             "goal_name": "collect-wood_c1_w1",
-            "arrivalTime": 6.002
+            "arrivalTime": 106.005
           },
           "action_type": "GOAL",
           "execution": "PARALLEL",
-          "priority": 0
-        },
-        {
-          "action": {
-            "deadline": 2,
-            "goal_name": "retrieve-wood_p1_c1",
-            "arrivalTime": 11.003
-          },
-          "action_type": "GOAL",
-          "execution": "PARALLEL",
-          "priority": 0
+          "priority": 0.5
         },
         {
           "action": {
             "deadline": 1,
-            "goal_name": "store-wood_p1_s1",
-            "arrivalTime": 13.004
+            "goal_name": "store-wood_c1_s1",
+            "arrivalTime": 111.006
           },
           "action_type": "GOAL",
           "execution": "PARALLEL",
-          "priority": 0
+          "priority": 0.5
         }
       ],
       "cont_conditions": [],
       "effects_at_begin": [],
       "effects_at_end": [],
-      "preference": {
-        "computedDynamically": true,
-        "formula": [
-          0.8
-        ],
-        "reference_table": []
-      },
+      "post_conditions": [],
       "preconditions": [
         [
           "AND",
@@ -286,7 +291,627 @@
           ]
         ]
       ],
-      "goal_name": "plan_execution"
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
+    },
+    {
+      "goal_name": "move-right_c1",
+      "body": [
+        {
+          "action_type": "TASK",
+          "execution": "SEQUENTIAL",
+          "action": {
+            "arrivalTime": 0.0,
+            "computationTime": 40,
+            "n_exec": 0,
+            "period": 120,
+            "relativeDeadline": 120,
+            "server": -1
+          }
+        }
+      ],
+      "cont_conditions": [],
+      "effects_at_begin": [
+        [
+          "AND",
+          [
+            "ASSIGN",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            false
+          ]
+        ]
+      ],
+      "effects_at_end": [
+        [
+          "AND",
+          [
+            "ASSIGN",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "preconditions": [
+        [
+          "AND",
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "battery-amount_c1"
+            ],
+            10
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ]
+        ]
+      ]
+    },
+    {
+      "goal_name": "move-up_c1",
+      "body": [
+        {
+          "action_type": "TASK",
+          "execution": "SEQUENTIAL",
+          "action": {
+            "arrivalTime": 0.0,
+            "computationTime": 40,
+            "n_exec": 0,
+            "period": 120,
+            "relativeDeadline": 120,
+            "server": -1
+          }
+        }
+      ],
+      "cont_conditions": [],
+      "effects_at_begin": [
+        [
+          "AND",
+          [
+            "ASSIGN",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            false
+          ]
+        ]
+      ],
+      "effects_at_end": [
+        [
+          "AND",
+          [
+            "ASSIGN",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "preconditions": [
+        [
+          "AND",
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "battery-amount_c1"
+            ],
+            10
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ]
+        ]
+      ]
+    },
+    {
+      "goal_name": "collect-stone_c1_st1",
+      "body": [
+        {
+          "action_type": "TASK",
+          "execution": "SEQUENTIAL",
+          "action": {
+            "arrivalTime": 0.0,
+            "computationTime": 40,
+            "n_exec": 0,
+            "period": 120,
+            "relativeDeadline": 120,
+            "server": -1
+          }
+        }
+      ],
+      "cont_conditions": [],
+      "effects_at_begin": [
+        [
+          "AND",
+          [
+            "ASSIGN",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            false
+          ]
+        ]
+      ],
+      "effects_at_end": [
+        [
+          "AND",
+          [
+            "ASSIGN",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "preconditions": [
+        [
+          "AND",
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "battery-amount_c1"
+            ],
+            10
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "posX_st1"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "posY_st1"
+            ]
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "stone-amount_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "sample-capacity"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ]
+        ]
+      ]
+    },
+    {
+      "goal_name": "recharge_c1_rs1",
+      "body": [
+        {
+          "action_type": "TASK",
+          "execution": "SEQUENTIAL",
+          "action": {
+            "arrivalTime": 0.0,
+            "computationTime": 40,
+            "n_exec": 0,
+            "period": 120,
+            "relativeDeadline": 120,
+            "server": -1
+          }
+        }
+      ],
+      "cont_conditions": [],
+      "effects_at_begin": [
+        [
+          "AND",
+          [
+            "ASSIGN",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            false
+          ]
+        ]
+      ],
+      "effects_at_end": [
+        [
+          "AND",
+          [
+            "ASSIGN",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "preconditions": [
+        [
+          "AND",
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "battery-amount_c1"
+            ],
+            0
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "posX_rs1"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "posY_rs1"
+            ]
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "battery-amount_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "battery-capacity"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ]
+        ]
+      ]
+    },
+    {
+      "goal_name": "store-stone_c1_s1",
+      "body": [
+        {
+          "action_type": "TASK",
+          "execution": "SEQUENTIAL",
+          "action": {
+            "arrivalTime": 0.0,
+            "computationTime": 40,
+            "n_exec": 0,
+            "period": 120,
+            "relativeDeadline": 120,
+            "server": -1
+          }
+        }
+      ],
+      "cont_conditions": [],
+      "effects_at_begin": [
+        [
+          "AND",
+          [
+            "ASSIGN",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            false
+          ]
+        ]
+      ],
+      "effects_at_end": [
+        [
+          "AND",
+          [
+            "ASSIGN",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "preconditions": [
+        [
+          "AND",
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "battery-amount_c1"
+            ],
+            10
+          ],
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "stone-amount_c1"
+            ],
+            0
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "posX_s1"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "posY_s1"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ]
+        ]
+      ]
+    },
+    {
+      "goal_name": "collect-wood_c1_w1",
+      "body": [
+        {
+          "action_type": "TASK",
+          "execution": "SEQUENTIAL",
+          "action": {
+            "arrivalTime": 0.0,
+            "computationTime": 40,
+            "n_exec": 0,
+            "period": 120,
+            "relativeDeadline": 120,
+            "server": -1
+          }
+        }
+      ],
+      "cont_conditions": [],
+      "effects_at_begin": [
+        [
+          "AND",
+          [
+            "ASSIGN",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            false
+          ]
+        ]
+      ],
+      "effects_at_end": [
+        [
+          "AND",
+          [
+            "ASSIGN",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "preconditions": [
+        [
+          "AND",
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "battery-amount_c1"
+            ],
+            10
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "posX_w1"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "posY_w1"
+            ]
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "wood-amount_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "sample-capacity"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ]
+        ]
+      ]
+    },
+    {
+      "goal_name": "store-wood_c1_s1",
+      "body": [
+        {
+          "action_type": "TASK",
+          "execution": "SEQUENTIAL",
+          "action": {
+            "arrivalTime": 0.0,
+            "computationTime": 40,
+            "n_exec": 0,
+            "period": 120,
+            "relativeDeadline": 120,
+            "server": -1
+          }
+        }
+      ],
+      "cont_conditions": [],
+      "effects_at_begin": [
+        [
+          "AND",
+          [
+            "ASSIGN",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            false
+          ]
+        ]
+      ],
+      "effects_at_end": [
+        [
+          "AND",
+          [
+            "ASSIGN",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ]
+        ]
+      ],
+      "preconditions": [
+        [
+          "AND",
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "battery-amount_c1"
+            ],
+            10
+          ],
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "wood-amount_c1"
+            ],
+            0
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "posX_s1"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_c1"
+            ],
+            [
+              "READ_BELIEF",
+              "posY_s1"
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ]
+        ]
+      ]
     }
   ]
 }

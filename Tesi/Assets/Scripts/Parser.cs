@@ -19,10 +19,6 @@ public class Parser : MonoBehaviour
         string jsonDomain = File.ReadAllText("./Assets/JSON/Domain.json");
         string jsonProblem = File.ReadAllText("./Assets/JSON/Problem.json");
 
-        //Var containing PDDL domain and problem
-        string pddlDomain = "";
-        string pddlProblem = "";
-
         //Initial parsing
         JObject objectDomain = JObject.Parse(jsonDomain);
         JArray domain = objectDomain["domain"] as JArray;
@@ -286,6 +282,7 @@ public class Parser : MonoBehaviour
             {
                 List<Expression> newConditions = new List<Expression>();
                 List<Expression> newEffects = new List<Expression>();
+                List<Expression> newPostConditions = new List<Expression>();
                 foreach (Expression e in a.conditions)
                 {
                     newConditions.Add(GenerateInstantiatedExpression(e, lp, a.parameters));
@@ -294,8 +291,12 @@ public class Parser : MonoBehaviour
                 {
                     newEffects.Add(GenerateInstantiatedExpression(e, lp, a.parameters));
                 }
+                foreach (Expression e in a.postConditions)
+                {
+                    newPostConditions.Add(GenerateInstantiatedExpression(e, lp, a.parameters));
+                }
                 
-                generatedActions.Add(new Action(a.name, new List<Parameter>(lp), a.duration, new List<Expression>(newConditions), new List<Expression>(newEffects), a.period, a.computation_cost));
+                generatedActions.Add(new Action(a.name, new List<Parameter>(lp), a.duration, new List<Expression>(newConditions), new List<Expression>(newEffects), new List<Expression>(newPostConditions), a.period, a.computation_cost));
             }
         }
         return generatedActions;
@@ -346,19 +347,20 @@ public class Parser : MonoBehaviour
         string jsonStr = "{ \"0\": [ ";
 
         jsonStr = jsonStr + "{ \"priority\" : { \"computedDynamically\" : true, \"formula\" : [ 0.8 ], \"reference_table\" : [] },";
-        jsonStr = jsonStr + "\"deadline\" : 1000.0,";
+        jsonStr = jsonStr + "\"deadline\" : -1,";
         jsonStr = jsonStr + "\"preconditions\" : [ [ \"AND\", ";
 
-        jsonStr = jsonStr + ToKronosimExpression(problem.initializations);
+        jsonStr = jsonStr + ToKronosimExpressionInitializations(problem.initializations);
 
         jsonStr = jsonStr + " ] ],";
         jsonStr = jsonStr + " \"goal_name\" : \"plan_execution\"";
         jsonStr = jsonStr + "} ";
 
-        foreach (Action a in groundedActions)
-        {
-            jsonStr = jsonStr + ", " + a.ToDesire();
-        }
+        // To generate all the desires
+        //foreach (Action a in groundedActions)
+        //{
+        //    jsonStr = jsonStr + ", " + a.ToDesire();
+        //}
 
         jsonStr = jsonStr + " ] }";
 
@@ -374,33 +376,14 @@ public class Parser : MonoBehaviour
     }
 
     //Translate list of expressions into a json expression readable by kronosim
-    public string ToKronosimExpression(List<Expression> le)
+    public string ToKronosimExpressionInitializations(List<Expression> le)
     {
         string jsonStr = "";
 
         int counter = 0;
         foreach (Expression e in le)
         {
-            if (e.exp_1.node.belief.type != Belief.BeliefType.Predicate)
-            {
-                jsonStr = jsonStr + " [ \"==\", [ \"READ_BELIEF\", \"" + e.exp_1.node.belief.name;
-                if (e.exp_1.node.belief.type != Belief.BeliefType.Constant)
-                    foreach (Parameter p in e.exp_1.node.belief.param)
-                    {
-                        jsonStr = jsonStr + "_" + p.name;
-                    }
-                jsonStr = jsonStr + "\" ], " + e.exp_2.node.value + " ]";
-
-            }
-            else
-            {
-                jsonStr = jsonStr + " [ \"==\", [ \"READ_BELIEF\", \"" + e.exp_1.node.belief.name;
-                foreach (Parameter p in e.exp_1.node.belief.param)
-                {
-                    jsonStr = jsonStr + "_" + p.name;
-                }
-                jsonStr = jsonStr + "\" ], " + e.node.value + " ]";
-            }
+            jsonStr = jsonStr + e.ToKronosimExpInitialization();
 
             if (counter != le.Count - 1)
             {
@@ -461,20 +444,23 @@ public class Parser : MonoBehaviour
         // -- GENERAL PLAN ---
 
         string jsonStr = "";
+
+        //goal_name
+        jsonStr = jsonStr + "{ \"0\": [ { \"goal_name\": \"plan_execution\", ";
         //body
-        jsonStr = jsonStr + "{ \"0\": [ { \"body\": [ ";
+        jsonStr = jsonStr + "\"body\": [ ";
 
         int counter = 0;
         foreach (KeyValuePair<float, Action> entry in plan.steps)
         {
-            jsonStr = jsonStr + "{ \"action\": { \"deadline\": " + int.Parse(entry.Value.duration) + ", ";
+            jsonStr = jsonStr + "{ \"action\": { \"deadline\": " + float.Parse(entry.Value.duration.node.value) + ", ";
             jsonStr = jsonStr + "\"goal_name\": \"" + entry.Value.name;
             foreach (Parameter p in entry.Value.parameters)
             {
                 jsonStr = jsonStr + "_" + p.name;
             }
             jsonStr = jsonStr + "\", ";
-            jsonStr = jsonStr + "\"arrivalTime\": " + Plan.CommaToDot(entry) + " }, ";
+            jsonStr = jsonStr + "\"arrivalTime\": " + Plan.CommaToDotArrivalTime(entry) + " }, ";
             jsonStr = jsonStr + "\"action_type\": \"GOAL\", ";
 
             if (counter == 0)
@@ -485,7 +471,7 @@ public class Parser : MonoBehaviour
                 jsonStr = jsonStr + "\"execution\": \"PARALLEL\", ";
             }
 
-            jsonStr = jsonStr + "\"priority\": 0 }";
+            jsonStr = jsonStr + "\"priority\": 0.5 }";
 
             if (counter != plan.steps.Count - 1)
             {
@@ -505,21 +491,26 @@ public class Parser : MonoBehaviour
         //effects_at_end
         jsonStr = jsonStr + "\"effects_at_end\": [ ], ";
 
-        //preference
-        jsonStr = jsonStr + "\"preference\" : { \"computedDynamically\" : true, \"formula\" : [ 0.8 ], \"reference_table\" : [] }, ";
+        //post_coonditions
+        jsonStr = jsonStr + "\"post_conditions\": [ ], ";
 
         //preconditions
         jsonStr = jsonStr + "\"preconditions\": [ [ \"AND\", ";
-        jsonStr = jsonStr + ToKronosimExpression(problem.initializations);
+        jsonStr = jsonStr + ToKronosimExpressionInitializations(problem.initializations);
         jsonStr = jsonStr + " ] ], ";
 
-        //goal_name
-        jsonStr = jsonStr + "\"goal_name\": \"plan_execution\" }";
+        //preference
+        jsonStr = jsonStr + "\"preference\" : { \"computedDynamically\" : true, \"formula\" : [ 0.8 ], \"reference_table\" : [ ] } ";
+
+        jsonStr = jsonStr + "}";
+
+        //Sub-goals
+
+        jsonStr = jsonStr + plan.ToSubGoals();
 
         jsonStr = jsonStr + " ] }";
 
-        // -- TODO (SUBGOALS)
-
+        Debug.Log(jsonStr);
         JObject jobject = JObject.Parse(jsonStr);
 
         // write JSON directly to a file

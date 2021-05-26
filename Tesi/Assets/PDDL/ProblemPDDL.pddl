@@ -40,6 +40,7 @@ rs1 - r_station
 (:goal 
 (and 
 (= (wood-stored  s1) 1)
+(= (stone-stored  s1) 1)
 )
 )
 )

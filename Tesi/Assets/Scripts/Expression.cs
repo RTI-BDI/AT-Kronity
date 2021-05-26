@@ -99,8 +99,8 @@ public class Expression
         }
     }
 
-    //Transalte from Object to Desire (json)
-    public string ToDesire()
+    //Transalte from Object to Kronosim Condition
+    public string ToKronosimExpCondition()
     {
         string result = "";
 
@@ -115,18 +115,18 @@ public class Expression
                 {
                     op = this.node.value;
                 }
-                result = result + " [ \"" + op + "\", " + this.exp_1.ToDesire() + ", " + this.exp_2.ToDesire() + " ] "; 
+                result = result + " [ \"" + op + "\", " + this.exp_1.ToKronosimExpCondition() + ", " + this.exp_2.ToKronosimExpCondition() + " ] "; 
                 break;
             case (Node.NodeType.Unary):
                 switch (this.node.value) {
                     case "at start":
-                        result = result + this.exp_1.ToDesire();
+                        result = result + this.exp_1.ToKronosimExpCondition();
                         break;
                     case "true":
-                        result = result + " [ \"==\", " + this.exp_1.ToDesire() + ", true ] "; 
+                        result = result + " [ \"==\", " + this.exp_1.ToKronosimExpCondition() + ", true ] "; 
                         break;
                     case "false":
-                        result = result + " [ \"==\", " + this.exp_1.ToDesire() + ", false ] ";
+                        result = result + " [ \"==\", " + this.exp_1.ToKronosimExpCondition() + ", false ] ";
                         break;
                     default:
                         break;
@@ -152,5 +152,95 @@ public class Expression
 
         return result;
     }
+
+    //Translate from Object to Kronosim Expression
+    public string ToKronosimExpEffect()
+    {
+        string result = "";
+        switch (this.node.type)
+        {
+            case Node.NodeType.Operator:
+                //Mapping
+                switch (this.node.value)
+                {
+                    case "=":
+                        result = result + "[ \"ASSIGN\", ";
+                        break;
+                    case "-":
+                        result = result + "[ \"-\", ";
+                        break;
+                    case "increase":
+                        result = result + "[ \"INCREASE\", ";
+                        break;
+                    case "decrease":
+                        result = result + "[ \"DECREASE\", ";
+                        break;
+                    default:
+                        result = result + "[ \"ERROR\", ";
+                        break;
+                }
+                result = result + this.exp_1.ToKronosimExpEffect() + ", " + this.exp_2.ToKronosimExpEffect() + " ]";
+                break;
+            case Node.NodeType.Unary:
+                switch (this.node.value)
+                {
+                    case "true":
+                        result = result + "[ \"ASSIGN\", " + this.exp_1.ToKronosimExpEffect() + ", true ]";
+                        break;
+                    case "false":
+                        result = result + "[ \"ASSIGN\", " + this.exp_1.ToKronosimExpEffect() + ", false ]";
+                        break;
+                    default:
+                        result = result + "[ \"ASSIGN\", " + this.exp_1.ToKronosimExpEffect() + ", error ]";
+                        break;
+                }
+                break;
+            case Node.NodeType.LeafValue:
+                result = result + this.node.value;
+                break;
+            case Node.NodeType.LeafBelief:
+                result = result + "[ \"READ_BELIEF\", \"" + this.node.belief.name;
+                foreach (Parameter p in this.node.belief.param)
+                {
+                    result = result + "_" + p.name;
+                }
+                result = result + "\" ]";
+                break;
+            default:
+                break;
+        }
+
+        return result;
+    }
+
+    //Translate from Object to Kronosim Initialization (like conditions, but simpler)
+    public string ToKronosimExpInitialization()
+    {
+        string jsonStr = "";
+
+        if (this.exp_1.node.belief.type != Belief.BeliefType.Predicate)
+        {
+            jsonStr = jsonStr + " [ \"==\", [ \"READ_BELIEF\", \"" + this.exp_1.node.belief.name;
+            if (this.exp_1.node.belief.type != Belief.BeliefType.Constant)
+                foreach (Parameter p in this.exp_1.node.belief.param)
+                {
+                    jsonStr = jsonStr + "_" + p.name;
+                }
+            jsonStr = jsonStr + "\" ], " + this.exp_2.node.value + " ]";
+
+        }
+        else
+        {
+            jsonStr = jsonStr + " [ \"==\", [ \"READ_BELIEF\", \"" + this.exp_1.node.belief.name;
+            foreach (Parameter p in this.exp_1.node.belief.param)
+            {
+                jsonStr = jsonStr + "_" + p.name;
+            }
+            jsonStr = jsonStr + "\" ], " + this.node.value + " ]";
+        }
+
+        return jsonStr;
+    }
+
 
 }

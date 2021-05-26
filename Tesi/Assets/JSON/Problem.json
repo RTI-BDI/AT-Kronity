@@ -46,7 +46,8 @@
             ],
   
             ["defineGoal",
-                ["equal", ["function", "wood-stored", ["array", "s1"]], "1" ]
+                ["equal", ["function", "wood-stored", ["array", "s1"]], "1" ],
+                ["equal", ["function", "stone-stored", ["array", "s1"]], "1" ]
             ]
         ]
 }
