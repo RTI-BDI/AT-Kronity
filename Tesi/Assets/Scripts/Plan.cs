@@ -155,7 +155,7 @@ public class Plan
 
             //Body
             result = result + "\"body\": [ { \"action_type\": \"TASK\", \"execution\": \"SEQUENTIAL\", ";
-            result = result + "\"action\": { \"arrivalTime\": 0.0, \"computationTime\": " + entry.Value.computation_cost + ", ";
+            result = result + "\"action\": { \"computationTime\": " + entry.Value.computation_cost + ", ";
             result = result + "\"n_exec\": " + (int)(float.Parse(entry.Value.duration.node.value) / entry.Value.period) + ", ";
             result = result + "\"period\": " + entry.Value.period + ", \"relativeDeadline\": " + entry.Value.period + ", ";
             result = result + "\"server\": -1";
@@ -165,26 +165,31 @@ public class Plan
             result = result + "\"cont_conditions\": [ ], ";
 
             //Effects at begin
-            result = result + "\"effects_at_begin\": [ [ \"AND\"";
+            result = result + "\"effects_at_begin\": [ ";
             foreach (Expression e in entry.Value.effects)
             {
                 if(e.node.value == "at start")
                 {
-                    result = result + ", " + e.exp_1.ToKronosimExpEffect();
+                    result = result + " " + e.exp_1.ToKronosimExpEffect() + ",";
                 }
+                
             }
-            result = result + "] ], ";
+            //remove last comma
+            result = result.Remove(result.Length - 1);
+            result = result + " ], ";
 
             //Effects at end
-            result = result + "\"effects_at_end\": [ [ \"AND\"";
+            result = result + "\"effects_at_end\": [ ";
             foreach (Expression e in entry.Value.effects)
             {
                 if (e.node.value == "at end")
                 {
-                    result = result + ", " + e.exp_1.ToKronosimExpEffect();
+                    result = result + " " + e.exp_1.ToKronosimExpEffect() + ",";
                 }
             }
-            result = result + "] ], ";
+            //remove last comma
+            result = result.Remove(result.Length - 1);
+            result = result + " ], ";
 
             //TODO - POST_CONDITIONS
 

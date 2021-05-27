@@ -453,7 +453,7 @@ public class Parser : MonoBehaviour
         int counter = 0;
         foreach (KeyValuePair<float, Action> entry in plan.steps)
         {
-            jsonStr = jsonStr + "{ \"action\": { \"deadline\": " + float.Parse(entry.Value.duration.node.value) + ", ";
+            jsonStr = jsonStr + "{ \"action\": { \"priority\": 0.5, \"deadline\": " + float.Parse(entry.Value.duration.node.value) + ", ";
             jsonStr = jsonStr + "\"goal_name\": \"" + entry.Value.name;
             foreach (Parameter p in entry.Value.parameters)
             {
@@ -471,7 +471,7 @@ public class Parser : MonoBehaviour
                 jsonStr = jsonStr + "\"execution\": \"PARALLEL\", ";
             }
 
-            jsonStr = jsonStr + "\"priority\": 0.5 }";
+            jsonStr = jsonStr + " }";
 
             if (counter != plan.steps.Count - 1)
             {
@@ -505,12 +505,11 @@ public class Parser : MonoBehaviour
         jsonStr = jsonStr + "}";
 
         //Sub-goals
-
         jsonStr = jsonStr + plan.ToSubGoals();
 
         jsonStr = jsonStr + " ] }";
 
-        Debug.Log(jsonStr);
+        
         JObject jobject = JObject.Parse(jsonStr);
 
         // write JSON directly to a file

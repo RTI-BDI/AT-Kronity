@@ -5,73 +5,73 @@
       "body": [
         {
           "action": {
+            "priority": 0.5,
             "deadline": 3,
             "goal_name": "move-right_c1",
             "arrivalTime": 0
           },
           "action_type": "GOAL",
-          "execution": "SEQUENTIAL",
-          "priority": 0.5
+          "execution": "SEQUENTIAL"
         },
         {
           "action": {
+            "priority": 0.5,
             "deadline": 3,
             "goal_name": "move-up_c1",
             "arrivalTime": 3.001
           },
           "action_type": "GOAL",
-          "execution": "PARALLEL",
-          "priority": 0.5
+          "execution": "PARALLEL"
         },
         {
           "action": {
+            "priority": 0.5,
             "deadline": 5,
             "goal_name": "collect-stone_c1_st1",
             "arrivalTime": 6.002
           },
           "action_type": "GOAL",
-          "execution": "PARALLEL",
-          "priority": 0.5
+          "execution": "PARALLEL"
         },
         {
           "action": {
+            "priority": 0.5,
             "deadline": 94,
             "goal_name": "recharge_c1_rs1",
             "arrivalTime": 11.003
           },
           "action_type": "GOAL",
-          "execution": "PARALLEL",
-          "priority": 0.5
+          "execution": "PARALLEL"
         },
         {
           "action": {
+            "priority": 0.5,
             "deadline": 1,
             "goal_name": "store-stone_c1_s1",
             "arrivalTime": 105.004
           },
           "action_type": "GOAL",
-          "execution": "PARALLEL",
-          "priority": 0.5
+          "execution": "PARALLEL"
         },
         {
           "action": {
+            "priority": 0.5,
             "deadline": 5,
             "goal_name": "collect-wood_c1_w1",
             "arrivalTime": 106.005
           },
           "action_type": "GOAL",
-          "execution": "PARALLEL",
-          "priority": 0.5
+          "execution": "PARALLEL"
         },
         {
           "action": {
+            "priority": 0.5,
             "deadline": 1,
             "goal_name": "store-wood_c1_s1",
             "arrivalTime": 111.006
           },
           "action_type": "GOAL",
-          "execution": "PARALLEL",
-          "priority": 0.5
+          "execution": "PARALLEL"
         }
       ],
       "cont_conditions": [],
@@ -306,7 +306,6 @@
           "action_type": "TASK",
           "execution": "SEQUENTIAL",
           "action": {
-            "arrivalTime": 0.0,
             "computationTime": 40,
             "n_exec": 0,
             "period": 120,
@@ -318,28 +317,16 @@
       "cont_conditions": [],
       "effects_at_begin": [
         [
-          "AND",
-          [
-            "ASSIGN",
-            [
-              "READ_BELIEF",
-              "free_c1"
-            ],
-            false
-          ]
+          "ASSIGN",
+          "free_c1",
+          false
         ]
       ],
       "effects_at_end": [
         [
-          "AND",
-          [
-            "ASSIGN",
-            [
-              "READ_BELIEF",
-              "free_c1"
-            ],
-            true
-          ]
+          "ASSIGN",
+          "free_c1",
+          true
         ]
       ],
       "preconditions": [
@@ -371,7 +358,6 @@
           "action_type": "TASK",
           "execution": "SEQUENTIAL",
           "action": {
-            "arrivalTime": 0.0,
             "computationTime": 40,
             "n_exec": 0,
             "period": 120,
@@ -383,28 +369,16 @@
       "cont_conditions": [],
       "effects_at_begin": [
         [
-          "AND",
-          [
-            "ASSIGN",
-            [
-              "READ_BELIEF",
-              "free_c1"
-            ],
-            false
-          ]
+          "ASSIGN",
+          "free_c1",
+          false
         ]
       ],
       "effects_at_end": [
         [
-          "AND",
-          [
-            "ASSIGN",
-            [
-              "READ_BELIEF",
-              "free_c1"
-            ],
-            true
-          ]
+          "ASSIGN",
+          "free_c1",
+          true
         ]
       ],
       "preconditions": [
@@ -436,7 +410,6 @@
           "action_type": "TASK",
           "execution": "SEQUENTIAL",
           "action": {
-            "arrivalTime": 0.0,
             "computationTime": 40,
             "n_exec": 0,
             "period": 120,
@@ -448,28 +421,16 @@
       "cont_conditions": [],
       "effects_at_begin": [
         [
-          "AND",
-          [
-            "ASSIGN",
-            [
-              "READ_BELIEF",
-              "free_c1"
-            ],
-            false
-          ]
+          "ASSIGN",
+          "free_c1",
+          false
         ]
       ],
       "effects_at_end": [
         [
-          "AND",
-          [
-            "ASSIGN",
-            [
-              "READ_BELIEF",
-              "free_c1"
-            ],
-            true
-          ]
+          "ASSIGN",
+          "free_c1",
+          true
         ]
       ],
       "preconditions": [
@@ -534,7 +495,6 @@
           "action_type": "TASK",
           "execution": "SEQUENTIAL",
           "action": {
-            "arrivalTime": 0.0,
             "computationTime": 40,
             "n_exec": 0,
             "period": 120,
@@ -546,28 +506,16 @@
       "cont_conditions": [],
       "effects_at_begin": [
         [
-          "AND",
-          [
-            "ASSIGN",
-            [
-              "READ_BELIEF",
-              "free_c1"
-            ],
-            false
-          ]
+          "ASSIGN",
+          "free_c1",
+          false
         ]
       ],
       "effects_at_end": [
         [
-          "AND",
-          [
-            "ASSIGN",
-            [
-              "READ_BELIEF",
-              "free_c1"
-            ],
-            true
-          ]
+          "ASSIGN",
+          "free_c1",
+          true
         ]
       ],
       "preconditions": [
@@ -632,7 +580,6 @@
           "action_type": "TASK",
           "execution": "SEQUENTIAL",
           "action": {
-            "arrivalTime": 0.0,
             "computationTime": 40,
             "n_exec": 0,
             "period": 120,
@@ -644,28 +591,16 @@
       "cont_conditions": [],
       "effects_at_begin": [
         [
-          "AND",
-          [
-            "ASSIGN",
-            [
-              "READ_BELIEF",
-              "free_c1"
-            ],
-            false
-          ]
+          "ASSIGN",
+          "free_c1",
+          false
         ]
       ],
       "effects_at_end": [
         [
-          "AND",
-          [
-            "ASSIGN",
-            [
-              "READ_BELIEF",
-              "free_c1"
-            ],
-            true
-          ]
+          "ASSIGN",
+          "free_c1",
+          true
         ]
       ],
       "preconditions": [
@@ -727,7 +662,6 @@
           "action_type": "TASK",
           "execution": "SEQUENTIAL",
           "action": {
-            "arrivalTime": 0.0,
             "computationTime": 40,
             "n_exec": 0,
             "period": 120,
@@ -739,28 +673,16 @@
       "cont_conditions": [],
       "effects_at_begin": [
         [
-          "AND",
-          [
-            "ASSIGN",
-            [
-              "READ_BELIEF",
-              "free_c1"
-            ],
-            false
-          ]
+          "ASSIGN",
+          "free_c1",
+          false
         ]
       ],
       "effects_at_end": [
         [
-          "AND",
-          [
-            "ASSIGN",
-            [
-              "READ_BELIEF",
-              "free_c1"
-            ],
-            true
-          ]
+          "ASSIGN",
+          "free_c1",
+          true
         ]
       ],
       "preconditions": [
@@ -825,7 +747,6 @@
           "action_type": "TASK",
           "execution": "SEQUENTIAL",
           "action": {
-            "arrivalTime": 0.0,
             "computationTime": 40,
             "n_exec": 0,
             "period": 120,
@@ -837,28 +758,16 @@
       "cont_conditions": [],
       "effects_at_begin": [
         [
-          "AND",
-          [
-            "ASSIGN",
-            [
-              "READ_BELIEF",
-              "free_c1"
-            ],
-            false
-          ]
+          "ASSIGN",
+          "free_c1",
+          false
         ]
       ],
       "effects_at_end": [
         [
-          "AND",
-          [
-            "ASSIGN",
-            [
-              "READ_BELIEF",
-              "free_c1"
-            ],
-            true
-          ]
+          "ASSIGN",
+          "free_c1",
+          true
         ]
       ],
       "preconditions": [

@@ -199,12 +199,12 @@ public class Expression
                 result = result + this.node.value;
                 break;
             case Node.NodeType.LeafBelief:
-                result = result + "[ \"READ_BELIEF\", \"" + this.node.belief.name;
+                result = result + "\"" + this.node.belief.name;
                 foreach (Parameter p in this.node.belief.param)
                 {
                     result = result + "_" + p.name;
                 }
-                result = result + "\" ]";
+                result = result + "\"";
                 break;
             default:
                 break;
