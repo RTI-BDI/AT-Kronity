@@ -320,6 +320,22 @@
           "ASSIGN",
           "free_c1",
           false
+        ],
+        [
+          "DEFINE_VARIABLE",
+          "battery-amount_c1_old ",
+          [
+            "READ_BELIEF",
+            "battery-amount_c1"
+          ]
+        ],
+        [
+          "DEFINE_VARIABLE",
+          "posX_c1_old ",
+          [
+            "READ_BELIEF",
+            "posX_c1"
+          ]
         ]
       ],
       "effects_at_end": [
@@ -327,6 +343,41 @@
           "ASSIGN",
           "free_c1",
           true
+        ]
+      ],
+      "post-conditions": [
+        [
+          "AND",
+          [
+            "==",
+            [
+              "READ_VARIABLE",
+              "battery-amount_c1_old"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "battery-amount_c1"
+              ],
+              2
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_VARIABLE",
+              "posX_c1_old"
+            ],
+            [
+              "+",
+              [
+                "READ_BELIEF",
+                "posX_c1"
+              ],
+              1
+            ]
+          ]
         ]
       ],
       "preconditions": [
@@ -372,6 +423,22 @@
           "ASSIGN",
           "free_c1",
           false
+        ],
+        [
+          "DEFINE_VARIABLE",
+          "battery-amount_c1_old ",
+          [
+            "READ_BELIEF",
+            "battery-amount_c1"
+          ]
+        ],
+        [
+          "DEFINE_VARIABLE",
+          "posY_c1_old ",
+          [
+            "READ_BELIEF",
+            "posY_c1"
+          ]
         ]
       ],
       "effects_at_end": [
@@ -379,6 +446,41 @@
           "ASSIGN",
           "free_c1",
           true
+        ]
+      ],
+      "post-conditions": [
+        [
+          "AND",
+          [
+            "==",
+            [
+              "READ_VARIABLE",
+              "battery-amount_c1_old"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "battery-amount_c1"
+              ],
+              2
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_VARIABLE",
+              "posY_c1_old"
+            ],
+            [
+              "+",
+              [
+                "READ_BELIEF",
+                "posY_c1"
+              ],
+              1
+            ]
+          ]
         ]
       ],
       "preconditions": [
@@ -424,6 +526,22 @@
           "ASSIGN",
           "free_c1",
           false
+        ],
+        [
+          "DEFINE_VARIABLE",
+          "battery-amount_c1_old ",
+          [
+            "READ_BELIEF",
+            "battery-amount_c1"
+          ]
+        ],
+        [
+          "DEFINE_VARIABLE",
+          "stone-amount_c1_old ",
+          [
+            "READ_BELIEF",
+            "stone-amount_c1"
+          ]
         ]
       ],
       "effects_at_end": [
@@ -431,6 +549,41 @@
           "ASSIGN",
           "free_c1",
           true
+        ]
+      ],
+      "post-conditions": [
+        [
+          "AND",
+          [
+            "==",
+            [
+              "READ_VARIABLE",
+              "battery-amount_c1_old"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "battery-amount_c1"
+              ],
+              5
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_VARIABLE",
+              "stone-amount_c1_old"
+            ],
+            [
+              "+",
+              [
+                "READ_BELIEF",
+                "stone-amount_c1"
+              ],
+              1
+            ]
+          ]
         ]
       ],
       "preconditions": [
@@ -509,6 +662,14 @@
           "ASSIGN",
           "free_c1",
           false
+        ],
+        [
+          "DEFINE_VARIABLE",
+          "battery-amount_c1_old ",
+          [
+            "READ_BELIEF",
+            "battery-amount_c1"
+          ]
         ]
       ],
       "effects_at_end": [
@@ -516,6 +677,36 @@
           "ASSIGN",
           "free_c1",
           true
+        ]
+      ],
+      "post-conditions": [
+        [
+          "AND",
+          [
+            "==",
+            [
+              "READ_VARIABLE",
+              "battery-amount_c1_old"
+            ],
+            [
+              "+",
+              [
+                "READ_BELIEF",
+                "battery-amount_c1"
+              ],
+              [
+                "-",
+                [
+                  "READ_BELIEF",
+                  "battery-capacity"
+                ],
+                [
+                  "READ_BELIEF",
+                  "battery-amount_c1"
+                ]
+              ]
+            ]
+          ]
         ]
       ],
       "preconditions": [
@@ -594,6 +785,30 @@
           "ASSIGN",
           "free_c1",
           false
+        ],
+        [
+          "DEFINE_VARIABLE",
+          "battery-amount_c1_old ",
+          [
+            "READ_BELIEF",
+            "battery-amount_c1"
+          ]
+        ],
+        [
+          "DEFINE_VARIABLE",
+          "stone-stored_s1_old ",
+          [
+            "READ_BELIEF",
+            "stone-stored_s1"
+          ]
+        ],
+        [
+          "DEFINE_VARIABLE",
+          "stone-amount_c1_old ",
+          [
+            "READ_BELIEF",
+            "stone-amount_c1"
+          ]
         ]
       ],
       "effects_at_end": [
@@ -601,6 +816,56 @@
           "ASSIGN",
           "free_c1",
           true
+        ]
+      ],
+      "post-conditions": [
+        [
+          "AND",
+          [
+            "==",
+            [
+              "READ_VARIABLE",
+              "battery-amount_c1_old"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "battery-amount_c1"
+              ],
+              1
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_VARIABLE",
+              "stone-stored_s1_old"
+            ],
+            [
+              "+",
+              [
+                "READ_BELIEF",
+                "stone-stored_s1"
+              ],
+              1
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_VARIABLE",
+              "stone-amount_c1_old"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "stone-amount_c1"
+              ],
+              1
+            ]
+          ]
         ]
       ],
       "preconditions": [
@@ -676,6 +941,22 @@
           "ASSIGN",
           "free_c1",
           false
+        ],
+        [
+          "DEFINE_VARIABLE",
+          "battery-amount_c1_old ",
+          [
+            "READ_BELIEF",
+            "battery-amount_c1"
+          ]
+        ],
+        [
+          "DEFINE_VARIABLE",
+          "wood-amount_c1_old ",
+          [
+            "READ_BELIEF",
+            "wood-amount_c1"
+          ]
         ]
       ],
       "effects_at_end": [
@@ -683,6 +964,41 @@
           "ASSIGN",
           "free_c1",
           true
+        ]
+      ],
+      "post-conditions": [
+        [
+          "AND",
+          [
+            "==",
+            [
+              "READ_VARIABLE",
+              "battery-amount_c1_old"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "battery-amount_c1"
+              ],
+              5
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_VARIABLE",
+              "wood-amount_c1_old"
+            ],
+            [
+              "+",
+              [
+                "READ_BELIEF",
+                "wood-amount_c1"
+              ],
+              1
+            ]
+          ]
         ]
       ],
       "preconditions": [
@@ -761,6 +1077,30 @@
           "ASSIGN",
           "free_c1",
           false
+        ],
+        [
+          "DEFINE_VARIABLE",
+          "battery-amount_c1_old ",
+          [
+            "READ_BELIEF",
+            "battery-amount_c1"
+          ]
+        ],
+        [
+          "DEFINE_VARIABLE",
+          "wood-stored_s1_old ",
+          [
+            "READ_BELIEF",
+            "wood-stored_s1"
+          ]
+        ],
+        [
+          "DEFINE_VARIABLE",
+          "wood-amount_c1_old ",
+          [
+            "READ_BELIEF",
+            "wood-amount_c1"
+          ]
         ]
       ],
       "effects_at_end": [
@@ -768,6 +1108,56 @@
           "ASSIGN",
           "free_c1",
           true
+        ]
+      ],
+      "post-conditions": [
+        [
+          "AND",
+          [
+            "==",
+            [
+              "READ_VARIABLE",
+              "battery-amount_c1_old"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "battery-amount_c1"
+              ],
+              1
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_VARIABLE",
+              "wood-stored_s1_old"
+            ],
+            [
+              "+",
+              [
+                "READ_BELIEF",
+                "wood-stored_s1"
+              ],
+              1
+            ]
+          ],
+          [
+            "==",
+            [
+              "READ_VARIABLE",
+              "wood-amount_c1_old"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "wood-amount_c1"
+              ],
+              1
+            ]
+          ]
         ]
       ],
       "preconditions": [

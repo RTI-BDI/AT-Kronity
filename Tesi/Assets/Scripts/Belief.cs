@@ -97,4 +97,14 @@ public class Belief
         }
     }
 
+    //Get the grounded name
+    public string GetGroundedName()
+    {
+        string result = this.name;
+        foreach (Parameter p in this.param)
+        {
+            result = result + "_" + p.name;
+        }
+        return result;
+    }
 }

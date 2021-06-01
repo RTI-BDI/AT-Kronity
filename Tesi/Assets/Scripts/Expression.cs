@@ -108,18 +108,29 @@ public class Expression
         {
             case (Node.NodeType.Operator):
                 string op = "";
-                if (this.node.value == "=")
+                switch (this.node.value)
                 {
-                    op = "==";
-                } else
-                {
-                    op = this.node.value;
+                    case "=":
+                        op = "==";
+                        break;
+                    case "increase":
+                        op = "+";
+                        break;
+                    case "decrease":
+                        op = "-";
+                        break;
+                    default:
+                        op = this.node.value;
+                        break;
                 }
                 result = result + " [ \"" + op + "\", " + this.exp_1.ToKronosimExpCondition() + ", " + this.exp_2.ToKronosimExpCondition() + " ] "; 
                 break;
             case (Node.NodeType.Unary):
                 switch (this.node.value) {
                     case "at start":
+                        result = result + this.exp_1.ToKronosimExpCondition();
+                        break;
+                    case "at end":
                         result = result + this.exp_1.ToKronosimExpCondition();
                         break;
                     case "true":

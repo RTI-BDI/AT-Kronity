@@ -174,6 +174,10 @@ public class Plan
                 }
                 
             }
+            foreach (Expression e in entry.Value.postConditions)
+            {
+                result = result + " [ \"DEFINE_VARIABLE\", \"" + e.exp_1.exp_1.node.belief.GetGroundedName() + "_old \", [ \"READ_BELIEF\", \"" + e.exp_1.exp_1.node.belief.GetGroundedName() + "\" ] ], ";
+            }
             //remove last comma
             result = result.Remove(result.Length - 1);
             result = result + " ], ";
@@ -191,12 +195,27 @@ public class Plan
             result = result.Remove(result.Length - 1);
             result = result + " ], ";
 
-            //TODO - POST_CONDITIONS
+            //Postconditions
+            result = result + "\"post-conditions\": [ [ \"AND\", ";
+
+            int counter = 0;
+            foreach (Expression e in entry.Value.postConditions)
+            {
+                result = result + "[ \"==\", [ \"READ_VARIABLE\", \"" + e.exp_1.exp_1.node.belief.GetGroundedName() + "_old\" ], " + e.ToKronosimExpCondition() + " ]";
+
+                if (counter != entry.Value.conditions.Count - 1)
+                {
+                    result = result + ", ";
+                }
+                counter++;
+            }
+
+            result = result + " ] ], ";
 
             //Preconditions
             result = result + "\"preconditions\": [ [ \"AND\", ";
 
-            int counter = 0;
+            counter = 0;
             foreach (Expression e in entry.Value.conditions)
             {
                 result = result + e.ToKronosimExpCondition();
