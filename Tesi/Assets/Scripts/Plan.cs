@@ -176,7 +176,7 @@ public class Plan
             }
             foreach (Expression e in entry.Value.postConditions)
             {
-                result = result + " [ \"DEFINE_VARIABLE\", \"" + e.exp_1.exp_1.node.belief.GetGroundedName() + "_old \", [ \"READ_BELIEF\", \"" + e.exp_1.exp_1.node.belief.GetGroundedName() + "\" ] ], ";
+                result = result + " [ \"DEFINE_VARIABLE\", \"" + e.exp_1.exp_1.node.belief.GetGroundedName() + "_old\", [ \"READ_BELIEF\", \"" + e.exp_1.exp_1.node.belief.GetGroundedName() + "\" ] ], ";
             }
             //remove last comma
             result = result.Remove(result.Length - 1);

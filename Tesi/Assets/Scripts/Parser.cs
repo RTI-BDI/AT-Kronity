@@ -492,7 +492,7 @@ public class Parser : MonoBehaviour
         jsonStr = jsonStr + "\"effects_at_end\": [ ], ";
 
         //post_coonditions
-        jsonStr = jsonStr + "\"post_conditions\": [ ], ";
+        jsonStr = jsonStr + "\"post-conditions\": [ ], ";
 
         //preconditions
         jsonStr = jsonStr + "\"preconditions\": [ [ \"AND\", ";
