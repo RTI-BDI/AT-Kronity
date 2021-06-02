@@ -144,15 +144,7 @@ public class Expression
                 } 
                 break;
             case (Node.NodeType.LeafBelief):
-                result = result + " [ \"READ_BELIEF\", \"" + this.node.belief.name;
-                if (this.node.belief.type != Belief.BeliefType.Constant)
-                {
-                    foreach (Parameter p in this.node.belief.param)
-                    {
-                        result = result + "_" + p.name;
-                    }
-                }
-                result = result + "\" ] ";
+                result = result + " [ \"READ_BELIEF\", \"" + this.node.belief.GetGroundedName() + "\" ] ";
                 break;
             case (Node.NodeType.LeafValue):
                 result = result + this.node.value;
@@ -210,12 +202,7 @@ public class Expression
                 result = result + this.node.value;
                 break;
             case Node.NodeType.LeafBelief:
-                result = result + "\"" + this.node.belief.name;
-                foreach (Parameter p in this.node.belief.param)
-                {
-                    result = result + "_" + p.name;
-                }
-                result = result + "\"";
+                result = result + "\"" + this.node.belief.GetGroundedName() + "\"";
                 break;
             default:
                 break;
@@ -231,23 +218,14 @@ public class Expression
 
         if (this.exp_1.node.belief.type != Belief.BeliefType.Predicate)
         {
-            jsonStr = jsonStr + " [ \"==\", [ \"READ_BELIEF\", \"" + this.exp_1.node.belief.name;
-            if (this.exp_1.node.belief.type != Belief.BeliefType.Constant)
-                foreach (Parameter p in this.exp_1.node.belief.param)
-                {
-                    jsonStr = jsonStr + "_" + p.name;
-                }
-            jsonStr = jsonStr + "\" ], " + this.exp_2.node.value + " ]";
+            jsonStr = jsonStr + " [ \"==\", [ \"READ_BELIEF\", \"" + this.exp_1.node.belief.GetGroundedName() + "\" ], ";
+            jsonStr = jsonStr + this.exp_2.node.value + " ]";
 
         }
         else
         {
-            jsonStr = jsonStr + " [ \"==\", [ \"READ_BELIEF\", \"" + this.exp_1.node.belief.name;
-            foreach (Parameter p in this.exp_1.node.belief.param)
-            {
-                jsonStr = jsonStr + "_" + p.name;
-            }
-            jsonStr = jsonStr + "\" ], " + this.node.value + " ]";
+            jsonStr = jsonStr + " [ \"==\", [ \"READ_BELIEF\", \"" + this.exp_1.node.belief.GetGroundedName() + "\" ], ";
+            jsonStr = jsonStr + this.node.value + " ]";
         }
 
         return jsonStr;

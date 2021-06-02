@@ -77,7 +77,7 @@
       "cont_conditions": [],
       "effects_at_begin": [],
       "effects_at_end": [],
-      "post_conditions": [],
+      "post-conditions": [],
       "preconditions": [
         [
           "AND",
@@ -323,7 +323,7 @@
         ],
         [
           "DEFINE_VARIABLE",
-          "battery-amount_c1_old ",
+          "battery-amount_c1_old",
           [
             "READ_BELIEF",
             "battery-amount_c1"
@@ -331,7 +331,7 @@
         ],
         [
           "DEFINE_VARIABLE",
-          "posX_c1_old ",
+          "posX_c1_old",
           [
             "READ_BELIEF",
             "posX_c1"
@@ -426,7 +426,7 @@
         ],
         [
           "DEFINE_VARIABLE",
-          "battery-amount_c1_old ",
+          "battery-amount_c1_old",
           [
             "READ_BELIEF",
             "battery-amount_c1"
@@ -434,7 +434,7 @@
         ],
         [
           "DEFINE_VARIABLE",
-          "posY_c1_old ",
+          "posY_c1_old",
           [
             "READ_BELIEF",
             "posY_c1"
@@ -529,7 +529,7 @@
         ],
         [
           "DEFINE_VARIABLE",
-          "battery-amount_c1_old ",
+          "battery-amount_c1_old",
           [
             "READ_BELIEF",
             "battery-amount_c1"
@@ -537,7 +537,7 @@
         ],
         [
           "DEFINE_VARIABLE",
-          "stone-amount_c1_old ",
+          "stone-amount_c1_old",
           [
             "READ_BELIEF",
             "stone-amount_c1"
@@ -665,7 +665,7 @@
         ],
         [
           "DEFINE_VARIABLE",
-          "battery-amount_c1_old ",
+          "battery-amount_c1_old",
           [
             "READ_BELIEF",
             "battery-amount_c1"
@@ -788,7 +788,7 @@
         ],
         [
           "DEFINE_VARIABLE",
-          "battery-amount_c1_old ",
+          "battery-amount_c1_old",
           [
             "READ_BELIEF",
             "battery-amount_c1"
@@ -796,7 +796,7 @@
         ],
         [
           "DEFINE_VARIABLE",
-          "stone-stored_s1_old ",
+          "stone-stored_s1_old",
           [
             "READ_BELIEF",
             "stone-stored_s1"
@@ -804,7 +804,7 @@
         ],
         [
           "DEFINE_VARIABLE",
-          "stone-amount_c1_old ",
+          "stone-amount_c1_old",
           [
             "READ_BELIEF",
             "stone-amount_c1"
@@ -944,7 +944,7 @@
         ],
         [
           "DEFINE_VARIABLE",
-          "battery-amount_c1_old ",
+          "battery-amount_c1_old",
           [
             "READ_BELIEF",
             "battery-amount_c1"
@@ -952,7 +952,7 @@
         ],
         [
           "DEFINE_VARIABLE",
-          "wood-amount_c1_old ",
+          "wood-amount_c1_old",
           [
             "READ_BELIEF",
             "wood-amount_c1"
@@ -1080,7 +1080,7 @@
         ],
         [
           "DEFINE_VARIABLE",
-          "battery-amount_c1_old ",
+          "battery-amount_c1_old",
           [
             "READ_BELIEF",
             "battery-amount_c1"
@@ -1088,7 +1088,7 @@
         ],
         [
           "DEFINE_VARIABLE",
-          "wood-stored_s1_old ",
+          "wood-stored_s1_old",
           [
             "READ_BELIEF",
             "wood-stored_s1"
@@ -1096,7 +1096,7 @@
         ],
         [
           "DEFINE_VARIABLE",
-          "wood-amount_c1_old ",
+          "wood-amount_c1_old",
           [
             "READ_BELIEF",
             "wood-amount_c1"

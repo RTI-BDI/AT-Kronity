@@ -228,6 +228,13 @@ public class Parser : MonoBehaviour
             writer.Formatting = Formatting.Indented;
             jobject.WriteTo(writer);
         }
+
+        using (StreamWriter file = File.CreateText("./Assets/JSON/Update_BeliefSet.json"))
+        using (JsonTextWriter writer = new JsonTextWriter(file))
+        {
+            writer.Formatting = Formatting.Indented;
+            jobject.WriteTo(writer);
+        }
     }
 
     //Utility function used to translate a single belief into JSON; Used in GenerateBeliefSet
@@ -235,15 +242,7 @@ public class Parser : MonoBehaviour
     {
         string result = "";
         result = result + "{ \n";
-        result = result + "\"name\" : \"" + belief.name;
-        if (belief.type != Belief.BeliefType.Constant)
-        {
-            foreach (Parameter p in belief.param)
-            {
-                result = result + "_" + p.name;
-            }
-        }
-        result = result + "\",\n";
+        result = result + "\"name\" : \"" + belief.GetGroundedName() + "\", \n";
         result = result + "\"value\" : " + value + "\n";
         result = result + "}";
         return result;
@@ -313,13 +312,7 @@ public class Parser : MonoBehaviour
         foreach (Action a in groundedActions)
         {
 
-            jsonStr = jsonStr + "{ \"goal_name\" : \"" + a.name;
-            foreach (Parameter p in a.parameters)
-            {
-                jsonStr = jsonStr + "_" + p.name;
-            }
-            jsonStr = jsonStr + "\" } ";
-
+            jsonStr = jsonStr + "{ \"goal_name\" : \"" + a.GetGroundedName() + "\" } ";
 
             if (counter != groundedActions.Count - 1)
             {
@@ -454,12 +447,7 @@ public class Parser : MonoBehaviour
         foreach (KeyValuePair<float, Action> entry in plan.steps)
         {
             jsonStr = jsonStr + "{ \"action\": { \"priority\": 0.5, \"deadline\": " + float.Parse(entry.Value.duration.node.value) + ", ";
-            jsonStr = jsonStr + "\"goal_name\": \"" + entry.Value.name;
-            foreach (Parameter p in entry.Value.parameters)
-            {
-                jsonStr = jsonStr + "_" + p.name;
-            }
-            jsonStr = jsonStr + "\", ";
+            jsonStr = jsonStr + "\"goal_name\": \"" + entry.Value.GetGroundedName() + "\", ";
             jsonStr = jsonStr + "\"arrivalTime\": " + Plan.CommaToDotArrivalTime(entry) + " }, ";
             jsonStr = jsonStr + "\"action_type\": \"GOAL\", ";
 

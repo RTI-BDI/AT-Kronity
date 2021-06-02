@@ -146,12 +146,7 @@ public class Plan
             result = result + ", { ";
 
             //Goal name
-            result = result + "\"goal_name\": \"" + entry.Value.name;
-            foreach (Parameter p in entry.Value.parameters)
-            {
-                result = result + "_" + p.name;
-            }
-            result = result + "\", ";
+            result = result + "\"goal_name\": \"" + entry.Value.GetGroundedName() + "\", ";
 
             //Body
             result = result + "\"body\": [ { \"action_type\": \"TASK\", \"execution\": \"SEQUENTIAL\", ";

@@ -219,14 +219,21 @@ public class Action
         }
 
         result = result + " ] ],";
-        result = result + " \"goal_name\" : \"" + this.name;
+        result = result + " \"goal_name\" : \"" + this.GetGroundedName() + "\"";
+        result = result + "} ";
+
+        return result;
+    }
+
+    //Get the grounded name
+    public string GetGroundedName()
+    {
+        string result = "";
+        result = result + this.name;
         foreach (Parameter p in this.parameters)
         {
             result = result + "_" + p.name;
         }
-        result = result + "\"";
-        result = result + "} ";
-
         return result;
     }
 }
