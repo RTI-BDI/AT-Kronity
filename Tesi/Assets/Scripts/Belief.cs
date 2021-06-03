@@ -81,7 +81,14 @@ public class Belief
     //Translate from Object to PDDL
     public string ToPDDL(bool questionMark)
     {
-        return "(" + this.GetGroundedName() + ")";
+        string result = "(" + this.name;
+        if(this.type != BeliefType.Constant)
+            foreach (Parameter p in this.param)
+            {
+                result = result + " " + p.ToPDDL(questionMark);
+            }
+        result = result + ")";
+        return result;
     }
 
     //Get the grounded name

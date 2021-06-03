@@ -7,13 +7,45 @@ using Newtonsoft.Json.Linq;
 
 public class Parser : MonoBehaviour
 {
+
+    private Domain domainObject;
+    private Problem problemObject;
+    private Dictionary<Belief, int> groundedBeliefs;
+    private List<Action> groundedActions;
+    private Plan plan;
+
     // Start is called before the first frame update
     void Start()
     {
-        DoStuff();
+        
     }
 
-    private void DoStuff()
+    public Domain GetDomain()
+    {
+        return domainObject;
+    }
+
+    public Problem GetProblem()
+    {
+        return problemObject;
+    }
+
+    public Dictionary<Belief, int> GetGroundedBeliefs()
+    {
+        return groundedBeliefs;
+    }
+
+    public List<Action> GetGroundedActions()
+    {
+        return groundedActions;
+    }
+
+    public Plan GetPlan()
+    {
+        return plan;
+    }
+
+    public void Parse()
     {
         //Read Json file to string
         string jsonDomain = File.ReadAllText("./Assets/JSON/Domain.json");
@@ -27,25 +59,26 @@ public class Parser : MonoBehaviour
         JArray problem = objectProblem["problem"] as JArray;
 
         //Evalutation
-        Domain domainObject = Domain.Evaluate(domain);
-        Problem problemObject = Problem.Evaluate(problem);
+        domainObject = Domain.Evaluate(domain);
+        problemObject = Problem.Evaluate(problem);
 
         WritePDDLOnFile(domainObject.ToPDDL(), "DomainPDDL.pddl");
         WritePDDLOnFile(problemObject.ToPDDL(), "ProblemPDDL.pddl");
 
         //Belief grounding
-        Dictionary<Belief, int> groundedBeliefs = GenerateBeliefGrounding(domainObject, problemObject);
+        groundedBeliefs = GenerateBeliefGrounding(domainObject, problemObject);
         GenerateBeliefSet(groundedBeliefs);
 
         //ActionGrounding
-        List<Action> groundedActions = GenerateActionGrounding(domainObject, problemObject);
+        groundedActions = GenerateActionGrounding(domainObject, problemObject);
         GenerateSkillSet(groundedActions);
         GenerateDesireSet(problemObject, groundedActions);
 
         //Plan generation
         string[] plainPlan = File.ReadAllLines("./Assets/JSON/PlainPlan.txt");
-        Plan p = Plan.FromPlainToObject(plainPlan, groundedActions);
-        GeneratePlanSet(p, problemObject);
+        plan = Plan.FromPlainToObject(plainPlan, groundedActions);
+        GeneratePlanSet(plan, problemObject);
+
 
     }
 
