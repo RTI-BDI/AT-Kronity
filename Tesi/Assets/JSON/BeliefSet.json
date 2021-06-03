@@ -38,7 +38,7 @@
     },
     {
       "name": "posX_c1",
-      "value": 0
+      "value": 6
     },
     {
       "name": "posX_p1",
@@ -50,19 +50,19 @@
     },
     {
       "name": "posX_st1",
-      "value": 1
+      "value": 4
     },
     {
       "name": "posX_s1",
-      "value": 1
+      "value": 7
     },
     {
       "name": "posX_rs1",
-      "value": 1
+      "value": 9
     },
     {
       "name": "posY_c1",
-      "value": 0
+      "value": 4
     },
     {
       "name": "posY_p1",
@@ -74,15 +74,15 @@
     },
     {
       "name": "posY_st1",
-      "value": 1
+      "value": 2
     },
     {
       "name": "posY_s1",
-      "value": 1
+      "value": 8
     },
     {
       "name": "posY_rs1",
-      "value": 1
+      "value": 2
     },
     {
       "name": "wood-stored_s1",

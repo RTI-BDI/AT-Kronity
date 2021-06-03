@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Collector : MonoBehaviour
+public class Storage : MonoBehaviour
 {
+
     [SerializeField]
     private string name;
     [SerializeField]
@@ -11,11 +12,11 @@ public class Collector : MonoBehaviour
     [SerializeField]
     private int posY;
     [SerializeField]
-    private int batteryAmount;
+    private int woodStored;
     [SerializeField]
-    private int woodAmount;
+    private int stoneStored;
     [SerializeField]
-    private int stoneAmount;
+    private int chestStored;
 
     // Start is called before the first frame update
     void Start()
@@ -43,20 +44,21 @@ public class Collector : MonoBehaviour
     {
         switch (attribute)
         {
-            case "battery-amount":
-                this.batteryAmount = int.Parse(value);
-                break;
+
             case "posX":
                 this.posX = int.Parse(value);
                 break;
             case "posY":
                 this.posY = int.Parse(value);
                 break;
-            case "wood-amount":
-                this.woodAmount = int.Parse(value);
+            case "wood-stored":
+                this.woodStored = int.Parse(value);
                 break;
-            case "stone-amount":
-                this.stoneAmount = int.Parse(value);
+            case "stone-stored":
+                this.stoneStored = int.Parse(value);
+                break;
+            case "chest-stored":
+                this.chestStored = int.Parse(value);
                 break;
             default:
                 break;
@@ -65,6 +67,7 @@ public class Collector : MonoBehaviour
 
     public void MoveToDestination(float tileSize, Vector2 position)
     {
-        gameObject.transform.position = new Vector2(position.x + (posX * tileSize) - (tileSize / 2f), position.y + (-posY * tileSize) + (tileSize / 2f));
+        gameObject.transform.position = new Vector2(position.x + (posX * tileSize) - (tileSize / 2), position.y + (-posY * tileSize) + (tileSize / 2));
     }
+
 }

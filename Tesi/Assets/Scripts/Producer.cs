@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Collector : MonoBehaviour
+public class Producer : MonoBehaviour
 {
+
     [SerializeField]
     private string name;
     [SerializeField]
@@ -16,17 +17,19 @@ public class Collector : MonoBehaviour
     private int woodAmount;
     [SerializeField]
     private int stoneAmount;
+    [SerializeField]
+    private int chestAmount;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void SetName(string name)
@@ -58,6 +61,9 @@ public class Collector : MonoBehaviour
             case "stone-amount":
                 this.stoneAmount = int.Parse(value);
                 break;
+            case "chest-amount":
+                this.chestAmount = int.Parse(value);
+                break;
             default:
                 break;
         }
@@ -67,4 +73,5 @@ public class Collector : MonoBehaviour
     {
         gameObject.transform.position = new Vector2(position.x + (posX * tileSize) - (tileSize / 2f), position.y + (-posY * tileSize) + (tileSize / 2f));
     }
+
 }
