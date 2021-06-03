@@ -156,6 +156,71 @@ public class Expression
         return result;
     }
 
+    //Translate from Object to Kronosim Condition and substitute any matching Belief into a Variable
+    public string ToKronosimExpCondition(string toSubstitute)
+    {
+        string result = "";
+
+        switch (this.node.type)
+        {
+            case (Node.NodeType.Operator):
+                string op = "";
+                switch (this.node.value)
+                {
+                    case "=":
+                        op = "==";
+                        break;
+                    case "increase":
+                        op = "+";
+                        break;
+                    case "decrease":
+                        op = "-";
+                        break;
+                    default:
+                        op = this.node.value;
+                        break;
+                }
+                result = result + " [ \"" + op + "\", " + this.exp_1.ToKronosimExpCondition(toSubstitute) + ", " + this.exp_2.ToKronosimExpCondition(toSubstitute) + " ] ";
+                break;
+            case (Node.NodeType.Unary):
+                switch (this.node.value)
+                {
+                    case "at start":
+                        result = result + this.exp_1.ToKronosimExpCondition(toSubstitute);
+                        break;
+                    case "at end":
+                        result = result + this.exp_1.ToKronosimExpCondition(toSubstitute);
+                        break;
+                    case "true":
+                        result = result + " [ \"==\", " + this.exp_1.ToKronosimExpCondition(toSubstitute) + ", true ] ";
+                        break;
+                    case "false":
+                        result = result + " [ \"==\", " + this.exp_1.ToKronosimExpCondition(toSubstitute) + ", false ] ";
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case (Node.NodeType.LeafBelief):
+                if(this.node.belief.GetGroundedName() == toSubstitute)
+                {
+                    result = result + " [ \"READ_VARIABLE\", \"" + this.node.belief.GetGroundedName() + "_old\" ] ";
+                } else
+                {
+                    result = result + " [ \"READ_BELIEF\", \"" + this.node.belief.GetGroundedName() + "\" ] ";
+                }
+
+                break;
+            case (Node.NodeType.LeafValue):
+                result = result + this.node.value;
+                break;
+            default:
+                break;
+        }
+
+        return result;
+    }
+
     //Translate from Object to Kronosim Expression
     public string ToKronosimExpEffect()
     {

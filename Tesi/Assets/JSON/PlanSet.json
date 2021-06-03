@@ -351,14 +351,14 @@
           [
             "==",
             [
-              "READ_VARIABLE",
-              "battery-amount_c1_old"
+              "READ_BELIEF",
+              "battery-amount_c1"
             ],
             [
               "-",
               [
-                "READ_BELIEF",
-                "battery-amount_c1"
+                "READ_VARIABLE",
+                "battery-amount_c1_old"
               ],
               2
             ]
@@ -366,14 +366,14 @@
           [
             "==",
             [
-              "READ_VARIABLE",
-              "posX_c1_old"
+              "READ_BELIEF",
+              "posX_c1"
             ],
             [
               "+",
               [
-                "READ_BELIEF",
-                "posX_c1"
+                "READ_VARIABLE",
+                "posX_c1_old"
               ],
               1
             ]
@@ -454,14 +454,14 @@
           [
             "==",
             [
-              "READ_VARIABLE",
-              "battery-amount_c1_old"
+              "READ_BELIEF",
+              "battery-amount_c1"
             ],
             [
               "-",
               [
-                "READ_BELIEF",
-                "battery-amount_c1"
+                "READ_VARIABLE",
+                "battery-amount_c1_old"
               ],
               2
             ]
@@ -469,14 +469,14 @@
           [
             "==",
             [
-              "READ_VARIABLE",
-              "posY_c1_old"
+              "READ_BELIEF",
+              "posY_c1"
             ],
             [
               "+",
               [
-                "READ_BELIEF",
-                "posY_c1"
+                "READ_VARIABLE",
+                "posY_c1_old"
               ],
               1
             ]
@@ -557,14 +557,14 @@
           [
             "==",
             [
-              "READ_VARIABLE",
-              "battery-amount_c1_old"
+              "READ_BELIEF",
+              "battery-amount_c1"
             ],
             [
               "-",
               [
-                "READ_BELIEF",
-                "battery-amount_c1"
+                "READ_VARIABLE",
+                "battery-amount_c1_old"
               ],
               5
             ]
@@ -572,14 +572,14 @@
           [
             "==",
             [
-              "READ_VARIABLE",
-              "stone-amount_c1_old"
+              "READ_BELIEF",
+              "stone-amount_c1"
             ],
             [
               "+",
               [
-                "READ_BELIEF",
-                "stone-amount_c1"
+                "READ_VARIABLE",
+                "stone-amount_c1_old"
               ],
               1
             ]
@@ -685,14 +685,14 @@
           [
             "==",
             [
-              "READ_VARIABLE",
-              "battery-amount_c1_old"
+              "READ_BELIEF",
+              "battery-amount_c1"
             ],
             [
               "+",
               [
-                "READ_BELIEF",
-                "battery-amount_c1"
+                "READ_VARIABLE",
+                "battery-amount_c1_old"
               ],
               [
                 "-",
@@ -701,8 +701,8 @@
                   "battery-capacity"
                 ],
                 [
-                  "READ_BELIEF",
-                  "battery-amount_c1"
+                  "READ_VARIABLE",
+                  "battery-amount_c1_old"
                 ]
               ]
             ]
@@ -824,14 +824,14 @@
           [
             "==",
             [
-              "READ_VARIABLE",
-              "battery-amount_c1_old"
+              "READ_BELIEF",
+              "battery-amount_c1"
             ],
             [
               "-",
               [
-                "READ_BELIEF",
-                "battery-amount_c1"
+                "READ_VARIABLE",
+                "battery-amount_c1_old"
               ],
               1
             ]
@@ -839,14 +839,14 @@
           [
             "==",
             [
-              "READ_VARIABLE",
-              "stone-stored_s1_old"
+              "READ_BELIEF",
+              "stone-stored_s1"
             ],
             [
               "+",
               [
-                "READ_BELIEF",
-                "stone-stored_s1"
+                "READ_VARIABLE",
+                "stone-stored_s1_old"
               ],
               1
             ]
@@ -854,14 +854,14 @@
           [
             "==",
             [
-              "READ_VARIABLE",
-              "stone-amount_c1_old"
+              "READ_BELIEF",
+              "stone-amount_c1"
             ],
             [
               "-",
               [
-                "READ_BELIEF",
-                "stone-amount_c1"
+                "READ_VARIABLE",
+                "stone-amount_c1_old"
               ],
               1
             ]
@@ -972,14 +972,14 @@
           [
             "==",
             [
-              "READ_VARIABLE",
-              "battery-amount_c1_old"
+              "READ_BELIEF",
+              "battery-amount_c1"
             ],
             [
               "-",
               [
-                "READ_BELIEF",
-                "battery-amount_c1"
+                "READ_VARIABLE",
+                "battery-amount_c1_old"
               ],
               5
             ]
@@ -987,14 +987,14 @@
           [
             "==",
             [
-              "READ_VARIABLE",
-              "wood-amount_c1_old"
+              "READ_BELIEF",
+              "wood-amount_c1"
             ],
             [
               "+",
               [
-                "READ_BELIEF",
-                "wood-amount_c1"
+                "READ_VARIABLE",
+                "wood-amount_c1_old"
               ],
               1
             ]
@@ -1116,14 +1116,14 @@
           [
             "==",
             [
-              "READ_VARIABLE",
-              "battery-amount_c1_old"
+              "READ_BELIEF",
+              "battery-amount_c1"
             ],
             [
               "-",
               [
-                "READ_BELIEF",
-                "battery-amount_c1"
+                "READ_VARIABLE",
+                "battery-amount_c1_old"
               ],
               1
             ]
@@ -1131,14 +1131,14 @@
           [
             "==",
             [
-              "READ_VARIABLE",
-              "wood-stored_s1_old"
+              "READ_BELIEF",
+              "wood-stored_s1"
             ],
             [
               "+",
               [
-                "READ_BELIEF",
-                "wood-stored_s1"
+                "READ_VARIABLE",
+                "wood-stored_s1_old"
               ],
               1
             ]
@@ -1146,14 +1146,14 @@
           [
             "==",
             [
-              "READ_VARIABLE",
-              "wood-amount_c1_old"
+              "READ_BELIEF",
+              "wood-amount_c1"
             ],
             [
               "-",
               [
-                "READ_BELIEF",
-                "wood-amount_c1"
+                "READ_VARIABLE",
+                "wood-amount_c1_old"
               ],
               1
             ]

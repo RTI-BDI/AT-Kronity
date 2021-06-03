@@ -196,7 +196,7 @@ public class Plan
             int counter = 0;
             foreach (Expression e in entry.Value.postConditions)
             {
-                result = result + "[ \"==\", [ \"READ_VARIABLE\", \"" + e.exp_1.exp_1.node.belief.GetGroundedName() + "_old\" ], " + e.ToKronosimExpCondition() + " ]";
+                result = result + "[ \"==\", [ \"READ_BELIEF\", \"" + e.exp_1.exp_1.node.belief.GetGroundedName() + "\" ], " + e.ToKronosimExpCondition(e.exp_1.exp_1.node.belief.GetGroundedName()) + " ]";
 
                 if (counter != entry.Value.conditions.Count - 1)
                 {
