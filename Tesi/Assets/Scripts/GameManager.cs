@@ -17,18 +17,27 @@ public class GameManager : MonoBehaviour
     private List<GameObject> storages = new List<GameObject>();
     private List<GameObject> rechargeStations = new List<GameObject>();
 
+    bool test;
+
     // Start is called before the first frame update
     void Start()
     {
+        Application.targetFrameRate = 60;
+
         parser.Parse();
         grid.GenerateGrid();
         InstantiateGame();
+
+        test = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown("g"))
+            StartCoroutine(MoveUp(collectors[0]));
+
+        test = false;
     }
     
     private void InstantiateGame()
@@ -205,6 +214,18 @@ public class GameManager : MonoBehaviour
         Destroy(referenceStone);
         Destroy(referenceStorage);
         Destroy(referenceRechargeStation);
+    }
+
+    private IEnumerator MoveUp(GameObject collector)
+    {
+        int actionTime = 120;
+        for(int i = 0; i < actionTime; i++)
+        {
+            Debug.Log(i);
+            collector.transform.position = new Vector2(collector.transform.position.x, collector.transform.position.y - grid.GetTileSize() / actionTime);
+            yield return null;
+        }
+        
     }
 
 }
