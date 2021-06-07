@@ -51,6 +51,6 @@ public class Stone : MonoBehaviour
 
     public void MoveToDestination(float tileSize, Vector2 position)
     {
-        gameObject.transform.position = new Vector2(position.x + (posX * tileSize), position.y + (-posY * tileSize));
+        gameObject.transform.position = new Vector2(position.x + (posX * tileSize), position.y + (posY * tileSize));
     }
 }

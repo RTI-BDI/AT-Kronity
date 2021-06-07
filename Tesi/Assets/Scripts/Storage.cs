@@ -67,7 +67,7 @@ public class Storage : MonoBehaviour
 
     public void MoveToDestination(float tileSize, Vector2 position)
     {
-        gameObject.transform.position = new Vector2(position.x + (posX * tileSize) - (tileSize / 2), position.y + (-posY * tileSize) + (tileSize / 2));
+        gameObject.transform.position = new Vector2(position.x + (posX * tileSize) - (tileSize / 2), position.y + (posY * tileSize) + (tileSize / 2));
     }
 
 }

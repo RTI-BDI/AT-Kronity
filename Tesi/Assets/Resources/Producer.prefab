@@ -103,3 +103,7 @@ MonoBehaviour:
   woodAmount: 0
   stoneAmount: 0
   chestAmount: 0
+  normalSprite: {fileID: -5273464906224490931, guid: 2f7aa7f8a0de79c4b8ea15d4c6d553d9, type: 3}
+  sprite_1: {fileID: 4169606296617357506, guid: 2f7aa7f8a0de79c4b8ea15d4c6d553d9, type: 3}
+  sprite_2: {fileID: -4894303378656550899, guid: 2f7aa7f8a0de79c4b8ea15d4c6d553d9, type: 3}
+  sprite_3: {fileID: 3833471779444823027, guid: 2f7aa7f8a0de79c4b8ea15d4c6d553d9, type: 3}

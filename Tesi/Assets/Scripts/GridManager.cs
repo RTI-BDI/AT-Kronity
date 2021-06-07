@@ -27,8 +27,8 @@ public class GridManager : MonoBehaviour
             {
                 GameObject tile = (GameObject)Instantiate(referenceTile, transform);
 
-                float posX = col * tileSize;
-                float posY = row * -tileSize;
+                float posX = col * tileSize + (tileSize - 1)/2;
+                float posY = row * tileSize + (tileSize - 1)/2;
 
                 tile.transform.position = new Vector2(posX, posY);
             }
@@ -38,7 +38,7 @@ public class GridManager : MonoBehaviour
 
         float gridWidth = cols * tileSize;
         float gridHeight = rows * tileSize;
-        transform.position = new Vector2((-gridWidth / 2f) + (tileSize / 2f), (gridHeight / 2f) - (tileSize / 2f));
+        transform.position = new Vector2((-gridWidth / 2f) + (tileSize / 2f), (-gridHeight / 2f) + (tileSize / 2f));
     }
 
     // Update is called once per frame

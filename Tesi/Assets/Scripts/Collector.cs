@@ -75,7 +75,7 @@ public class Collector : MonoBehaviour
 
     public void MoveToDestination(float tileSize, Vector2 position)
     {
-        gameObject.transform.position = new Vector2(position.x + (posX * tileSize) - (tileSize / 2f), position.y + (-posY * tileSize) + (tileSize / 2f));
+        gameObject.transform.position = new Vector2(position.x + (posX * tileSize) - (tileSize / 2), position.y + (posY * tileSize) + (tileSize / 2));
     }
 
     public IEnumerator MoveUp(float tileSize)
@@ -83,9 +83,11 @@ public class Collector : MonoBehaviour
         int actionTime = 120;
         for (int i = 0; i < actionTime; i++)
         {
-            gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - tileSize / actionTime);
+            gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + tileSize / actionTime);
             yield return null;
         }
+
+        this.posY++;
 
     }
 
@@ -98,6 +100,8 @@ public class Collector : MonoBehaviour
             yield return null;
         }
 
+        this.posY--;
+
     }
 
     public IEnumerator MoveRight(float tileSize)
@@ -108,6 +112,8 @@ public class Collector : MonoBehaviour
             gameObject.transform.position = new Vector2(gameObject.transform.position.x + tileSize / actionTime, gameObject.transform.position.y);
             yield return null;
         }
+
+        this.posX++;
 
     }
 
@@ -120,9 +126,11 @@ public class Collector : MonoBehaviour
             yield return null;
         }
 
+        this.posX--;
+
     }
 
-    public IEnumerator CollectWood(float tileSize, int actionTime)
+    public IEnumerator CollectWood(float tileSize)
     {
         //Adding text
         GameObject newGO = new GameObject("myTextGO");
@@ -132,6 +140,8 @@ public class Collector : MonoBehaviour
         myText.autoSizeTextContainer = true;
         myText.fontSize = 4.5f;
         myText.text = "Collecting Wood...";
+
+        int actionTime = 120;
 
         //Animation
         for (int i = 0; i < actionTime; i++)

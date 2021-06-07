@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyDown("g"))
-            StartCoroutine(collectors[0].GetComponent<Collector>().CollectWood(grid.GetTileSize(), 120));
+            StartCoroutine(producers[0].GetComponent<Producer>().MoveUp(grid.GetTileSize()));
 
         test = false;
     }

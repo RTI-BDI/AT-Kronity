@@ -19,6 +19,14 @@ public class Producer : MonoBehaviour
     private int stoneAmount;
     [SerializeField]
     private int chestAmount;
+    [SerializeField]
+    private Sprite normalSprite;
+    [SerializeField]
+    private Sprite sprite_1;
+    [SerializeField]
+    private Sprite sprite_2;
+    [SerializeField]
+    private Sprite sprite_3;
 
     // Start is called before the first frame update
     void Start()
@@ -71,7 +79,59 @@ public class Producer : MonoBehaviour
 
     public void MoveToDestination(float tileSize, Vector2 position)
     {
-        gameObject.transform.position = new Vector2(position.x + (posX * tileSize) - (tileSize / 2f), position.y + (-posY * tileSize) + (tileSize / 2f));
+        gameObject.transform.position = new Vector2(position.x + (posX * tileSize) - (tileSize/2), position.y + (posY * tileSize) + (tileSize/2));
+    }
+
+    public IEnumerator MoveUp(float tileSize)
+    {
+        int actionTime = 120;
+        for (int i = 0; i < actionTime; i++)
+        {
+            gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + tileSize / actionTime);
+            yield return null;
+        }
+
+        this.posY++;
+
+    }
+
+    public IEnumerator MoveDown(float tileSize)
+    {
+        int actionTime = 120;
+        for (int i = 0; i < actionTime; i++)
+        {
+            gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - tileSize / actionTime);
+            yield return null;
+        }
+
+        this.posY--;
+
+    }
+
+    public IEnumerator MoveRight(float tileSize)
+    {
+        int actionTime = 120;
+        for (int i = 0; i < actionTime; i++)
+        {
+            gameObject.transform.position = new Vector2(gameObject.transform.position.x + tileSize / actionTime, gameObject.transform.position.y);
+            yield return null;
+        }
+
+        this.posX++;
+
+    }
+
+    public IEnumerator MoveLeft(float tileSize)
+    {
+        int actionTime = 120;
+        for (int i = 0; i < actionTime; i++)
+        {
+            gameObject.transform.position = new Vector2(gameObject.transform.position.x - tileSize / actionTime, gameObject.transform.position.y);
+            yield return null;
+        }
+
+        this.posX--;
+
     }
 
 }
