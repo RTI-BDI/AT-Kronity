@@ -70,4 +70,49 @@ public class Storage : MonoBehaviour
         gameObject.transform.position = new Vector2(position.x + (posX * tileSize) - (tileSize / 2), position.y + (posY * tileSize) + (tileSize / 2));
     }
 
+    public IEnumerator ReceiveWood()
+    {
+        int actionTime = 120;
+
+        for (int i = 0; i < actionTime; i++)
+        {
+            yield return null;
+        }
+
+        //Actual effect
+        this.woodStored++;
+
+        //TODO - UpdateBeliefs
+    }
+
+    public IEnumerator ReceiveStone()
+    {
+        int actionTime = 120;
+
+        for (int i = 0; i < actionTime; i++)
+        {
+            yield return null;
+        }
+
+        //Actual effect
+        this.stoneStored++;
+
+        //TODO - UpdateBeliefs
+    }
+
+    public IEnumerator ReceiveChest()
+    {
+        int actionTime = 120;
+
+        for (int i = 0; i < actionTime; i++)
+        {
+            yield return null;
+        }
+
+        //Actual effect
+        this.chestStored++;
+
+        //TODO - UpdateBeliefs
+    }
+
 }

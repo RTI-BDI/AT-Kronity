@@ -9,15 +9,15 @@ public class GameManager : MonoBehaviour
     private GridManager grid;
     [SerializeField]
     private Parser parser;
-    
+
+    private Dictionary<string, int> constants = new Dictionary<string, int>();
+
     private List<GameObject> collectors = new List<GameObject>();
     private List<GameObject> producers = new List<GameObject>();
     private List<GameObject> woods = new List<GameObject>();
     private List<GameObject> stones = new List<GameObject>();
     private List<GameObject> storages = new List<GameObject>();
     private List<GameObject> rechargeStations = new List<GameObject>();
-
-    bool test;
 
     // Start is called before the first frame update
     void Start()
@@ -27,17 +27,13 @@ public class GameManager : MonoBehaviour
         parser.Parse();
         grid.GenerateGrid();
         InstantiateGame();
-
-        test = true;
     }
 
     // Update is called once per frame
     void Update()
     {
         if(Input.GetKeyDown("g"))
-            StartCoroutine(producers[0].GetComponent<Producer>().MoveUp(grid.GetTileSize()));
-
-        test = false;
+            StartCoroutine(collectors[0].GetComponent<Collector>().Recharge(grid.GetTileSize(), constants["battery-capacity"], 120));
     }
     
     private void InstantiateGame()
@@ -94,7 +90,7 @@ public class GameManager : MonoBehaviour
         foreach (Expression init in parser.GetProblem().initializations)
         {
             //Not  considering constant beliefs
-            if(init.node.belief != null)
+            if(init.exp_1.node.belief.type == Belief.BeliefType.Predicate)
             {
                 //This is a predicate !!! Not yet an usage
             } else if (init.exp_1.node.belief.type == Belief.BeliefType.Function)
@@ -179,6 +175,10 @@ public class GameManager : MonoBehaviour
                     default:
                         break;
                 }
+            } else
+            {
+                //Enter this scope if the expression represents a constant
+                constants.Add(init.exp_1.node.belief.name, int.Parse(init.exp_2.node.value));
             }
         }
 
