@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyDown("g"))
-            StartCoroutine(MoveUp(collectors[0]));
+            StartCoroutine(collectors[0].GetComponent<Collector>().CollectWood(grid.GetTileSize(), 120));
 
         test = false;
     }
@@ -216,16 +216,5 @@ public class GameManager : MonoBehaviour
         Destroy(referenceRechargeStation);
     }
 
-    private IEnumerator MoveUp(GameObject collector)
-    {
-        int actionTime = 120;
-        for(int i = 0; i < actionTime; i++)
-        {
-            Debug.Log(i);
-            collector.transform.position = new Vector2(collector.transform.position.x, collector.transform.position.y - grid.GetTileSize() / actionTime);
-            yield return null;
-        }
-        
-    }
 
 }
