@@ -10,8 +10,8 @@ s1 - storage
 rs1 - r_station
 )
 (:init 
-(= (battery-amount c1) 15)
-(= (battery-amount p1) 15)
+(= (battery-amount c1) 50)
+(= (battery-amount p1) 50)
 (= (wood-amount c1) 0)
 (= (stone-amount c1) 0)
 (= (wood-amount p1) 0)
@@ -39,8 +39,8 @@ rs1 - r_station
 )
 (:goal 
 (and 
-(= (wood-stored s1) 1)
-(= (stone-stored s1) 1)
+(= (wood-stored s1) 2)
+(= (stone-stored s1) 3)
 )
 )
 )

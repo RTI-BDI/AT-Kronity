@@ -23,7 +23,7 @@ wood stone - resource
 )
 (:durative-action move-up
 :parameters (?r - robot )
-:duration (= ?duration 3)
+:duration (= ?duration 120)
 :condition (and
 (at start (> (battery-amount ?r) 10))
 (at start (free ?r))
@@ -36,7 +36,7 @@ wood stone - resource
 )
 )(:durative-action move-down
 :parameters (?r - robot )
-:duration (= ?duration 3)
+:duration (= ?duration 120)
 :condition (and
 (at start (> (battery-amount ?r) 10))
 (at start (free ?r))
@@ -49,7 +49,7 @@ wood stone - resource
 )
 )(:durative-action move-right
 :parameters (?r - robot )
-:duration (= ?duration 3)
+:duration (= ?duration 120)
 :condition (and
 (at start (> (battery-amount ?r) 10))
 (at start (free ?r))
@@ -62,7 +62,7 @@ wood stone - resource
 )
 )(:durative-action move-left
 :parameters (?r - robot )
-:duration (= ?duration 3)
+:duration (= ?duration 120)
 :condition (and
 (at start (> (battery-amount ?r) 10))
 (at start (free ?r))
@@ -75,7 +75,7 @@ wood stone - resource
 )
 )(:durative-action collect-wood
 :parameters (?c - collector ?w - wood )
-:duration (= ?duration 5)
+:duration (= ?duration 120)
 :condition (and
 (at start (> (battery-amount ?c) 10))
 (at start (= (posX ?c) (posX ?w)))
@@ -91,7 +91,7 @@ wood stone - resource
 )
 )(:durative-action collect-stone
 :parameters (?c - collector ?s - stone )
-:duration (= ?duration 5)
+:duration (= ?duration 120)
 :condition (and
 (at start (> (battery-amount ?c) 10))
 (at start (= (posX ?c) (posX ?s)))
@@ -122,7 +122,7 @@ wood stone - resource
 )
 )(:durative-action store-wood
 :parameters (?r - robot ?s - storage )
-:duration (= ?duration 1)
+:duration (= ?duration 60)
 :condition (and
 (at start (> (battery-amount ?r) 10))
 (at start (> (wood-amount ?r) 0))
@@ -139,7 +139,7 @@ wood stone - resource
 )
 )(:durative-action store-stone
 :parameters (?r - robot ?s - storage )
-:duration (= ?duration 1)
+:duration (= ?duration 60)
 :condition (and
 (at start (> (battery-amount ?r) 10))
 (at start (> (stone-amount ?r) 0))
@@ -156,7 +156,7 @@ wood stone - resource
 )
 )(:durative-action store-chest
 :parameters (?p - producer ?s - storage )
-:duration (= ?duration 1)
+:duration (= ?duration 60)
 :condition (and
 (at start (> (battery-amount ?p) 10))
 (at start (> (chest-amount ?p) 0))
@@ -173,7 +173,7 @@ wood stone - resource
 )
 )(:durative-action retrieve-wood
 :parameters (?p - producer ?c - collector )
-:duration (= ?duration 2)
+:duration (= ?duration 60)
 :condition (and
 (at start (= (posX ?p) (posX ?c)))
 (at start (= (posY ?p) (posY ?c)))
@@ -191,7 +191,7 @@ wood stone - resource
 )
 )(:durative-action retrieve-stone
 :parameters (?p - producer ?c - collector )
-:duration (= ?duration 2)
+:duration (= ?duration 60)
 :condition (and
 (at start (= (posX ?p) (posX ?c)))
 (at start (= (posY ?p) (posY ?c)))
@@ -209,7 +209,7 @@ wood stone - resource
 )
 )(:durative-action produce-chest
 :parameters (?p - producer )
-:duration (= ?duration 5)
+:duration (= ?duration 120)
 :condition (and
 (at start (> (battery-amount ?p) 10))
 (at start (> (wood-amount ?p) 0))

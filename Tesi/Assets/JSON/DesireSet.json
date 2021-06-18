@@ -18,7 +18,7 @@
               "READ_BELIEF",
               "battery-amount_c1"
             ],
-            15
+            50
           ],
           [
             "==",
@@ -26,7 +26,7 @@
               "READ_BELIEF",
               "battery-amount_p1"
             ],
-            15
+            50
           ],
           [
             "==",

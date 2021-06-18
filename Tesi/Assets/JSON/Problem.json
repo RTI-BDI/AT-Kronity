@@ -14,8 +14,8 @@
                 ]
             ],
             ["defineInit",
-                ["equal", ["function", "battery-amount", ["array", "c1"]], "15" ],
-                ["equal", ["function", "battery-amount", ["array", "p1"]], "15" ],
+                ["equal", ["function", "battery-amount", ["array", "c1"]], "50" ],
+                ["equal", ["function", "battery-amount", ["array", "p1"]], "50" ],
                 ["equal", ["function", "wood-amount", ["array", "c1"]], "0" ],
                 ["equal", ["function", "stone-amount", ["array", "c1"]], "0" ],
                 ["equal", ["function", "wood-amount", ["array", "p1"]], "0" ],
@@ -46,8 +46,8 @@
             ],
   
             ["defineGoal",
-                ["equal", ["function", "wood-stored", ["array", "s1"]], "1" ],
-                ["equal", ["function", "stone-stored", ["array", "s1"]], "1" ]
+                ["equal", ["function", "wood-stored", ["array", "s1"]], "2" ],
+                ["equal", ["function", "stone-stored", ["array", "s1"]], "3" ]
             ]
         ]
 }

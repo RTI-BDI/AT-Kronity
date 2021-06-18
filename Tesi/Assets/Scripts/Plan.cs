@@ -21,21 +21,17 @@ public class Plan
     {
         Plan result = null;
 
-        bool searchingIndex = true;
-        int counter = 0;
-        while (searchingIndex && counter < plain.Length)
-        {
-            if(plain[counter].StartsWith("; Time"))
-            {
-                searchingIndex = false;
-            } else
-            {
-                counter++;
-            }
-        }
+		int index = 0;
+		for (int counter = 0; counter < plain.Length; counter++)
+		{
+			if (plain[counter].StartsWith("; Time"))
+			{
+				index = counter;
+			}
+		}
 
         List<KeyValuePair<float, Action>> tempSteps = new List<KeyValuePair<float, Action>>();
-        for(int i=counter+1; i<plain.Length; i++)
+        for(int i=index+1; i<plain.Length; i++)
         {
             string arrivalTime = string.Empty;
             string action = string.Empty;
