@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json.Linq;
 
-public class Problem : MonoBehaviour
+public class Problem
 {
     //Problem's name
     public string name;
