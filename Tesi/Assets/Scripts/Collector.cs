@@ -657,4 +657,9 @@ public class Collector : MonoBehaviour
 
         //TODO - UpdateBeliefs
     }
+
+	private void OnMouseDown()
+	{
+		UIManager.SetVisibleCollector(this.name, this.posX, this.posY, this.batteryAmount, this.woodAmount, this.stoneAmount, this.normalSprite);
+	}
 }

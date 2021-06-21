@@ -53,4 +53,9 @@ public class Stone : MonoBehaviour
     {
         gameObject.transform.position = new Vector2(position.x + (posX * tileSize), position.y + (posY * tileSize));
     }
+
+	private void OnMouseDown()
+	{
+		UIManager.SetVisibleStone(this.name, this.posX, this.posY, gameObject.GetComponent<SpriteRenderer>().sprite);
+	}
 }

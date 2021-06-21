@@ -54,4 +54,9 @@ public class Wood : MonoBehaviour
         gameObject.transform.position = new Vector2(position.x + (posX * tileSize), position.y + (posY * tileSize));
     }
 
+	private void OnMouseDown()
+	{
+		UIManager.SetVisibleWood(this.name, this.posX, this.posY, gameObject.GetComponent<SpriteRenderer>().sprite);
+	}
+
 }

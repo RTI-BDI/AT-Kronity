@@ -115,4 +115,8 @@ public class Storage : MonoBehaviour
         //TODO - UpdateBeliefs
     }
 
+	private void OnMouseDown()
+	{
+		UIManager.SetVisibleStorage(this.name, this.posX, this.posY, this.woodStored, this.stoneStored, this.chestStored, gameObject.GetComponent<SpriteRenderer>().sprite);
+	}
 }

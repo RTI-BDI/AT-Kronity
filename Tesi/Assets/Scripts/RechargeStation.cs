@@ -53,4 +53,9 @@ public class RechargeStation : MonoBehaviour
     {
         gameObject.transform.position = new Vector2(position.x + (posX * tileSize) - (tileSize / 2), position.y + (posY * tileSize) + (tileSize / 2));
     }
+
+	private void OnMouseDown()
+	{
+		UIManager.SetVisibleRechargeStation(this.name, this.posX, this.posY, gameObject.GetComponent<SpriteRenderer>().sprite);
+	}
 }

@@ -695,4 +695,9 @@ public class Producer : MonoBehaviour
         //TODO - UpdateBeliefs
     }
 
+	private void OnMouseDown()
+	{
+		UIManager.SetVisibleProducer(this.name, this.posX, this.posY, this.batteryAmount, this.woodAmount, this.stoneAmount, this.chestAmount, this.normalSprite);
+	}
+
 }
