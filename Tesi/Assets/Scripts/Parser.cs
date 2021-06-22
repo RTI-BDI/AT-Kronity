@@ -79,7 +79,7 @@ public class Parser : MonoBehaviour
         plan = Plan.FromPlainToObject(plainPlan, groundedActions);
         GeneratePlanSet(plan, problemObject);
 
-
+		GenerateServers();
     }
 
     public void WritePDDLOnFile(string PDDL, string file)
@@ -255,14 +255,14 @@ public class Parser : MonoBehaviour
         JObject jobject = JObject.Parse(jsonStr);
 
         // write JSON directly to a file
-        using (StreamWriter file = File.CreateText("./Assets/JSON/BeliefSet.json"))
+        using (StreamWriter file = File.CreateText("./Assets/kronosim/input/beliefset.json"))
         using (JsonTextWriter writer = new JsonTextWriter(file))
         {
             writer.Formatting = Formatting.Indented;
             jobject.WriteTo(writer);
         }
 
-        using (StreamWriter file = File.CreateText("./Assets/JSON/Update_BeliefSet.json"))
+        using (StreamWriter file = File.CreateText("./Assets/kronosim/input/update-beliefSet.json"))
         using (JsonTextWriter writer = new JsonTextWriter(file))
         {
             writer.Formatting = Formatting.Indented;
@@ -359,7 +359,7 @@ public class Parser : MonoBehaviour
         JObject jobject = JObject.Parse(jsonStr);
 
         // write JSON directly to a file
-        using (StreamWriter file = File.CreateText("./Assets/JSON/SkillSet.json"))
+        using (StreamWriter file = File.CreateText("./Assets/kronosim/input/skillset.json"))
         using (JsonTextWriter writer = new JsonTextWriter(file))
         {
             writer.Formatting = Formatting.Indented;
@@ -393,7 +393,7 @@ public class Parser : MonoBehaviour
         JObject jobject = JObject.Parse(jsonStr);
 
         // write JSON directly to a file
-        using (StreamWriter file = File.CreateText("./Assets/JSON/DesireSet.json"))
+        using (StreamWriter file = File.CreateText("./Assets/kronosim/input/desireset.json"))
         using (JsonTextWriter writer = new JsonTextWriter(file))
         {
             writer.Formatting = Formatting.Indented;
@@ -464,7 +464,7 @@ public class Parser : MonoBehaviour
         }
     }
 
-    //function to generate the PlanSet fro Kronosim
+    //function to generate the PlanSet for Kronosim
     public void GeneratePlanSet(Plan plan, Problem problem)
     {
         // -- GENERAL PLAN ---
@@ -534,11 +534,29 @@ public class Parser : MonoBehaviour
         JObject jobject = JObject.Parse(jsonStr);
 
         // write JSON directly to a file
-        using (StreamWriter file = File.CreateText("./Assets/JSON/PlanSet.json"))
+        using (StreamWriter file = File.CreateText("./Assets/kronosim/input/planset.json"))
         using (JsonTextWriter writer = new JsonTextWriter(file))
         {
             writer.Formatting = Formatting.Indented;
             jobject.WriteTo(writer);
         }
     }
+
+	//function to generate the Servers file for Kronosim
+	public void GenerateServers()
+	{
+		string jsonStr = "";
+		jsonStr = "{ \"0\" : [ { \"budget\" : 5.00, \"id\" : 0, \"period\" : 20.00 } ] }";
+
+
+		JObject jobject = JObject.Parse(jsonStr);
+
+		// write JSON directly to a file
+		using (StreamWriter file = File.CreateText("./Assets/kronosim/input/servers.json"))
+		using (JsonTextWriter writer = new JsonTextWriter(file))
+		{
+			writer.Formatting = Formatting.Indented;
+			jobject.WriteTo(writer);
+		}
+	}
 }
