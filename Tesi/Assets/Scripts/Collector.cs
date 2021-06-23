@@ -36,8 +36,16 @@ public class Collector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
+		//Inspect Object
+		if (Input.GetMouseButtonDown(1))
+		{
+			Collider2D hitCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+			if (hitCollider != null && hitCollider.transform == gameObject.transform)
+			{
+				UIManager.SetVisibleCollector(this.name, this.posX, this.posY, this.batteryAmount, this.woodAmount, this.stoneAmount, this.normalSprite);
+			}
+		}
+	}
 
     public void SetName(string name)
     {
@@ -658,8 +666,4 @@ public class Collector : MonoBehaviour
         //TODO - UpdateBeliefs
     }
 
-	private void OnMouseDown()
-	{
-		UIManager.SetVisibleCollector(this.name, this.posX, this.posY, this.batteryAmount, this.woodAmount, this.stoneAmount, this.normalSprite);
-	}
 }

@@ -20,8 +20,16 @@ public class Stone : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-    }
+		//Inspect Object
+		if (Input.GetMouseButtonDown(1))
+		{
+			Collider2D hitCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+			if (hitCollider != null && hitCollider.transform == gameObject.transform)
+			{
+				UIManager.SetVisibleStone(this.name, this.posX, this.posY, gameObject.GetComponent<SpriteRenderer>().sprite);
+			}
+		}
+	}
 
     public void SetName(string name)
     {
@@ -54,8 +62,4 @@ public class Stone : MonoBehaviour
         gameObject.transform.position = new Vector2(position.x + (posX * tileSize), position.y + (posY * tileSize));
     }
 
-	private void OnMouseDown()
-	{
-		UIManager.SetVisibleStone(this.name, this.posX, this.posY, gameObject.GetComponent<SpriteRenderer>().sprite);
-	}
 }
