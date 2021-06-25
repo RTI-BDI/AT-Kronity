@@ -255,14 +255,14 @@ public class Parser : MonoBehaviour
         JObject jobject = JObject.Parse(jsonStr);
 
         // write JSON directly to a file
-        using (StreamWriter file = File.CreateText("./Assets/kronosim/input/beliefset.json"))
+        using (StreamWriter file = File.CreateText("./Assets/kronosim/inputs/beliefset.json"))
         using (JsonTextWriter writer = new JsonTextWriter(file))
         {
             writer.Formatting = Formatting.Indented;
             jobject.WriteTo(writer);
         }
 
-        using (StreamWriter file = File.CreateText("./Assets/kronosim/input/update-beliefSet.json"))
+        using (StreamWriter file = File.CreateText("./Assets/kronosim/inputs/update-beliefSet.json"))
         using (JsonTextWriter writer = new JsonTextWriter(file))
         {
             writer.Formatting = Formatting.Indented;
@@ -276,7 +276,20 @@ public class Parser : MonoBehaviour
         string result = "";
         result = result + "{ \n";
         result = result + "\"name\" : \"" + belief.GetGroundedName() + "\", \n";
-        result = result + "\"value\" : " + value + "\n";
+		if(belief.type == Belief.BeliefType.Predicate)
+		{
+			if(value == 0)
+			{
+				result = result + "\"value\" : false \n";
+			} else
+			{
+				result = result + "\"value\" : true \n";
+			}
+		} else
+		{
+			result = result + "\"value\" : " + value + "\n";
+		}
+        
         result = result + "}";
         return result;
     }
@@ -359,7 +372,7 @@ public class Parser : MonoBehaviour
         JObject jobject = JObject.Parse(jsonStr);
 
         // write JSON directly to a file
-        using (StreamWriter file = File.CreateText("./Assets/kronosim/input/skillset.json"))
+        using (StreamWriter file = File.CreateText("./Assets/kronosim/inputs/skillset.json"))
         using (JsonTextWriter writer = new JsonTextWriter(file))
         {
             writer.Formatting = Formatting.Indented;
@@ -393,7 +406,7 @@ public class Parser : MonoBehaviour
         JObject jobject = JObject.Parse(jsonStr);
 
         // write JSON directly to a file
-        using (StreamWriter file = File.CreateText("./Assets/kronosim/input/desireset.json"))
+        using (StreamWriter file = File.CreateText("./Assets/kronosim/inputs/desireset.json"))
         using (JsonTextWriter writer = new JsonTextWriter(file))
         {
             writer.Formatting = Formatting.Indented;
@@ -534,7 +547,7 @@ public class Parser : MonoBehaviour
         JObject jobject = JObject.Parse(jsonStr);
 
         // write JSON directly to a file
-        using (StreamWriter file = File.CreateText("./Assets/kronosim/input/planset.json"))
+        using (StreamWriter file = File.CreateText("./Assets/kronosim/inputs/planset.json"))
         using (JsonTextWriter writer = new JsonTextWriter(file))
         {
             writer.Formatting = Formatting.Indented;
@@ -552,7 +565,7 @@ public class Parser : MonoBehaviour
 		JObject jobject = JObject.Parse(jsonStr);
 
 		// write JSON directly to a file
-		using (StreamWriter file = File.CreateText("./Assets/kronosim/input/servers.json"))
+		using (StreamWriter file = File.CreateText("./Assets/kronosim/inputs/servers.json"))
 		using (JsonTextWriter writer = new JsonTextWriter(file))
 		{
 			writer.Formatting = Formatting.Indented;

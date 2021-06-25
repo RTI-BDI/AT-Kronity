@@ -187,7 +187,7 @@ public class Plan
             result = result + " ], ";
 
             //Postconditions
-            result = result + "\"post-conditions\": [ [ \"AND\", ";
+            result = result + "\"post_conditions\": [ [ \"AND\", ";
 
             int counter = 0;
             foreach (Expression e in entry.Value.postConditions)
@@ -220,8 +220,13 @@ public class Plan
 
             result = result + " ] ], ";
 
-            result = result + "} ";
+			//Preference
+			result = result + "\"preference\" : { \"computedDynamically\" : true, \"formula\" : [ 0.8 ], \"reference_table\" : [ ] } ";
+
+			result = result + "} ";
         }
+
+
 
         return result;
     }

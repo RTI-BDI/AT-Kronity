@@ -655,7 +655,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -710,7 +710,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-right_p1",
@@ -758,7 +765,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -813,7 +820,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-down_c1",
@@ -861,7 +875,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -916,7 +930,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-down_p1",
@@ -964,7 +985,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -1019,7 +1040,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-left_c1",
@@ -1067,7 +1095,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -1122,7 +1150,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-left_c1",
@@ -1170,7 +1205,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -1225,7 +1260,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-left_c1",
@@ -1273,7 +1315,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -1328,7 +1370,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-down_c1",
@@ -1376,7 +1425,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -1431,7 +1480,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-down_c1",
@@ -1479,7 +1535,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -1534,7 +1590,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-left_c1",
@@ -1582,7 +1645,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -1637,7 +1700,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-right_c1",
@@ -1685,7 +1755,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -1740,7 +1810,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-right_c1",
@@ -1788,7 +1865,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -1843,7 +1920,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-left_c1",
@@ -1891,7 +1975,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -1946,7 +2030,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-left_c1",
@@ -1994,7 +2085,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -2049,7 +2140,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "collect-wood_c1_w1",
@@ -2097,7 +2195,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -2185,7 +2283,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-right_c1",
@@ -2233,7 +2338,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -2288,7 +2393,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "retrieve-wood_p1_c1",
@@ -2346,7 +2458,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -2431,7 +2543,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-right_p1",
@@ -2479,7 +2598,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -2534,7 +2653,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-right_c1",
@@ -2582,7 +2708,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -2637,7 +2763,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-right_p1",
@@ -2685,7 +2818,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -2740,7 +2873,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-right_c1",
@@ -2788,7 +2928,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -2843,7 +2983,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-up_p1",
@@ -2891,7 +3038,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -2946,7 +3093,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-up_c1",
@@ -2994,7 +3148,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -3049,7 +3203,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "collect-stone_c1_st1",
@@ -3097,7 +3258,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -3185,7 +3346,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-right_p1",
@@ -3233,7 +3401,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -3288,7 +3456,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-left_p1",
@@ -3336,7 +3511,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -3391,7 +3566,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "retrieve-stone_p1_c1",
@@ -3449,7 +3631,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -3534,7 +3716,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-right_p1",
@@ -3582,7 +3771,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -3637,7 +3826,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-right_p1",
@@ -3685,7 +3881,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -3740,7 +3936,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-up_p1",
@@ -3788,7 +3991,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -3843,7 +4046,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-up_p1",
@@ -3891,7 +4101,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -3946,7 +4156,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-up_p1",
@@ -3994,7 +4211,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -4049,7 +4266,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-up_p1",
@@ -4097,7 +4321,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -4152,7 +4376,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-up_p1",
@@ -4200,7 +4431,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -4255,7 +4486,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-right_p1",
@@ -4303,7 +4541,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -4358,7 +4596,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "move-up_p1",
@@ -4406,7 +4651,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -4461,7 +4706,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "store-stone_p1_s1",
@@ -4517,7 +4769,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -4617,7 +4869,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     },
     {
       "goal_name": "store-wood_p1_s1",
@@ -4673,7 +4932,7 @@
           true
         ]
       ],
-      "post-conditions": [
+      "post_conditions": [
         [
           "AND",
           [
@@ -4773,7 +5032,14 @@
             true
           ]
         ]
-      ]
+      ],
+      "preference": {
+        "computedDynamically": true,
+        "formula": [
+          0.8
+        ],
+        "reference_table": []
+      }
     }
   ]
 }
