@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Globalization;
 
 public class Plan
 {
@@ -122,7 +123,7 @@ public class Plan
                 if (areEqual)
                 {
                     Expression newDuration = new Expression(new Node(Node.NodeType.LeafValue, duration));
-                    tempSteps.Add(new KeyValuePair<float, Action>(float.Parse(arrivalTime), new Action(a, newDuration)));
+                    tempSteps.Add(new KeyValuePair<float, Action>(float.Parse(CommaToDotDuration(arrivalTime), CultureInfo.InvariantCulture), new Action(a, newDuration)));
                 }
             }
         }
@@ -147,7 +148,7 @@ public class Plan
             //Body
             result = result + "\"body\": [ { \"action_type\": \"TASK\", \"execution\": \"SEQUENTIAL\", ";
             result = result + "\"action\": { \"computationTime\": " + entry.Value.computation_cost + ", ";
-            result = result + "\"n_exec\": " + (int)(float.Parse(entry.Value.duration.node.value) / entry.Value.period) + ", ";
+            result = result + "\"n_exec\": " + (int)((float.Parse(CommaToDotDuration(entry), CultureInfo.InvariantCulture)) / entry.Value.period) + ", ";
             result = result + "\"period\": " + entry.Value.period + ", \"relativeDeadline\": " + entry.Value.period + ", ";
             result = result + "\"server\": -1";
             result = result + " } } ],";
@@ -264,5 +265,22 @@ public class Plan
         }
 
         return result;
+    }
+    
+    //Change comma to dot in duration from String
+    public static string CommaToDotDuration(string duration){
+    
+    	string result = string.Empty;
+    	foreach (Char c in duration){
+    		if(c == ',')
+            {
+                result += '.';
+            } else
+            {
+                result += c;
+            }
+    	}
+    	
+    	return result;
     }
 }

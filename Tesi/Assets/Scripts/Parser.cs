@@ -4,6 +4,7 @@ using UnityEngine;
 using Newtonsoft.Json;
 using System.IO;
 using Newtonsoft.Json.Linq;
+using System.Globalization;
 
 public class Parser : MonoBehaviour
 {
@@ -492,7 +493,7 @@ public class Parser : MonoBehaviour
         int counter = 0;
         foreach (KeyValuePair<float, Action> entry in plan.steps)
         {
-            jsonStr = jsonStr + "{ \"action\": { \"priority\": 0.5, \"deadline\": " + float.Parse(entry.Value.duration.node.value) + ", ";
+            jsonStr = jsonStr + "{ \"action\": { \"priority\": 0.5, \"deadline\": " + float.Parse(Plan.CommaToDotDuration(entry), CultureInfo.InvariantCulture) + ", ";
             jsonStr = jsonStr + "\"goal_name\": \"" + entry.Value.GetGroundedName() + "\", ";
             jsonStr = jsonStr + "\"arrivalTime\": " + Plan.CommaToDotArrivalTime(entry) + " }, ";
             jsonStr = jsonStr + "\"action_type\": \"GOAL\", ";
