@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField]
     private GridManager grid;
+	private static float tileSize;
+	private static Vector2 gridPosition;
     [SerializeField]
     private Parser parser;
 
@@ -28,6 +30,8 @@ public class GameManager : MonoBehaviour
 
         parser.Parse();
         grid.GenerateGrid();
+		tileSize = grid.GetTileSize();
+		gridPosition = grid.GetPostion();
         InstantiateGame();
         
         //Client client = new Client();
@@ -223,5 +227,13 @@ public class GameManager : MonoBehaviour
         Destroy(referenceRechargeStation);
     }
 
+	public static float GetTileSize()
+	{
+		return tileSize;
+	}
 
+	public static Vector2 GetGridPosition()
+	{
+		return gridPosition;
+	}
 }

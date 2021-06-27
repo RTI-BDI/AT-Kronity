@@ -6,9 +6,7 @@ public class CameraManager : MonoBehaviour
 {
 
 	private Vector3 ResetCamera;
-	private Vector3 Origin;
-	private Vector3 Diference;
-	private bool Drag = false;
+	
 
 	public float zoomSpeed = 2;
 	public float targetOrtho;
@@ -26,23 +24,11 @@ public class CameraManager : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-		if (Input.GetMouseButton(0))
-		{
-			Diference = (Camera.main.ScreenToWorldPoint(Input.mousePosition)) - Camera.main.transform.position;
-			if (Drag == false)
-			{
-				Drag = true;
-				Origin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			}
-		}
-		else
-		{
-			Drag = false;
-		}
-		if (Drag == true)
-		{
-			Camera.main.transform.position = Origin - Diference;
-		}
+		float xAxisValue = Input.GetAxis("Horizontal");
+		float yAxisValue = Input.GetAxis("Vertical");
+
+		transform.position = new Vector3(transform.position.x + xAxisValue, transform.position.y + yAxisValue, transform.position.z);
+
 		//RESET CAMERA TO STARTING POSITION WITH RIGHT CLICK
 		if (Input.GetMouseButton(1))
 		{

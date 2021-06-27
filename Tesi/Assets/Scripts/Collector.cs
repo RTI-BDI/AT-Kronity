@@ -27,6 +27,10 @@ public class Collector : MonoBehaviour
     [SerializeField]
     private Sprite sprite_3;
 
+	private bool dragging = false;
+	private GameObject underneathTile = null;
+	private float distance;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +48,31 @@ public class Collector : MonoBehaviour
 			{
 				UIManager.SetVisibleCollector(this.name, this.posX, this.posY, this.batteryAmount, this.woodAmount, this.stoneAmount, this.normalSprite);
 			}
+		}
+
+		if (dragging)
+		{
+			Collider2D hitCollider = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition), LayerMask.GetMask("Ground"));
+			if (hitCollider != null && hitCollider.CompareTag("Ground"))
+			{
+				if (underneathTile == null)
+				{
+					underneathTile = hitCollider.gameObject;
+				}
+
+				if (underneathTile != null && hitCollider.gameObject != underneathTile)
+				{
+					underneathTile.GetComponent<SpriteRenderer>().color = Color.white;
+					underneathTile = hitCollider.gameObject;
+				}
+
+				hitCollider.gameObject.GetComponent<SpriteRenderer>().color = new Color(0, 221, 255, 255);
+			}
+
+
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			Vector3 rayPoint = ray.GetPoint(distance);
+			transform.position = new Vector3(rayPoint.x - GameManager.GetTileSize()/2, rayPoint.y + GameManager.GetTileSize() / 2, rayPoint.z);
 		}
 	}
 
@@ -666,4 +695,30 @@ public class Collector : MonoBehaviour
         //TODO - UpdateBeliefs
     }
 
+	public void ResetPosition()
+	{
+		this.transform.position = new Vector2(0, 0);
+	}
+
+	void OnMouseDown()
+	{
+		gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
+		distance = Vector3.Distance(transform.position, Camera.main.transform.position);
+		dragging = true;
+	}
+
+	void OnMouseUp()
+	{
+		gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+		underneathTile.GetComponent<SpriteRenderer>().color = Color.white;
+
+		this.posX = (int)(underneathTile.transform.position.x - GameManager.GetGridPosition().x);
+		this.posY = (int)(underneathTile.transform.position.y - GameManager.GetGridPosition().y);
+
+		ResetPosition();
+		MoveToDestination(GameManager.GetTileSize(), GameManager.GetGridPosition());
+
+
+		dragging = false;
+	}
 }
