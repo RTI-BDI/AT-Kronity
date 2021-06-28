@@ -3,14 +3,14 @@
     {
       "belief_name": "posX_c1",
       "mode": "SET",
-      "time": 124,
-      "value": 2
+      "time": 893,
+      "value": 0
     },
     {
       "belief_name": "posY_c1",
       "mode": "SET",
-      "time": 124,
-      "value": 12
+      "time": 893,
+      "value": 0
     }
   ]
 }

@@ -30,6 +30,7 @@ public class Collector : MonoBehaviour
 	private bool dragging = false;
 	private GameObject underneathTile = null;
 	private float distance;
+	private string runningCoroutine = "";
 
     // Start is called before the first frame update
     void Start()
@@ -115,7 +116,12 @@ public class Collector : MonoBehaviour
         gameObject.transform.position = new Vector2(position.x + (posX * tileSize) - (tileSize / 2), position.y + (posY * tileSize) + (tileSize / 2));
     }
 
-    public IEnumerator MoveUp(float tileSize)
+	public void MoveUp()
+	{
+		StartCoroutine(MoveUp(GameManager.GetTileSize(), GameManager.GetBatteryDecrease("move-up")));
+	}
+
+	public IEnumerator MoveUp(float tileSize, int batteryDecrease)
     {
         int actionTime = 120;
         for (int i = 0; i < actionTime; i++)
@@ -123,14 +129,19 @@ public class Collector : MonoBehaviour
             gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + tileSize / actionTime);
             yield return null;
         }
-
-        this.posY++;
+		this.posY++;
+		this.batteryAmount -= batteryDecrease;
 
         //TODO - UpdateBeliefs
 
     }
 
-    public IEnumerator MoveDown(float tileSize)
+	public void MoveDown()
+	{
+		StartCoroutine(MoveDown(GameManager.GetTileSize(), GameManager.GetBatteryDecrease("move-down")));
+	}
+
+	public IEnumerator MoveDown(float tileSize, int batteryDecrease)
     {
         int actionTime = 120;
         for (int i = 0; i < actionTime; i++)
@@ -138,13 +149,18 @@ public class Collector : MonoBehaviour
             gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + tileSize / actionTime);
             yield return null;
         }
-
+		this.batteryAmount -= batteryDecrease;
         this.posY--;
 
         //TODO - UpdateBeliefs
     }
 
-    public IEnumerator MoveRight(float tileSize)
+	public void MoveRight()
+	{
+		StartCoroutine(MoveRight(GameManager.GetTileSize(), GameManager.GetBatteryDecrease("move-right")));
+	}
+
+	public IEnumerator MoveRight(float tileSize, int batteryDecrease)
     {
         int actionTime = 120;
         for (int i = 0; i < actionTime; i++)
@@ -152,13 +168,18 @@ public class Collector : MonoBehaviour
             gameObject.transform.position = new Vector2(gameObject.transform.position.x + tileSize / actionTime, gameObject.transform.position.y);
             yield return null;
         }
-
+		this.batteryAmount -= batteryDecrease;
         this.posX++;
 
         //TODO - UpdateBeliefs
     }
 
-    public IEnumerator MoveLeft(float tileSize)
+	public void MoveLeft()
+	{
+		StartCoroutine(MoveLeft(GameManager.GetTileSize(), GameManager.GetBatteryDecrease("move-left")));
+	}
+
+	public IEnumerator MoveLeft(float tileSize, int batteryDecrease)
     {
         int actionTime = 120;
         for (int i = 0; i < actionTime; i++)
@@ -166,14 +187,19 @@ public class Collector : MonoBehaviour
             gameObject.transform.position = new Vector2(gameObject.transform.position.x - tileSize / actionTime, gameObject.transform.position.y);
             yield return null;
         }
-
+		this.batteryAmount -= batteryDecrease;
         this.posX--;
 
         //TODO - UpdateBeliefs
 
     }
 
-    public IEnumerator CollectWood(float tileSize)
+	public void CollectWood()
+	{
+		StartCoroutine(CollectWood(GameManager.GetTileSize(), GameManager.GetBatteryDecrease("collect-wood")));
+	}
+
+	public IEnumerator CollectWood(float tileSize, int batteryDecrease)
     {
         //Adding text
         GameObject newGO = new GameObject("myTextGO");
@@ -185,7 +211,6 @@ public class Collector : MonoBehaviour
         myText.text = "Collecting Wood...";
 
         int actionTime = 120;
-
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
@@ -242,8 +267,8 @@ public class Collector : MonoBehaviour
             }
             yield return null;
         }
-
-        //Actual effect
+		//Actual effect
+		this.batteryAmount -= batteryDecrease;
         this.woodAmount++;
 
         //Reset Animation and Destroy the text
@@ -253,7 +278,12 @@ public class Collector : MonoBehaviour
         //TODO - UpdateBeliefs
     }
 
-    public IEnumerator CollectStone(float tileSize)
+	public void CollectStone()
+	{
+		StartCoroutine(CollectStone(GameManager.GetTileSize(), GameManager.GetBatteryDecrease("collect-stone")));
+	}
+
+	public IEnumerator CollectStone(float tileSize, int batteryDecrease)
     {
         //Adding text
         GameObject newGO = new GameObject("myTextGO");
@@ -265,7 +295,6 @@ public class Collector : MonoBehaviour
         myText.text = "Collecting Stone...";
 
         int actionTime = 120;
-
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
@@ -322,8 +351,8 @@ public class Collector : MonoBehaviour
             }
             yield return null;
         }
-
-        //Actual effect
+		//Actual effect
+		this.batteryAmount -= batteryDecrease;
         this.stoneAmount++;
 
         //Reset Animation and Destroy the text
@@ -333,7 +362,12 @@ public class Collector : MonoBehaviour
         //TODO - UpdateBeliefs
     }
 
-    public IEnumerator Recharge(float tileSize, int batteryCapacity, int actionTime)
+	public void Recharge()
+	{
+		StartCoroutine(Recharge(GameManager.GetTileSize(), GameManager.GetConstants()["battery-amount"], 120));
+	}
+
+	public IEnumerator Recharge(float tileSize, int batteryCapacity, int actionTime)
     {
         //Adding text
         GameObject newGO = new GameObject("myTextGO");
@@ -344,6 +378,7 @@ public class Collector : MonoBehaviour
         myText.fontSize = 4.5f;
         myText.text = "Recharging...";
 
+		runningCoroutine = "Recharge";
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
@@ -400,7 +435,6 @@ public class Collector : MonoBehaviour
             }
             yield return null;
         }
-
         //Actual effect
         this.batteryAmount = batteryCapacity;
 
@@ -411,7 +445,12 @@ public class Collector : MonoBehaviour
         //TODO - UpdateBeliefs
     }
 
-    public IEnumerator DropWood(float tileSize)
+	public void StoreWood()
+	{
+		StartCoroutine(StoreWood(GameManager.GetTileSize(), GameManager.GetBatteryDecrease("store-wood")));
+	}
+
+	public IEnumerator StoreWood(float tileSize, int batteryDecrease)
     {
         //Adding text
         GameObject newGO = new GameObject("myTextGO");
@@ -420,10 +459,9 @@ public class Collector : MonoBehaviour
         TextMeshPro myText = newGO.AddComponent<TextMeshPro>();
         myText.autoSizeTextContainer = true;
         myText.fontSize = 4.5f;
-        myText.text = "Dropping Wood...";
+        myText.text = "Storing Wood...";
 
         int actionTime = 120;
-
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
@@ -431,58 +469,59 @@ public class Collector : MonoBehaviour
             if (i > 0 && i < actionTime / 10)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_1;
-                myText.text = "Dropping Wood";
+                myText.text = "Storing Wood";
             }
             if (i > (actionTime / 10) && i < (actionTime / 10) * 2)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_2;
-                myText.text = "Dropping Wood.";
+                myText.text = "Storing Wood.";
             }
             if (i > (actionTime / 10) * 2 && i < (actionTime / 10) * 3)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_3;
-                myText.text = "Dropping Wood..";
+                myText.text = "Storing Wood..";
             }
             if (i > (actionTime / 10) * 3 && i < (actionTime / 10) * 4)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_2;
-                myText.text = "Dropping Wood...";
+                myText.text = "Storing Wood...";
             }
             if (i > (actionTime / 10) * 4 && i < (actionTime / 10) * 5)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_1;
-                myText.text = "Dropping Wood";
+                myText.text = "Storing Wood";
             }
             if (i > (actionTime / 10) * 5 && i < (actionTime / 10) * 6)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_1;
-                myText.text = "Dropping Wood";
+                myText.text = "Storing Wood";
             }
             if (i > (actionTime / 10) * 6 && i < (actionTime / 10) * 7)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_2;
-                myText.text = "Dropping Wood.";
+                myText.text = "Storing Wood.";
             }
             if (i > (actionTime / 10) * 7 && i < (actionTime / 10) * 8)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_3;
-                myText.text = "Dropping Wood..";
+                myText.text = "Storing Wood..";
             }
             if (i > (actionTime / 10) * 8 && i < (actionTime / 10) * 9)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_2;
-                myText.text = "Dropping Wood...";
+                myText.text = "Storing Wood...";
             }
             if (i > (actionTime / 10) * 9 && i < (actionTime / 10) * 10)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_1;
-                myText.text = "Dropping Wood";
+                myText.text = "Storing Wood";
             }
             yield return null;
         }
 
         //Actual effect
         this.woodAmount--;
+		this.batteryAmount -= batteryDecrease;
 
         //Reset Animation and Destroy the text
         gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
@@ -491,7 +530,12 @@ public class Collector : MonoBehaviour
         //TODO - UpdateBeliefs
     }
 
-    public IEnumerator DropStone(float tileSize)
+	public void StoreStone()
+	{
+		StartCoroutine(StoreStone(GameManager.GetTileSize(), GameManager.GetBatteryDecrease("store-stone")));
+	}
+
+	public IEnumerator StoreStone(float tileSize, int batteryDecrease)
     {
         //Adding text
         GameObject newGO = new GameObject("myTextGO");
@@ -500,10 +544,9 @@ public class Collector : MonoBehaviour
         TextMeshPro myText = newGO.AddComponent<TextMeshPro>();
         myText.autoSizeTextContainer = true;
         myText.fontSize = 4.5f;
-        myText.text = "Dropping Stone...";
+        myText.text = "Storing Stone...";
 
         int actionTime = 120;
-
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
@@ -511,58 +554,58 @@ public class Collector : MonoBehaviour
             if (i > 0 && i < actionTime / 10)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_1;
-                myText.text = "Dropping Stone";
+                myText.text = "Storing Stone";
             }
             if (i > (actionTime / 10) && i < (actionTime / 10) * 2)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_2;
-                myText.text = "Dropping Stone.";
+                myText.text = "Storing Stone.";
             }
             if (i > (actionTime / 10) * 2 && i < (actionTime / 10) * 3)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_3;
-                myText.text = "Dropping Stone..";
+                myText.text = "Storing Stone..";
             }
             if (i > (actionTime / 10) * 3 && i < (actionTime / 10) * 4)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_2;
-                myText.text = "Dropping Stone...";
+                myText.text = "Storing Stone...";
             }
             if (i > (actionTime / 10) * 4 && i < (actionTime / 10) * 5)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_1;
-                myText.text = "Dropping Stone";
+                myText.text = "Storing Stone";
             }
             if (i > (actionTime / 10) * 5 && i < (actionTime / 10) * 6)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_1;
-                myText.text = "Dropping Stone";
+                myText.text = "Storing Stone";
             }
             if (i > (actionTime / 10) * 6 && i < (actionTime / 10) * 7)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_2;
-                myText.text = "Dropping Stone.";
+                myText.text = "Storing Stone.";
             }
             if (i > (actionTime / 10) * 7 && i < (actionTime / 10) * 8)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_3;
-                myText.text = "Dropping Stone..";
+                myText.text = "Storing Stone..";
             }
             if (i > (actionTime / 10) * 8 && i < (actionTime / 10) * 9)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_2;
-                myText.text = "Dropping Stone...";
+                myText.text = "Storing Stone...";
             }
             if (i > (actionTime / 10) * 9 && i < (actionTime / 10) * 10)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_1;
-                myText.text = "Dropping Stone";
+                myText.text = "Storing Stone";
             }
             yield return null;
         }
-
         //Actual effect
         this.stoneAmount--;
+		this.batteryAmount -= batteryDecrease;
 
         //Reset Animation and Destroy the text
         gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
@@ -571,12 +614,16 @@ public class Collector : MonoBehaviour
         //TODO - UpdateBeliefs
     }
 
-    //NO text, since Producer already showing
-    public IEnumerator GiveWood(float tileSize)
+	public void GiveWood()
+	{
+		StartCoroutine(GiveWood(GameManager.GetTileSize(), GameManager.GetBatteryDecrease("retrieve-wood")));
+	}
+
+	//NO text, since Producer already showing
+	public IEnumerator GiveWood(float tileSize, int batteryDecrease)
     {
 
         int actionTime = 120;
-
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
@@ -623,22 +670,26 @@ public class Collector : MonoBehaviour
             }
             yield return null;
         }
-
         //Actual effect
         this.woodAmount--;
+		this.batteryAmount -= batteryDecrease;
 
-        //Reset Animation and Destroy the text
-        gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
+		//Reset Animation and Destroy the text
+		gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
 
         //TODO - UpdateBeliefs
     }
 
-    //NO text, since Producer already showing
-    public IEnumerator GiveStone(float tileSize)
+	public void GiveStone()
+	{
+		StartCoroutine(GiveStone(GameManager.GetTileSize(), GameManager.GetBatteryDecrease("retrieve-stone")));
+	}
+
+	//NO text, since Producer already showing
+	public IEnumerator GiveStone(float tileSize, int batteryDecrease)
     {
 
         int actionTime = 120;
-
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
@@ -685,15 +736,20 @@ public class Collector : MonoBehaviour
             }
             yield return null;
         }
-
         //Actual effect
         this.stoneAmount--;
+		this.batteryAmount -= batteryDecrease;
 
-        //Reset Animation and Destroy the text
-        gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
+		//Reset Animation and Destroy the text
+		gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
 
         //TODO - UpdateBeliefs
     }
+
+	public void InterruptActions()
+	{
+		StopAllCoroutines();
+	}
 
 	public void ResetPosition()
 	{
@@ -702,6 +758,7 @@ public class Collector : MonoBehaviour
 
 	void OnMouseDown()
 	{
+		InterruptActions();
 		gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
 		distance = Vector3.Distance(transform.position, Camera.main.transform.position);
 		dragging = true;

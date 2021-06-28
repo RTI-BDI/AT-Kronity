@@ -10,9 +10,9 @@ public class GameManager : MonoBehaviour
 	private static float tileSize;
 	private static Vector2 gridPosition;
     [SerializeField]
-    private Parser parser;
+    private static Parser parser;
 
-    private Dictionary<string, int> constants = new Dictionary<string, int>();
+    private static Dictionary<string, int> constants = new Dictionary<string, int>();
 
     private List<GameObject> collectors = new List<GameObject>();
     private List<GameObject> producers = new List<GameObject>();
@@ -39,11 +39,10 @@ public class GameManager : MonoBehaviour
 		frame = 0;
 
         InstantiateGame();
-        
-        //Client client = new Client();
-        //Debug.Log("OK");
-        //client.SendMessage("EXIT");
-        
+
+		//Client client = new Client();
+		//Debug.Log("OK");
+		//client.SendMessage("EXIT");
     }
 
     // Update is called once per frame
@@ -52,7 +51,7 @@ public class GameManager : MonoBehaviour
 		frame++;
 
         if(Input.GetKeyDown("g"))
-            StartCoroutine(collectors[0].GetComponent<Collector>().Recharge(grid.GetTileSize(), constants["battery-capacity"], 120));
+            StartCoroutine(collectors[0].GetComponent<Collector>().MoveUp(GetTileSize(), GetBatteryDecrease("move-up")));
     }
     
     private void InstantiateGame()
@@ -235,6 +234,20 @@ public class GameManager : MonoBehaviour
         Destroy(referenceRechargeStation);
     }
 
+	public static int GetBatteryDecrease(string actionName)
+	{
+		Action a = parser.retrieveAction(actionName);
+		foreach (Expression pc in a.postConditions)
+		{
+			if(pc.exp_1.node.value == "decrease" && pc.exp_1.exp_1.node.belief.name == "battery-amount")
+			{
+				return int.Parse(pc.exp_1.exp_2.node.value);
+			}
+		}
+
+		return 0;
+	}
+
 	public static float GetTileSize()
 	{
 		return tileSize;
@@ -248,5 +261,10 @@ public class GameManager : MonoBehaviour
 	public static int GetFrame()
 	{
 		return frame;
+	}
+
+	public static Dictionary<string, int> GetConstants()
+	{
+		return constants;
 	}
 }

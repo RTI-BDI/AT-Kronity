@@ -46,6 +46,11 @@ public class Parser : MonoBehaviour
         return plan;
     }
 
+	public Action retrieveAction(string actionName)
+	{
+		return domainObject.actions.Find(a => a.name == actionName);
+	}
+
     public void Parse()
     {
         //Read Json file to string
