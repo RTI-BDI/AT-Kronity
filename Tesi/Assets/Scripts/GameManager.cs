@@ -23,15 +23,21 @@ public class GameManager : MonoBehaviour
     
     private Client client;
 
+	private static int frame;
+
     // Start is called before the first frame update
     void Start()
     {
         Application.targetFrameRate = 60;
 
         parser.Parse();
+
         grid.GenerateGrid();
 		tileSize = grid.GetTileSize();
 		gridPosition = grid.GetPostion();
+
+		frame = 0;
+
         InstantiateGame();
         
         //Client client = new Client();
@@ -43,6 +49,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		frame++;
+
         if(Input.GetKeyDown("g"))
             StartCoroutine(collectors[0].GetComponent<Collector>().Recharge(grid.GetTileSize(), constants["battery-capacity"], 120));
     }
@@ -235,5 +243,10 @@ public class GameManager : MonoBehaviour
 	public static Vector2 GetGridPosition()
 	{
 		return gridPosition;
+	}
+
+	public static int GetFrame()
+	{
+		return frame;
 	}
 }

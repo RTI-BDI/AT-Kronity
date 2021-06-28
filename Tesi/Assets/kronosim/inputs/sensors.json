@@ -1,0 +1,16 @@
+{
+  "0": [
+    {
+      "belief_name": "posX_c1",
+      "mode": "SET",
+      "time": 124,
+      "value": 2
+    },
+    {
+      "belief_name": "posY_c1",
+      "mode": "SET",
+      "time": 124,
+      "value": 12
+    }
+  ]
+}

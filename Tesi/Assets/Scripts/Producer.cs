@@ -754,6 +754,11 @@ public class Producer : MonoBehaviour
 		MoveToDestination(GameManager.GetTileSize(), GameManager.GetGridPosition());
 
 
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("posX_" + this.name, this.posX);
+		toUpdate.Add("posY_" + this.name, this.posY);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
+
 		dragging = false;
 	}
 }

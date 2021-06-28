@@ -573,4 +573,41 @@ public class Parser : MonoBehaviour
 			jobject.WriteTo(writer);
 		}
 	}
+
+	//function to update value using sensors
+	public static void UpdateSensors(Dictionary<string, int> new_beliefs, string mode, int time)
+	{
+		string jsonStr = "";
+		jsonStr += "{ \"0\" : [ ";
+
+		int counter = 0;
+		foreach (KeyValuePair<string, int> e in new_beliefs)
+		{
+			jsonStr += " { ";
+			jsonStr += "\"belief_name\" : \"" + e.Key + "\", ";
+			jsonStr += "\"mode\" : \"" + mode + "\", ";
+			jsonStr += "\"time\" : " + time + ", ";
+			jsonStr += "\"value\" : " + e.Value + " ";
+			jsonStr += " } ";
+
+			if(counter != new_beliefs.Count - 1)
+			{
+				jsonStr += ", ";
+			}
+			counter++;
+		}
+		
+		jsonStr += " ] }";
+
+		JObject jobject = JObject.Parse(jsonStr);
+
+		// write JSON directly to a file
+		using (StreamWriter file = File.CreateText("./Assets/kronosim/inputs/sensors.json"))
+		using (JsonTextWriter writer = new JsonTextWriter(file))
+		{
+			writer.Formatting = Formatting.Indented;
+			jobject.WriteTo(writer);
+		}
+
+	}
 }
