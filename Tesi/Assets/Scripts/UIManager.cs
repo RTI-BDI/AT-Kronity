@@ -46,6 +46,16 @@ public class UIManager : MonoBehaviour
 	private Image setSprite;
 	private static Image sprite;
 
+	[SerializeField]
+	private GameObject setSlider;
+	private static GameObject slider;
+
+	[SerializeField]
+	private GameObject setTextSlider;
+	private static GameObject textSlider;
+
+	private static string inspectedObj = "";
+
 	void Start()
 	{
 		panel = setPanel;
@@ -58,12 +68,16 @@ public class UIManager : MonoBehaviour
 		text_7 = setText_7;
 		text_8 = setText_8;
 		sprite = setSprite;
+		slider = setSlider;
+		textSlider = setTextSlider;
 
 		panel.SetActive(false);
 	}
 
 	public static void SetVisibleCollector(string objName, int objPosX, int objPosY, int objBatteryAmount, int objWoodAmount, int objStoneAmount, Sprite objSprite)
 	{
+		inspectedObj = objName;
+
 		//Activate the panel
 		if(panel != null)
 		{
@@ -114,10 +128,24 @@ public class UIManager : MonoBehaviour
 		{
 			sprite.sprite = objSprite;
 		}
+
+		if(slider != null)
+		{
+			slider.SetActive(true);
+			slider.GetComponent<Slider>().maxValue = GameManager.GetConstants()["battery-capacity"];
+			slider.GetComponent<Slider>().value = objBatteryAmount;
+		}
+
+		if(textSlider != null)
+		{
+			textSlider.GetComponent<TMP_Text>().text = objBatteryAmount.ToString();
+		}
 	}
 
 	public static void SetVisibleProducer(string objName, int objPosX, int objPosY, int objBatteryAmount, int objWoodAmount, int objStoneAmount, int objChestAmount, Sprite objSprite)
 	{
+		inspectedObj = objName;
+
 		//Activate the panel
 		if (panel != null)
 		{
@@ -141,22 +169,22 @@ public class UIManager : MonoBehaviour
 
 		if (text_4 != null)
 		{
-			text_4.GetComponent<TMP_Text>().text = "Battery Level: " + objBatteryAmount + "%";
+			text_5.GetComponent<TMP_Text>().text = "Wood Carried: " + objWoodAmount;
 		}
 
 		if (text_5 != null)
 		{
-			text_5.GetComponent<TMP_Text>().text = "Wood Carried: " + objWoodAmount;
+			text_6.GetComponent<TMP_Text>().text = "Stone Carried: " + objStoneAmount;
 		}
 
 		if (text_6 != null)
 		{
-			text_6.GetComponent<TMP_Text>().text = "Stone Carried: " + objStoneAmount;
+			text_7.GetComponent<TMP_Text>().text = "Chests Carried: " + objChestAmount;
 		}
 
 		if (text_7 != null)
 		{
-			text_7.GetComponent<TMP_Text>().text = "Chests Carried: " + objChestAmount;
+			text_8.GetComponent<TMP_Text>().text = "";
 		}
 
 		if (text_8 != null)
@@ -168,10 +196,24 @@ public class UIManager : MonoBehaviour
 		{
 			sprite.sprite = objSprite;
 		}
+
+		if (slider != null)
+		{
+			slider.SetActive(true);
+			slider.GetComponent<Slider>().maxValue = GameManager.GetConstants()["battery-capacity"];
+			slider.GetComponent<Slider>().value = objBatteryAmount;
+		}
+
+		if (textSlider != null)
+		{
+			textSlider.GetComponent<TMP_Text>().text = objBatteryAmount.ToString();
+		}
 	}
 
 	public static void SetVisibleWood(string objName, int objPosX, int objPosY, Sprite objSprite)
 	{
+		inspectedObj = objName;
+
 		//Activate the panel
 		if (panel != null)
 		{
@@ -222,10 +264,17 @@ public class UIManager : MonoBehaviour
 		{
 			sprite.sprite = objSprite;
 		}
+
+		if (slider != null)
+		{
+			slider.SetActive(false);
+		}
 	}
 
 	public static void SetVisibleStone(string objName, int objPosX, int objPosY, Sprite objSprite)
 	{
+		inspectedObj = objName;
+
 		//Activate the panel
 		if (panel != null)
 		{
@@ -276,10 +325,17 @@ public class UIManager : MonoBehaviour
 		{
 			sprite.sprite = objSprite;
 		}
+
+		if (slider != null)
+		{
+			slider.SetActive(false);
+		}
 	}
 
 	public static void SetVisibleRechargeStation(string objName, int objPosX, int objPosY, Sprite objSprite)
 	{
+		inspectedObj = objName;
+
 		//Activate the panel
 		if (panel != null)
 		{
@@ -330,10 +386,17 @@ public class UIManager : MonoBehaviour
 		{
 			sprite.sprite = objSprite;
 		}
+
+		if (slider != null)
+		{
+			slider.SetActive(false);
+		}
 	}
 
 	public static void SetVisibleStorage(string objName, int objPosX, int objPosY, int objWoodStored, int objStoneStored, int objChestStored, Sprite objSprite)
 	{
+		inspectedObj = objName;
+
 		//Activate the panel
 		if (panel != null)
 		{
@@ -384,6 +447,11 @@ public class UIManager : MonoBehaviour
 		{
 			sprite.sprite = objSprite;
 		}
+
+		if(slider != null)
+		{
+			slider.SetActive(false);
+		}
 	}
 
 	public static void ClosePanel()
@@ -392,6 +460,19 @@ public class UIManager : MonoBehaviour
 		{
 			panel.SetActive(false);
 		}
+	}
+
+	public void OnSliderChange(float value)
+	{
+		textSlider.GetComponent<TMP_Text>().text = ((int)value).ToString();
+	}
+
+	public void UpdateBattery()
+	{
+		Dictionary<string, int> update = new Dictionary<string, int>();
+		update.Add("battery-amount_" + inspectedObj, int.Parse(textSlider.GetComponent<TMP_Text>().text));
+
+		Parser.UpdateSensors(update, "SET", GameManager.GetFrame());
 	}
 
 }

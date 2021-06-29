@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
     private GridManager grid;
 	private static float tileSize;
 	private static Vector2 gridPosition;
-    [SerializeField]
+	[SerializeField]
+	private Parser setParse;
     private static Parser parser;
 
     private static Dictionary<string, int> constants = new Dictionary<string, int>();
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
     {
         Application.targetFrameRate = 60;
 
+		parser = setParse;
         parser.Parse();
 
         grid.GenerateGrid();
