@@ -535,12 +535,12 @@ public class Producer : MonoBehaviour
         //TODO - UpdateBeliefs
     }
 
-	public void RetrieveWood()
+	public void ExchangeWood()
 	{
-		StartCoroutine(RetrieveWood(GameManager.GetTileSize(), GameManager.GetBatteryDecrease("retrieve-wood")));
+		StartCoroutine(ExchangeWood(GameManager.GetTileSize(), GameManager.GetBatteryDecrease("retrieve-wood")));
 	}
 
-	public IEnumerator RetrieveWood(float tileSize, int batteryDecrease)
+	public IEnumerator ExchangeWood(float tileSize, int batteryDecrease)
     {
         //Adding text
         GameObject newGO = new GameObject("myTextGO");
@@ -621,12 +621,12 @@ public class Producer : MonoBehaviour
         //TODO - UpdateBeliefs
     }
 
-	public void RetrieveStone()
+	public void ExchangeStone()
 	{
-		StartCoroutine(RetrieveStone(GameManager.GetTileSize(), GameManager.GetBatteryDecrease("retrieve-stone")));
+		StartCoroutine(ExchangeStone(GameManager.GetTileSize(), GameManager.GetBatteryDecrease("retrieve-stone")));
 	}
 
-	public IEnumerator RetrieveStone(float tileSize, int batteryDecrease)
+	public IEnumerator ExchangeStone(float tileSize, int batteryDecrease)
     {
         //Adding text
         GameObject newGO = new GameObject("myTextGO");

@@ -614,13 +614,13 @@ public class Collector : MonoBehaviour
         //TODO - UpdateBeliefs
     }
 
-	public void GiveWood()
+	public void ExchangeWood()
 	{
-		StartCoroutine(GiveWood(GameManager.GetTileSize(), GameManager.GetBatteryDecrease("retrieve-wood")));
+		StartCoroutine(ExchangeWood(GameManager.GetTileSize(), GameManager.GetBatteryDecrease("retrieve-wood")));
 	}
 
 	//NO text, since Producer already showing
-	public IEnumerator GiveWood(float tileSize, int batteryDecrease)
+	public IEnumerator ExchangeWood(float tileSize, int batteryDecrease)
     {
 
         int actionTime = 120;
@@ -680,13 +680,13 @@ public class Collector : MonoBehaviour
         //TODO - UpdateBeliefs
     }
 
-	public void GiveStone()
+	public void ExchangeStone()
 	{
-		StartCoroutine(GiveStone(GameManager.GetTileSize(), GameManager.GetBatteryDecrease("retrieve-stone")));
+		StartCoroutine(ExchangeStone(GameManager.GetTileSize(), GameManager.GetBatteryDecrease("retrieve-stone")));
 	}
 
 	//NO text, since Producer already showing
-	public IEnumerator GiveStone(float tileSize, int batteryDecrease)
+	public IEnumerator ExchangeStone(float tileSize, int batteryDecrease)
     {
 
         int actionTime = 120;

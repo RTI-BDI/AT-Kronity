@@ -62,4 +62,6 @@ public class Stone : MonoBehaviour
         gameObject.transform.position = new Vector2(position.x + (posX * tileSize), position.y + (posY * tileSize));
     }
 
+	public void CollectStone() { }
+
 }

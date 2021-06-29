@@ -14,6 +14,7 @@ public class Parser : MonoBehaviour
     private Dictionary<Belief, int> groundedBeliefs;
     private List<Action> groundedActions;
     private Plan plan;
+	private Dictionary<string, string> mapObject;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +47,11 @@ public class Parser : MonoBehaviour
         return plan;
     }
 
+	public Dictionary<string, string> GetMap()
+	{
+		return mapObject;
+	}
+
 	public Action retrieveAction(string actionName)
 	{
 		return domainObject.actions.Find(a => a.name == actionName);
@@ -56,6 +62,7 @@ public class Parser : MonoBehaviour
         //Read Json file to string
         string jsonDomain = File.ReadAllText("./Assets/JSON/Domain.json");
         string jsonProblem = File.ReadAllText("./Assets/JSON/Problem.json");
+		string jsonMapping = File.ReadAllText("./Assets/JSON/MethodMapping.json");
 
         //Initial parsing
         JObject objectDomain = JObject.Parse(jsonDomain);
@@ -64,8 +71,11 @@ public class Parser : MonoBehaviour
         JObject objectProblem = JObject.Parse(jsonProblem);
         JArray problem = objectProblem["problem"] as JArray;
 
-        //Evalutation
-        domainObject = Domain.Evaluate(domain);
+		JObject objectMap = JObject.Parse(jsonMapping);
+		JArray map = objectMap["mapping"] as JArray;
+
+		//Evalutation
+		domainObject = Domain.Evaluate(domain);
         problemObject = Problem.Evaluate(problem);
 
         WritePDDLOnFile(domainObject.ToPDDL(), "DomainPDDL.pddl");
@@ -85,8 +95,12 @@ public class Parser : MonoBehaviour
         plan = Plan.FromPlainToObject(plainPlan, groundedActions);
         GeneratePlanSet(plan, problemObject);
 
+		//Servers generation
 		GenerateServers();
-    }
+
+		//Map creation
+		mapObject = ParseMapping(map);
+	}
 
     public void WritePDDLOnFile(string PDDL, string file)
     {
@@ -614,5 +628,16 @@ public class Parser : MonoBehaviour
 			jobject.WriteTo(writer);
 		}
 
+	}
+
+	public Dictionary<string, string> ParseMapping(JArray map)
+	{
+		Dictionary<string, string> result = new Dictionary<string, string>();
+
+		foreach (JObject token in map)
+		{
+			result.Add(token["pddl_name"].ToString(), token["unity_name"].ToString());
+		}
+		return result;
 	}
 }

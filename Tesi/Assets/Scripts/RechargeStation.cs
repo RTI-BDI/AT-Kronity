@@ -62,4 +62,5 @@ public class RechargeStation : MonoBehaviour
         gameObject.transform.position = new Vector2(position.x + (posX * tileSize) - (tileSize / 2), position.y + (posY * tileSize) + (tileSize / 2));
     }
 
+	public void Recharge() { }
 }
