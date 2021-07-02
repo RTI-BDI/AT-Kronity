@@ -26,6 +26,11 @@ public class GameManager : MonoBehaviour
 
 	private static int frame;
 
+	private void Awake()
+	{
+		DontDestroyOnLoad(this.gameObject);
+	}
+
 	// Start is called before the first frame update
 	void Start()
     {
@@ -45,10 +50,10 @@ public class GameManager : MonoBehaviour
 		//Client client = new Client();
 		//Debug.Log("OK");
 		//client.SendMessage("EXIT");
-    }
+	}
 
-    // Update is called once per frame
-    void Update()
+	// Update is called once per frame
+	void Update()
     {
 		frame++;
 

@@ -196,7 +196,7 @@ public class Producer : MonoBehaviour
 
 	public void Recharge()
 	{
-		StartCoroutine(Recharge(GameManager.GetTileSize(), GameManager.GetConstants()["battery-amount"], 120));
+		StartCoroutine(Recharge(GameManager.GetTileSize(), GameManager.GetConstants()["battery-capacity"], 120));
 	}
 
 	public IEnumerator Recharge(float tileSize, int batteryCapacity, int actionTime)
