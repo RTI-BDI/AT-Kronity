@@ -132,9 +132,11 @@ public class Collector : MonoBehaviour
 		this.posY++;
 		this.batteryAmount -= batteryDecrease;
 
-        //TODO - UpdateBeliefs
+		UpdatePanel();
 
-    }
+		//TODO - UpdateBeliefs
+
+	}
 
 	public void MoveDown()
 	{
@@ -152,8 +154,10 @@ public class Collector : MonoBehaviour
 		this.batteryAmount -= batteryDecrease;
         this.posY--;
 
-        //TODO - UpdateBeliefs
-    }
+		UpdatePanel();
+
+		//TODO - UpdateBeliefs
+	}
 
 	public void MoveRight()
 	{
@@ -171,8 +175,10 @@ public class Collector : MonoBehaviour
 		this.batteryAmount -= batteryDecrease;
         this.posX++;
 
-        //TODO - UpdateBeliefs
-    }
+		UpdatePanel();
+
+		//TODO - UpdateBeliefs
+	}
 
 	public void MoveLeft()
 	{
@@ -190,9 +196,11 @@ public class Collector : MonoBehaviour
 		this.batteryAmount -= batteryDecrease;
         this.posX--;
 
-        //TODO - UpdateBeliefs
+		UpdatePanel();
 
-    }
+		//TODO - UpdateBeliefs
+
+	}
 
 	public void CollectWood()
 	{
@@ -275,8 +283,10 @@ public class Collector : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
         Destroy(newGO);
 
-        //TODO - UpdateBeliefs
-    }
+		UpdatePanel();
+
+		//TODO - UpdateBeliefs
+	}
 
 	public void CollectStone()
 	{
@@ -359,12 +369,14 @@ public class Collector : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
         Destroy(newGO);
 
-        //TODO - UpdateBeliefs
-    }
+		UpdatePanel();
+
+		//TODO - UpdateBeliefs
+	}
 
 	public void Recharge()
 	{
-		StartCoroutine(Recharge(GameManager.GetTileSize(), GameManager.GetConstants()["battery-capacity"], 120));
+		StartCoroutine(Recharge(GameManager.GetTileSize(), GameManager.GetConstants()["battery-capacity"], (int)((GameManager.GetConstants()["battery-capacity"] - this.batteryAmount) * 0.8f)));
 	}
 
 	public IEnumerator Recharge(float tileSize, int batteryCapacity, int actionTime)
@@ -442,8 +454,10 @@ public class Collector : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
         Destroy(newGO);
 
-        //TODO - UpdateBeliefs
-    }
+		UpdatePanel();
+
+		//TODO - UpdateBeliefs
+	}
 
 	public void StoreWood()
 	{
@@ -527,8 +541,10 @@ public class Collector : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
         Destroy(newGO);
 
-        //TODO - UpdateBeliefs
-    }
+		UpdatePanel();
+
+		//TODO - UpdateBeliefs
+	}
 
 	public void StoreStone()
 	{
@@ -611,8 +627,10 @@ public class Collector : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
         Destroy(newGO);
 
-        //TODO - UpdateBeliefs
-    }
+		UpdatePanel();
+
+		//TODO - UpdateBeliefs
+	}
 
 	public void ExchangeWood()
 	{
@@ -677,8 +695,10 @@ public class Collector : MonoBehaviour
 		//Reset Animation and Destroy the text
 		gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
 
-        //TODO - UpdateBeliefs
-    }
+		UpdatePanel();
+
+		//TODO - UpdateBeliefs
+	}
 
 	public void ExchangeStone()
 	{
@@ -743,8 +763,10 @@ public class Collector : MonoBehaviour
 		//Reset Animation and Destroy the text
 		gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
 
-        //TODO - UpdateBeliefs
-    }
+		UpdatePanel();
+
+		//TODO - UpdateBeliefs
+	}
 
 	public void InterruptActions()
 	{
@@ -754,6 +776,11 @@ public class Collector : MonoBehaviour
 	public void ResetPosition()
 	{
 		this.transform.position = new Vector2(0, 0);
+	}
+
+	private void UpdatePanel()
+	{
+		UIManager.UpdateCollectorPanel(this.name, this.posX, this.posY, this.batteryAmount, this.woodAmount, this.stoneAmount, this.normalSprite);
 	}
 
 	void OnMouseDown()
@@ -779,6 +806,8 @@ public class Collector : MonoBehaviour
 		toUpdate.Add("posX_" + this.name, this.posX);
 		toUpdate.Add("posY_" + this.name, this.posY);
 		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
+
+		UpdatePanel();
 
 		dragging = false;
 	}

@@ -142,6 +142,14 @@ public class UIManager : MonoBehaviour
 		}
 	}
 
+	public static void UpdateCollectorPanel(string objName, int objPosX, int objPosY, int objBatteryAmount, int objWoodAmount, int objStoneAmount, Sprite objSprite)
+	{
+		if(panel.active && inspectedObj == objName)
+		{
+			SetVisibleCollector(objName, objPosX, objPosY, objBatteryAmount, objWoodAmount, objStoneAmount, objSprite);
+		}
+	}
+
 	public static void SetVisibleProducer(string objName, int objPosX, int objPosY, int objBatteryAmount, int objWoodAmount, int objStoneAmount, int objChestAmount, Sprite objSprite)
 	{
 		inspectedObj = objName;
@@ -207,6 +215,14 @@ public class UIManager : MonoBehaviour
 		if (textSlider != null)
 		{
 			textSlider.GetComponent<TMP_Text>().text = objBatteryAmount.ToString();
+		}
+	}
+
+	public static void UpdateProducerPanel(string objName, int objPosX, int objPosY, int objBatteryAmount, int objWoodAmount, int objStoneAmount, int objChestAmount, Sprite objSprite)
+	{
+		if (panel.active && inspectedObj == objName)
+		{
+			SetVisibleProducer(objName, objPosX, objPosY, objBatteryAmount, objWoodAmount, objStoneAmount, objChestAmount, objSprite);
 		}
 	}
 

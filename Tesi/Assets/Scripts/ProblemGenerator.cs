@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class ProblemGenerator : MonoBehaviour
 {
 	public GameObject container;
+	public GameObject constantsContainer;
 
 	public Sprite collectorSprite;
 	public Sprite producerSprite;
@@ -14,6 +15,7 @@ public class ProblemGenerator : MonoBehaviour
 
 	public GameObject addingPanel;
 	public GameObject specificsPanel;
+	public GameObject constantsPanel;
 
 	public GameObject generatingText;
 
@@ -21,6 +23,9 @@ public class ProblemGenerator : MonoBehaviour
 	public GameObject[] fieldInputs = new GameObject[7]; 
 
 	public Image objectSprite;
+
+	[SerializeField]
+	private Domain activeDomain;
 
 	private struct Entity
 	{
@@ -44,7 +49,8 @@ public class ProblemGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-		GoBack();
+		activeDomain = Parser.ParseDomain();
+		GoToConstants();
     }
 
     // Update is called once per frame
@@ -57,9 +63,15 @@ public class ProblemGenerator : MonoBehaviour
 	{
 		addingPanel.SetActive(false);
 		specificsPanel.SetActive(true);
+		constantsPanel.SetActive(false);
 
 		generatingText.GetComponent<TMP_Text>().text = obj;
 		ActivateAllInputFields();
+
+		for (int i = 0; i < fieldInputs.Length - 1; i++)
+		{
+			fieldInputs[i].GetComponent<TMP_InputField>().text = "";
+		}
 		
 		switch (obj)
 		{
@@ -114,10 +126,11 @@ public class ProblemGenerator : MonoBehaviour
 		}
 	}
 
-	public void GoBack()
+	public void GoToMenu()
 	{
 		addingPanel.SetActive(true);
 		specificsPanel.SetActive(false);
+		constantsPanel.SetActive(false);
 
 		GameObject referenceAddedObject = (GameObject)Instantiate(Resources.Load("AddedObject"));
 
@@ -134,6 +147,26 @@ public class ProblemGenerator : MonoBehaviour
 			newObj.GetComponentInChildren<TMP_Text>().text = e.name;
 		}
 
+		Destroy(referenceAddedObject);
+	}
+
+	public void GoToConstants()
+	{
+		addingPanel.SetActive(false);
+		specificsPanel.SetActive(false);
+		constantsPanel.SetActive(true);
+
+		GameObject referenceAddedObject = (GameObject)Instantiate(Resources.Load("ConstantInput"));
+		foreach (Belief b in activeDomain.beliefs)
+		{
+			if(b.type == Belief.BeliefType.Constant)
+			{
+				GameObject newObj = (GameObject)Instantiate(referenceAddedObject);
+				newObj.transform.parent = constantsContainer.transform;
+				newObj.transform.GetChild(0).GetComponent<TMP_InputField>().text = "";
+				newObj.transform.GetChild(1).GetComponent<TMP_Text>().text = b.name.ToUpper() + ": ";
+			}		
+		}
 		Destroy(referenceAddedObject);
 	}
 
@@ -192,13 +225,18 @@ public class ProblemGenerator : MonoBehaviour
 		Entity toAdd = new Entity(fieldInputs[0].GetComponent<TMP_InputField>().text, generatingText.GetComponent<TMP_Text>().text.ToLower(), tempBeliefs, objectSprite.sprite);
 
 		problemEntities.Add(toAdd);
-		GoBack();
+		GoToMenu();
+	}
+
+	public void SetConstants()
+	{
+
 	}
 
 	private void BadInput(string why)
 	{
 		Debug.Log("ERROR -- " + why);
-		GoBack();
+		GoToMenu();
 		return;
 	}
 }

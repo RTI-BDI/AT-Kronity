@@ -630,6 +630,7 @@ public class Parser : MonoBehaviour
 
 	}
 
+	//function to parse the mapping between Unity's methods and Kronosim's methods
 	public Dictionary<string, string> ParseMapping(JArray map)
 	{
 		Dictionary<string, string> result = new Dictionary<string, string>();
@@ -639,5 +640,18 @@ public class Parser : MonoBehaviour
 			result.Add(token["pddl_name"].ToString(), token["unity_name"].ToString());
 		}
 		return result;
+	}
+
+	//function to parse only the domain --> used in problemGenerator
+	public static Domain ParseDomain()
+	{
+		string jsonDomain = File.ReadAllText("./Assets/JSON/Domain.json");
+
+		JObject objectDomain = JObject.Parse(jsonDomain);
+		JArray domain = objectDomain["domain"] as JArray;
+
+		Domain domainObject = Domain.Evaluate(domain);
+
+		return domainObject;
 	}
 }

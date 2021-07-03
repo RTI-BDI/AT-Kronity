@@ -135,6 +135,8 @@ public class Producer : MonoBehaviour
         this.posY++;
 		this.batteryAmount -= batteryDecrease;
 
+		UpdatePanel();
+
 	}
 
 	public void MoveDown()
@@ -153,6 +155,8 @@ public class Producer : MonoBehaviour
 
         this.posY--;
 		this.batteryAmount -= batteryDecrease;
+
+		UpdatePanel();
 
 	}
 
@@ -173,6 +177,8 @@ public class Producer : MonoBehaviour
         this.posX++;
 		this.batteryAmount -= batteryDecrease;
 
+		UpdatePanel();
+
 	}
 
 	public void MoveLeft()
@@ -192,11 +198,13 @@ public class Producer : MonoBehaviour
         this.posX--;
 		this.batteryAmount -= batteryDecrease;
 
+		UpdatePanel();
+
 	}
 
 	public void Recharge()
 	{
-		StartCoroutine(Recharge(GameManager.GetTileSize(), GameManager.GetConstants()["battery-capacity"], 120));
+		StartCoroutine(Recharge(GameManager.GetTileSize(), GameManager.GetConstants()["battery-capacity"], (int)((GameManager.GetConstants()["battery-capacity"] - this.batteryAmount) * 0.8f)));
 	}
 
 	public IEnumerator Recharge(float tileSize, int batteryCapacity, int actionTime)
@@ -274,8 +282,10 @@ public class Producer : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
         Destroy(newGO);
 
-        //TODO - UpdateBeliefs
-    }
+		UpdatePanel();
+
+		//TODO - UpdateBeliefs
+	}
 
 	public void StoreWood()
 	{
@@ -360,8 +370,10 @@ public class Producer : MonoBehaviour
 		gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
         Destroy(newGO);
 
-        //TODO - UpdateBeliefs
-    }
+		UpdatePanel();
+
+		//TODO - UpdateBeliefs
+	}
 
 	public void StoreStone()
 	{
@@ -446,8 +458,10 @@ public class Producer : MonoBehaviour
 		gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
         Destroy(newGO);
 
-        //TODO - UpdateBeliefs
-    }
+		UpdatePanel();
+
+		//TODO - UpdateBeliefs
+	}
 
 	public void StoreChest()
 	{
@@ -532,8 +546,10 @@ public class Producer : MonoBehaviour
 		gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
         Destroy(newGO);
 
-        //TODO - UpdateBeliefs
-    }
+		UpdatePanel();
+
+		//TODO - UpdateBeliefs
+	}
 
 	public void ExchangeWood()
 	{
@@ -618,8 +634,10 @@ public class Producer : MonoBehaviour
 		gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
         Destroy(newGO);
 
-        //TODO - UpdateBeliefs
-    }
+		UpdatePanel();
+
+		//TODO - UpdateBeliefs
+	}
 
 	public void ExchangeStone()
 	{
@@ -704,8 +722,10 @@ public class Producer : MonoBehaviour
 		gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
         Destroy(newGO);
 
-        //TODO - UpdateBeliefs
-    }
+		UpdatePanel();
+
+		//TODO - UpdateBeliefs
+	}
 
 	public void ProduceChest()
 	{
@@ -792,12 +812,19 @@ public class Producer : MonoBehaviour
 		gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
         Destroy(newGO);
 
-        //TODO - UpdateBeliefs
-    }
+		UpdatePanel();
+
+		//TODO - UpdateBeliefs
+	}
 
 	public void ResetPosition()
 	{
 		this.transform.position = new Vector2(0, 0);
+	}
+
+	private void UpdatePanel()
+	{
+		UIManager.SetVisibleProducer(this.name, this.posX, this.posY, this.batteryAmount, this.woodAmount, this.stoneAmount, this.chestAmount, this.normalSprite);
 	}
 
 	void OnMouseDown()
@@ -823,6 +850,8 @@ public class Producer : MonoBehaviour
 		toUpdate.Add("posX_" + this.name, this.posX);
 		toUpdate.Add("posY_" + this.name, this.posY);
 		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
+
+		UpdatePanel();
 
 		dragging = false;
 	}

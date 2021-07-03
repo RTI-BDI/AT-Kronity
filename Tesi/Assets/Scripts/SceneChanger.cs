@@ -8,11 +8,7 @@ public class SceneChanger : MonoBehaviour
 
 	public int ProblemGenerator;
 	public int MainScene;
-
-	private void Awake()
-	{
-		DontDestroyOnLoad(this.gameObject);
-	}
+	public int MainMenu;
 
 	public void MoveToProblemGenerator()
 	{
@@ -22,5 +18,10 @@ public class SceneChanger : MonoBehaviour
 	public void MoveToMainScene()
 	{
 		SceneManager.LoadScene(MainScene);
+	}
+
+	public void MoveToMainMenu()
+	{
+		SceneManager.LoadScene(MainMenu);
 	}
 }

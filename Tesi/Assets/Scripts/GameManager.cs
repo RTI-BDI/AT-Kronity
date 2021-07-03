@@ -26,15 +26,14 @@ public class GameManager : MonoBehaviour
 
 	private static int frame;
 
-	private void Awake()
-	{
-		DontDestroyOnLoad(this.gameObject);
-	}
-
 	// Start is called before the first frame update
 	void Start()
     {
         Application.targetFrameRate = 60;
+
+		//Reset static variables
+		frame = 0;
+		constants = new Dictionary<string, int>();
 
 		parser = setParse;
         parser.Parse();
@@ -43,8 +42,7 @@ public class GameManager : MonoBehaviour
 		tileSize = grid.GetTileSize();
 		gridPosition = grid.GetPostion();
 
-		frame = 0;
-
+		//Initialize the game
         InstantiateGame();
 
 		//Client client = new Client();

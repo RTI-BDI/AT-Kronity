@@ -584,6 +584,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ProblemGenerator: 1
   MainScene: 0
+  MainMenu: 2
 --- !u!1 &1204105805
 GameObject:
   m_ObjectHideFlags: 0
