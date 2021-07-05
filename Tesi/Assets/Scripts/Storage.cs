@@ -90,8 +90,10 @@ public class Storage : MonoBehaviour
         //Actual effect
         this.woodStored++;
 
-        //TODO - UpdateBeliefs
-    }
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("wood-stored_" + this.name, this.woodStored);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
+	}
 
     public IEnumerator StoreStone()
     {
@@ -105,8 +107,10 @@ public class Storage : MonoBehaviour
         //Actual effect
         this.stoneStored++;
 
-        //TODO - UpdateBeliefs
-    }
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("stone-stored_" + this.name, this.stoneStored);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
+	}
 
     public IEnumerator StoreChest()
     {
@@ -120,7 +124,9 @@ public class Storage : MonoBehaviour
         //Actual effect
         this.chestStored++;
 
-        //TODO - UpdateBeliefs
-    }
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("chest-stored_" + this.name, this.chestStored);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
+	}
 
 }

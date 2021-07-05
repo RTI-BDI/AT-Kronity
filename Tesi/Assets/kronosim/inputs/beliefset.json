@@ -103,6 +103,10 @@
     {
       "name": "sample-capacity",
       "value": 100
+    },
+    {
+      "name": "grid-size",
+      "value": 20
     }
   ]
 }

@@ -219,6 +219,14 @@
               "sample-capacity"
             ],
             100
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "grid-size"
+            ],
+            20
           ]
         ]
       ],

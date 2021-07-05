@@ -24,7 +24,8 @@
 					[ "function", "chest-stored", [ "array", [ "parameter", "s", "storage" ]]],
 
 					[ "constant", "battery-capacity"],
-					[ "constant", "sample-capacity"]
+					[ "constant", "sample-capacity"],
+					[ "constant", "grid-size"]
 				],
 				[ "defineActions",
 					["action",
@@ -33,7 +34,8 @@
 						[ "duration", "120" ],
 						[ "andConditions",					
 							[ "at_start", [ ">", [ "function", "battery-amount", ["array",  "r"]], "10"]],
-							[ "at_start", [ "true", [ "predicate", "free", ["array", "r"]]]]
+							[ "at_start", [ "true", [ "predicate", "free", ["array", "r"]]]],
+							[ "at_start", [ "<", [ "function", "posY", ["array", "r"]], [ "-", [ "constant", "grid-size"], 1]]]
 						],
 						[ "andEffects", 
 							[ "at_start", [ "false", [ "predicate", "free", ["array", "r"]]]],
@@ -52,7 +54,8 @@
 						[ "duration", "120" ],
 						[ "andConditions",					
 							[ "at_start", [ ">", [ "function", "battery-amount", ["array",  "r"]], "10"]],
-							[ "at_start", [ "true", [ "predicate", "free", ["array", "r"]]]]
+							[ "at_start", [ "true", [ "predicate", "free", ["array", "r"]]]],
+							[ "at_start", [ ">", [ "function", "posY", ["array", "r"]], 0]]
 						],
 						[ "andEffects", 
 							[ "at_start", [ "false", [ "predicate", "free", ["array", "r"]]]],
@@ -71,7 +74,8 @@
 						[ "duration", "120" ],
 						[ "andConditions",					
 							[ "at_start", [ ">", [ "function", "battery-amount", ["array",  "r"]], "10"]],
-							[ "at_start", [ "true", [ "predicate", "free", ["array", "r"]]]]
+							[ "at_start", [ "true", [ "predicate", "free", ["array", "r"]]]],
+							[ "at_start", [ "<", [ "function", "posX", ["array", "r"]], [ "-", [ "constant", "grid-size"], 1]]]
 						],
 						[ "andEffects", 
 							[ "at_start", [ "false", [ "predicate", "free", ["array", "r"]]]],
@@ -90,7 +94,8 @@
 						[ "duration", "120" ],
 						[ "andConditions",					
 							[ "at_start", [ ">", [ "function", "battery-amount", ["array",  "r"]], "10"]],
-							[ "at_start", [ "true", [ "predicate", "free", ["array", "r"]]]]
+							[ "at_start", [ "true", [ "predicate", "free", ["array", "r"]]]],
+							[ "at_start", [ ">", [ "function", "posX", ["array", "r"]], 0]]
 						],
 						[ "andEffects", 
 							[ "at_start", [ "false", [ "predicate", "free", ["array", "r"]]]],

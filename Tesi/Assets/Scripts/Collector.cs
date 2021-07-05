@@ -134,7 +134,10 @@ public class Collector : MonoBehaviour
 
 		UpdatePanel();
 
-		//TODO - UpdateBeliefs
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
+		toUpdate.Add("posY" + this.name, this.woodAmount);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
 
 	}
 
@@ -156,7 +159,10 @@ public class Collector : MonoBehaviour
 
 		UpdatePanel();
 
-		//TODO - UpdateBeliefs
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
+		toUpdate.Add("posY_" + this.name, this.woodAmount);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
 	}
 
 	public void MoveRight()
@@ -177,7 +183,10 @@ public class Collector : MonoBehaviour
 
 		UpdatePanel();
 
-		//TODO - UpdateBeliefs
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
+		toUpdate.Add("posX_" + this.name, this.woodAmount);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
 	}
 
 	public void MoveLeft()
@@ -198,7 +207,10 @@ public class Collector : MonoBehaviour
 
 		UpdatePanel();
 
-		//TODO - UpdateBeliefs
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
+		toUpdate.Add("posX_" + this.name, this.woodAmount);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
 
 	}
 
@@ -285,7 +297,10 @@ public class Collector : MonoBehaviour
 
 		UpdatePanel();
 
-		//TODO - UpdateBeliefs
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
+		toUpdate.Add("wood-amount_" + this.name, this.woodAmount);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
 	}
 
 	public void CollectStone()
@@ -371,7 +386,10 @@ public class Collector : MonoBehaviour
 
 		UpdatePanel();
 
-		//TODO - UpdateBeliefs
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
+		toUpdate.Add("stone-amount_" + this.name, this.stoneAmount);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
 	}
 
 	public void Recharge()
@@ -456,7 +474,9 @@ public class Collector : MonoBehaviour
 
 		UpdatePanel();
 
-		//TODO - UpdateBeliefs
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
 	}
 
 	public void StoreWood()
@@ -543,7 +563,10 @@ public class Collector : MonoBehaviour
 
 		UpdatePanel();
 
-		//TODO - UpdateBeliefs
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
+		toUpdate.Add("wood-amount_" + this.name, this.woodAmount);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
 	}
 
 	public void StoreStone()
@@ -629,7 +652,10 @@ public class Collector : MonoBehaviour
 
 		UpdatePanel();
 
-		//TODO - UpdateBeliefs
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
+		toUpdate.Add("stone-amount_" + this.name, this.stoneAmount);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
 	}
 
 	public void ExchangeWood()
@@ -697,7 +723,10 @@ public class Collector : MonoBehaviour
 
 		UpdatePanel();
 
-		//TODO - UpdateBeliefs
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
+		toUpdate.Add("wood-amount_" + this.name, this.woodAmount);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
 	}
 
 	public void ExchangeStone()
@@ -765,7 +794,10 @@ public class Collector : MonoBehaviour
 
 		UpdatePanel();
 
-		//TODO - UpdateBeliefs
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
+		toUpdate.Add("stone-amount_" + this.name, this.stoneAmount);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
 	}
 
 	public void InterruptActions()

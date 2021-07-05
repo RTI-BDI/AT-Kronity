@@ -8329,7 +8329,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 503816059}
         m_TargetAssemblyTypeName: ProblemGenerator, Assembly-CSharp
-        m_MethodName: GoBack
+        m_MethodName: GoToMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

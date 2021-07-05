@@ -20,6 +20,7 @@ wood stone - resource
 (chest-stored ?s - storage)
 (battery-capacity)
 (sample-capacity)
+(grid-size)
 )
 (:durative-action move-up
 :parameters (?r - robot )
@@ -27,6 +28,7 @@ wood stone - resource
 :condition (and
 (at start (> (battery-amount ?r) 10))
 (at start (free ?r))
+(at start (< (posY ?r) (- (grid-size) 1)))
 )
 :effect (and
 (at start (not (free ?r)))
@@ -40,6 +42,7 @@ wood stone - resource
 :condition (and
 (at start (> (battery-amount ?r) 10))
 (at start (free ?r))
+(at start (> (posY ?r) 0))
 )
 :effect (and
 (at start (not (free ?r)))
@@ -53,6 +56,7 @@ wood stone - resource
 :condition (and
 (at start (> (battery-amount ?r) 10))
 (at start (free ?r))
+(at start (< (posX ?r) (- (grid-size) 1)))
 )
 :effect (and
 (at start (not (free ?r)))
@@ -66,6 +70,7 @@ wood stone - resource
 :condition (and
 (at start (> (battery-amount ?r) 10))
 (at start (free ?r))
+(at start (> (posX ?r) 0))
 )
 :effect (and
 (at start (not (free ?r)))

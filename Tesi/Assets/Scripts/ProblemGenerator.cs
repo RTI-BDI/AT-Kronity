@@ -27,6 +27,8 @@ public class ProblemGenerator : MonoBehaviour
 	[SerializeField]
 	private Domain activeDomain;
 
+	private List<GameObject> inputConstants = new List<GameObject>();
+
 	private struct Entity
 	{
 		public string name;
@@ -45,6 +47,7 @@ public class ProblemGenerator : MonoBehaviour
 	}
 
 	private List<Entity> problemEntities = new List<Entity>();
+	private Dictionary<string, int> constants = new Dictionary<string, int>();
 
     // Start is called before the first frame update
     void Start()
@@ -164,7 +167,8 @@ public class ProblemGenerator : MonoBehaviour
 				GameObject newObj = (GameObject)Instantiate(referenceAddedObject);
 				newObj.transform.parent = constantsContainer.transform;
 				newObj.transform.GetChild(0).GetComponent<TMP_InputField>().text = "";
-				newObj.transform.GetChild(1).GetComponent<TMP_Text>().text = b.name.ToUpper() + ": ";
+				newObj.transform.GetChild(1).GetComponent<TMP_Text>().text = b.name.ToUpper();
+				inputConstants.Add(newObj);
 			}		
 		}
 		Destroy(referenceAddedObject);
@@ -184,33 +188,69 @@ public class ProblemGenerator : MonoBehaviour
 
 				if (success)
 				{
-					//TODO add constraints
 					switch (fieldTexts[i].GetComponent<TMP_Text>().text)
 					{
 						case "Battery-Amount: ":
-							//TODO - Fixed value 100
-							if(value > 0 && value < 100)
+							if(value > 0 && value < constants["battery-capacity"])
 							{
 								tempBeliefs.Add("battery-amount", value);
 							} else
 							{
 								BadInput("Battery Amount value out of bound");
+								return;
 							}	
 							break;
 						case "Position (X): ":
-							tempBeliefs.Add("posX", value);
+							if(value >= 0 && value < constants["grid-size"])
+							{
+								tempBeliefs.Add("posX", value);
+							} else
+							{
+								BadInput("PosX value out of bound");
+							}			
 							break;
 						case "Position (Y): ":
-							tempBeliefs.Add("posY", value);
+							if (value >= 0 && value < constants["grid-size"])
+							{
+								tempBeliefs.Add("posY", value);
+							}
+							else
+							{
+								BadInput("PosY value out of bound");
+							}
 							break;
 						case "Initial Wood Amount: ":
-							tempBeliefs.Add("wood-amount", value);
+							if (value >= 0 && value < constants["sample-capacity"])
+							{
+								tempBeliefs.Add("wood-amount", value);
+							}
+							else
+							{
+								BadInput("Wood Amount value out of bound");
+								return;
+							}
 							break;
 						case "Initial Stone Amount: ":
-							tempBeliefs.Add("stone-amount", value);
+							if (value >= 0 && value < constants["sample-capacity"])
+							{
+								tempBeliefs.Add("stone-amount", value);
+							}
+							else
+							{
+								BadInput("Stone Amount value out of bound");
+								return;
+							}
 							break;
 						case "Initial Chest Amount: ":
-							tempBeliefs.Add("chest-amount", value);
+							if (value >= 0 && value < constants["sample-capacity"])
+							{
+								tempBeliefs.Add("chest-amount", value);
+							}
+							else
+							{
+								BadInput("Chest Amount value out of bound");
+								return;
+							}
 							break;
 						default:
 							break;
@@ -230,13 +270,37 @@ public class ProblemGenerator : MonoBehaviour
 
 	public void SetConstants()
 	{
+		bool goOn = true;
 
+		foreach (GameObject obj in inputConstants)
+		{
+			int value;
+			bool success = int.TryParse(obj.transform.GetChild(0).GetComponent<TMP_InputField>().text, out value);
+
+			if (success)
+			{
+				constants.Add(obj.transform.GetChild(1).GetComponent<TMP_Text>().text.ToLower(), value);
+			} else
+			{
+				BadInput("Bad value in " + obj.transform.GetChild(1).GetComponent<TMP_Text>().text);
+				goOn = false;
+			}
+			
+		}
+
+		if (goOn)
+		{
+			GoToMenu();
+		} else
+		{
+			constants = new Dictionary<string, int>();
+		}
+			
 	}
 
 	private void BadInput(string why)
 	{
 		Debug.Log("ERROR -- " + why);
-		GoToMenu();
 		return;
 	}
 }

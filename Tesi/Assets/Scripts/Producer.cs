@@ -135,6 +135,11 @@ public class Producer : MonoBehaviour
         this.posY++;
 		this.batteryAmount -= batteryDecrease;
 
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
+		toUpdate.Add("posY_" + this.name, this.posY);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
+
 		UpdatePanel();
 
 	}
@@ -155,6 +160,11 @@ public class Producer : MonoBehaviour
 
         this.posY--;
 		this.batteryAmount -= batteryDecrease;
+
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
+		toUpdate.Add("posY_" + this.name, this.posY);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
 
 		UpdatePanel();
 
@@ -177,6 +187,11 @@ public class Producer : MonoBehaviour
         this.posX++;
 		this.batteryAmount -= batteryDecrease;
 
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
+		toUpdate.Add("posX_" + this.name, this.posX);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
+
 		UpdatePanel();
 
 	}
@@ -197,6 +212,11 @@ public class Producer : MonoBehaviour
 
         this.posX--;
 		this.batteryAmount -= batteryDecrease;
+
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
+		toUpdate.Add("posX_" + this.name, this.posX);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
 
 		UpdatePanel();
 
@@ -278,8 +298,12 @@ public class Producer : MonoBehaviour
         //Actual effect
         this.batteryAmount = batteryCapacity;
 
-        //Reset Animation and Destroy the text
-        gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
+
+		//Reset Animation and Destroy the text
+		gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
         Destroy(newGO);
 
 		UpdatePanel();
@@ -365,6 +389,11 @@ public class Producer : MonoBehaviour
         //Actual effect
         this.woodAmount--;
 		this.batteryAmount -= batteryDecrease;
+
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
+		toUpdate.Add("wood-amount_" + this.name, this.woodAmount);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
 
 		//Reset Animation and Destroy the text
 		gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
@@ -454,6 +483,11 @@ public class Producer : MonoBehaviour
         this.stoneAmount--;
 		this.batteryAmount -= batteryDecrease;
 
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
+		toUpdate.Add("stone-amount_" + this.name, this.stoneAmount);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
+
 		//Reset Animation and Destroy the text
 		gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
         Destroy(newGO);
@@ -541,6 +575,11 @@ public class Producer : MonoBehaviour
         //Actual effect
         this.chestAmount--;
 		this.batteryAmount -= batteryDecrease;
+
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
+		toUpdate.Add("chest-amount_" + this.name, this.chestAmount);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
 
 		//Reset Animation and Destroy the text
 		gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
@@ -630,6 +669,11 @@ public class Producer : MonoBehaviour
         this.woodAmount++;
 		this.batteryAmount -= batteryDecrease;
 
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
+		toUpdate.Add("wood-amount_" + this.name, this.woodAmount);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
+
 		//Reset Animation and Destroy the text
 		gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
         Destroy(newGO);
@@ -717,6 +761,11 @@ public class Producer : MonoBehaviour
         //Actual effect
         this.stoneAmount++;
 		this.batteryAmount -= batteryDecrease;
+
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
+		toUpdate.Add("stone-amount_" + this.name, this.stoneAmount);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
 
 		//Reset Animation and Destroy the text
 		gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;
@@ -807,6 +856,13 @@ public class Producer : MonoBehaviour
         this.stoneAmount--;
         this.chestAmount++;
 		this.batteryAmount -= batteryDecrease;
+
+		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
+		toUpdate.Add("wood-amount_" + this.name, this.woodAmount);
+		toUpdate.Add("stone-amount_" + this.name, this.stoneAmount);
+		toUpdate.Add("chest-amount_" + this.name, this.chestAmount);
+		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
 
 		//Reset Animation and Destroy the text
 		gameObject.GetComponent<SpriteRenderer>().sprite = this.normalSprite;

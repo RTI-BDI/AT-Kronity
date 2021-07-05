@@ -36,6 +36,7 @@ rs1 - r_station
 (= (posY rs1) 2)
 (= (battery-capacity) 100)
 (= (sample-capacity) 100)
+(= (grid-size) 20)
 )
 (:goal 
 (and 

@@ -38,12 +38,15 @@ public class GameManager : MonoBehaviour
 		parser = setParse;
         parser.Parse();
 
-        grid.GenerateGrid();
+		//Initialize the game
+        InstantiateGame();
+
+		grid.SetGridSize(constants["grid-size"]);
+		grid.GenerateGrid();
 		tileSize = grid.GetTileSize();
 		gridPosition = grid.GetPostion();
 
-		//Initialize the game
-        InstantiateGame();
+		PositionEntities();
 
 		//Client client = new Client();
 		//Debug.Log("OK");
@@ -205,32 +208,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        //Move the controllers to their location
-        foreach (GameObject g in collectors)
-        {
-            g.GetComponent<Collector>().MoveToDestination(grid.GetTileSize(), grid.GetPostion());
-        }
-        foreach (GameObject g in producers)
-        {
-            g.GetComponent<Producer>().MoveToDestination(grid.GetTileSize(), grid.GetPostion());
-        }
-        foreach (GameObject g in woods)
-        {
-            g.GetComponent<Wood>().MoveToDestination(grid.GetTileSize(), grid.GetPostion());
-        }
-        foreach (GameObject g in stones)
-        {
-            g.GetComponent<Stone>().MoveToDestination(grid.GetTileSize(), grid.GetPostion());
-        }
-        foreach (GameObject g in storages)
-        {
-            g.GetComponent<Storage>().MoveToDestination(grid.GetTileSize(), grid.GetPostion());
-        }
-        foreach (GameObject g in rechargeStations)
-        {
-            g.GetComponent<RechargeStation>().MoveToDestination(grid.GetTileSize(), grid.GetPostion());
-        }
-
         Destroy(referenceCollector);
         Destroy(referenceProducer);
         Destroy(referenceWood);
@@ -238,6 +215,35 @@ public class GameManager : MonoBehaviour
         Destroy(referenceStorage);
         Destroy(referenceRechargeStation);
     }
+
+	private void PositionEntities()
+	{
+		//Move the controllers to their location
+		foreach (GameObject g in collectors)
+		{
+			g.GetComponent<Collector>().MoveToDestination(grid.GetTileSize(), grid.GetPostion());
+		}
+		foreach (GameObject g in producers)
+		{
+			g.GetComponent<Producer>().MoveToDestination(grid.GetTileSize(), grid.GetPostion());
+		}
+		foreach (GameObject g in woods)
+		{
+			g.GetComponent<Wood>().MoveToDestination(grid.GetTileSize(), grid.GetPostion());
+		}
+		foreach (GameObject g in stones)
+		{
+			g.GetComponent<Stone>().MoveToDestination(grid.GetTileSize(), grid.GetPostion());
+		}
+		foreach (GameObject g in storages)
+		{
+			g.GetComponent<Storage>().MoveToDestination(grid.GetTileSize(), grid.GetPostion());
+		}
+		foreach (GameObject g in rechargeStations)
+		{
+			g.GetComponent<RechargeStation>().MoveToDestination(grid.GetTileSize(), grid.GetPostion());
+		}
+	}
 
 	public static int GetBatteryDecrease(string actionName)
 	{

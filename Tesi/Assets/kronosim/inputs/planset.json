@@ -598,6 +598,14 @@
               "sample-capacity"
             ],
             100
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "grid-size"
+            ],
+            20
           ]
         ]
       ],
@@ -708,6 +716,14 @@
               "free_c1"
             ],
             true
+          ],
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ],
+            0
           ]
         ]
       ],
@@ -818,6 +834,21 @@
               "free_p1"
             ],
             true
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "posX_p1"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "grid-size"
+              ],
+              1
+            ]
           ]
         ]
       ],
@@ -928,6 +959,14 @@
               "free_c1"
             ],
             true
+          ],
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "posY_c1"
+            ],
+            0
           ]
         ]
       ],
@@ -1038,6 +1077,14 @@
               "free_p1"
             ],
             true
+          ],
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "posY_p1"
+            ],
+            0
           ]
         ]
       ],
@@ -1148,6 +1195,14 @@
               "free_c1"
             ],
             true
+          ],
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ],
+            0
           ]
         ]
       ],
@@ -1258,6 +1313,14 @@
               "free_c1"
             ],
             true
+          ],
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ],
+            0
           ]
         ]
       ],
@@ -1368,6 +1431,14 @@
               "free_c1"
             ],
             true
+          ],
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ],
+            0
           ]
         ]
       ],
@@ -1478,6 +1549,14 @@
               "free_c1"
             ],
             true
+          ],
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "posY_c1"
+            ],
+            0
           ]
         ]
       ],
@@ -1588,6 +1667,14 @@
               "free_c1"
             ],
             true
+          ],
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "posY_c1"
+            ],
+            0
           ]
         ]
       ],
@@ -1698,6 +1785,14 @@
               "free_c1"
             ],
             true
+          ],
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ],
+            0
           ]
         ]
       ],
@@ -1808,6 +1903,21 @@
               "free_c1"
             ],
             true
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "grid-size"
+              ],
+              1
+            ]
           ]
         ]
       ],
@@ -1918,6 +2028,21 @@
               "free_c1"
             ],
             true
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "grid-size"
+              ],
+              1
+            ]
           ]
         ]
       ],
@@ -2028,6 +2153,14 @@
               "free_c1"
             ],
             true
+          ],
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ],
+            0
           ]
         ]
       ],
@@ -2138,6 +2271,14 @@
               "free_c1"
             ],
             true
+          ],
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ],
+            0
           ]
         ]
       ],
@@ -2391,6 +2532,21 @@
               "free_c1"
             ],
             true
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "grid-size"
+              ],
+              1
+            ]
           ]
         ]
       ],
@@ -2651,6 +2807,21 @@
               "free_p1"
             ],
             true
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "posX_p1"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "grid-size"
+              ],
+              1
+            ]
           ]
         ]
       ],
@@ -2761,6 +2932,21 @@
               "free_c1"
             ],
             true
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "grid-size"
+              ],
+              1
+            ]
           ]
         ]
       ],
@@ -2871,6 +3057,21 @@
               "free_p1"
             ],
             true
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "posX_p1"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "grid-size"
+              ],
+              1
+            ]
           ]
         ]
       ],
@@ -2981,6 +3182,21 @@
               "free_c1"
             ],
             true
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "grid-size"
+              ],
+              1
+            ]
           ]
         ]
       ],
@@ -3091,6 +3307,21 @@
               "free_p1"
             ],
             true
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "posY_p1"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "grid-size"
+              ],
+              1
+            ]
           ]
         ]
       ],
@@ -3201,6 +3432,21 @@
               "free_c1"
             ],
             true
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "posY_c1"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "grid-size"
+              ],
+              1
+            ]
           ]
         ]
       ],
@@ -3454,6 +3700,21 @@
               "free_p1"
             ],
             true
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "posX_p1"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "grid-size"
+              ],
+              1
+            ]
           ]
         ]
       ],
@@ -3564,6 +3825,14 @@
               "free_p1"
             ],
             true
+          ],
+          [
+            ">",
+            [
+              "READ_BELIEF",
+              "posX_p1"
+            ],
+            0
           ]
         ]
       ],
@@ -3824,6 +4093,21 @@
               "free_p1"
             ],
             true
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "posX_p1"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "grid-size"
+              ],
+              1
+            ]
           ]
         ]
       ],
@@ -3934,6 +4218,21 @@
               "free_p1"
             ],
             true
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "posX_p1"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "grid-size"
+              ],
+              1
+            ]
           ]
         ]
       ],
@@ -4044,6 +4343,21 @@
               "free_p1"
             ],
             true
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "posY_p1"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "grid-size"
+              ],
+              1
+            ]
           ]
         ]
       ],
@@ -4154,6 +4468,21 @@
               "free_p1"
             ],
             true
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "posY_p1"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "grid-size"
+              ],
+              1
+            ]
           ]
         ]
       ],
@@ -4264,6 +4593,21 @@
               "free_p1"
             ],
             true
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "posY_p1"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "grid-size"
+              ],
+              1
+            ]
           ]
         ]
       ],
@@ -4374,6 +4718,21 @@
               "free_p1"
             ],
             true
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "posY_p1"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "grid-size"
+              ],
+              1
+            ]
           ]
         ]
       ],
@@ -4484,6 +4843,21 @@
               "free_p1"
             ],
             true
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "posY_p1"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "grid-size"
+              ],
+              1
+            ]
           ]
         ]
       ],
@@ -4594,6 +4968,21 @@
               "free_p1"
             ],
             true
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "posX_p1"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "grid-size"
+              ],
+              1
+            ]
           ]
         ]
       ],
@@ -4704,6 +5093,21 @@
               "free_p1"
             ],
             true
+          ],
+          [
+            "<",
+            [
+              "READ_BELIEF",
+              "posY_p1"
+            ],
+            [
+              "-",
+              [
+                "READ_BELIEF",
+                "grid-size"
+              ],
+              1
+            ]
           ]
         ]
       ],

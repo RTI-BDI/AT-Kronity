@@ -42,7 +42,8 @@
                 ["equal", ["function", "posY", ["array", "rs1"]], "2" ],
 
                 ["equal", ["constant", "battery-capacity"], "100" ],
-                ["equal", ["constant", "sample-capacity"], "100" ]
+                ["equal", ["constant", "sample-capacity"], "100" ],
+                ["equal", ["constant", "grid-size"], "20"]
             ],
   
             ["defineGoal",
