@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class ProblemGenerator : MonoBehaviour
 {
+	public GameObject canvas;
+	public List<GameObject> errorLogs = new List<GameObject>();
+
 	public GameObject container;
 	public GameObject constantsContainer;
 
@@ -52,6 +55,8 @@ public class ProblemGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		Application.targetFrameRate = 60;
+
 		activeDomain = Parser.ParseDomain();
 		GoToConstants();
     }
@@ -262,6 +267,17 @@ public class ProblemGenerator : MonoBehaviour
 			}
 		}
 
+		//check name
+		foreach (Entity e in problemEntities)
+		{
+			if(e.name == fieldInputs[0].GetComponent<TMP_InputField>().text)
+			{
+				BadInput("Name already in use: " + e.name);
+				return;
+			}
+		}
+
+
 		Entity toAdd = new Entity(fieldInputs[0].GetComponent<TMP_InputField>().text, generatingText.GetComponent<TMP_Text>().text.ToLower(), tempBeliefs, objectSprite.sprite);
 
 		problemEntities.Add(toAdd);
@@ -300,7 +316,18 @@ public class ProblemGenerator : MonoBehaviour
 
 	private void BadInput(string why)
 	{
-		Debug.Log("ERROR -- " + why);
+		GameObject referenceErrorLog = (GameObject)Instantiate(Resources.Load("ErrorMessage"), canvas.transform);
+		referenceErrorLog.transform.GetChild(0).GetComponent<TMP_Text>().text = "ERROR -- " + why;
+		referenceErrorLog.GetComponent<ErrorLog>().StartFade();
+
+		errorLogs.Add(referenceErrorLog);
+		foreach (GameObject e in errorLogs)
+		{
+			if(e != null)
+				e.GetComponent<ErrorLog>().StartMove();
+		}
+
+		//Debug.Log("ERROR -- " + why);
 		return;
 	}
 }

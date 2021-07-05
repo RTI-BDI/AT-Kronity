@@ -1936,6 +1936,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d002f7935c2d15a4bb6799630523c87b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 2012062520}
+  errorLogs: []
   container: {fileID: 793287128}
   constantsContainer: {fileID: 281442150}
   collectorSprite: {fileID: 2429774793456420852, guid: 2f7aa7f8a0de79c4b8ea15d4c6d553d9, type: 3}
