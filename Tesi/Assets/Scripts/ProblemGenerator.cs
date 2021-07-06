@@ -1,5 +1,8 @@
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +11,7 @@ public class ProblemGenerator : MonoBehaviour
 {
 	public GameObject canvas;
 	public List<GameObject> errorLogs = new List<GameObject>();
+	public GameObject problemName;
 
 	public GameObject container;
 	public GameObject constantsContainer;
@@ -164,6 +168,8 @@ public class ProblemGenerator : MonoBehaviour
 		specificsPanel.SetActive(false);
 		constantsPanel.SetActive(true);
 
+		constants = new Dictionary<string, int>();
+
 		GameObject referenceAddedObject = (GameObject)Instantiate(Resources.Load("ConstantInput"));
 		foreach (Belief b in activeDomain.beliefs)
 		{
@@ -312,6 +318,79 @@ public class ProblemGenerator : MonoBehaviour
 			constants = new Dictionary<string, int>();
 		}
 			
+	}
+
+	public void GenerateProblem()
+	{
+
+		string pName = problemName.GetComponent<TMP_InputField>().text;
+
+		if(pName != "")
+		{
+			string jsonStr = "";
+			jsonStr = jsonStr + "{ \"problem\" : [ \"defineProblem\", \"" + pName + "\", \"" + activeDomain.name + "\", ";
+			jsonStr = jsonStr + " [\"defineObjects\", [\"array\", ";
+
+			int counter = 0;
+			foreach (Entity e in problemEntities)
+			{
+				jsonStr = jsonStr + " [ \"parameter\", \"" + e.name + "\", \"" + e.type + "\" ]";
+				if(counter != problemEntities.Count - 1)
+				{
+					jsonStr = jsonStr + ", ";
+				}
+
+				counter++;
+			}
+			jsonStr = jsonStr + " ] ], ";
+			jsonStr = jsonStr + " [ \"defineInit\", ";
+
+			//define functions and predicates
+			foreach (Entity e in problemEntities)
+			{
+				//functions
+				foreach (KeyValuePair<string, int> entry in e.beliefs)
+				{
+					jsonStr = jsonStr + " [\"equal\", [ \"function\", \"" + entry.Key + "\", [ \"array\", \"" + e.name + "\" ] ], \"" + entry.Value + "\" ], ";
+				}
+				//predicates
+				if(e.type == "collector" || e.type == "producer")
+				{
+					jsonStr = jsonStr + " [\"true\", [\"predicate\", \"free\", [ \"array\", \"" + e.name + "\" ] ] ], ";
+				}
+			}
+			//define constants
+			counter = 0;
+			foreach (KeyValuePair<string, int> entry in constants)
+			{
+				jsonStr = jsonStr + " [ \"equal\", [\"constant\", \"" + entry.Key + "\"], \"" + entry.Value + "\" ]";
+				if(counter != constants.Count - 1)
+				{
+					jsonStr = jsonStr + ", ";
+				}
+				counter++;
+			}
+			jsonStr = jsonStr + " ], ";
+
+			//goal still hardcoded
+			jsonStr = jsonStr + " [\"defineGoal\", [\"equal\", [\"function\", \"wood-stored\", [\"array\", \"s1\"]], \"2\"], [\"equal\", [\"function\", \"stone-stored\", [\"array\", \"s1\"]], \"3\" ] ]";
+
+			jsonStr = jsonStr + " ] }";
+
+			JObject jobject = JObject.Parse(jsonStr);
+
+			// write JSON directly to a file
+			using (StreamWriter file = File.CreateText("./Assets/JSON/AutomatedProblem.json"))
+			using (JsonTextWriter writer = new JsonTextWriter(file))
+			{
+				writer.Formatting = Formatting.Indented;
+				jobject.WriteTo(writer);
+			}
+
+		} else
+		{
+			BadInput("Missing Problem Name");
+		}
 	}
 
 	private void BadInput(string why)

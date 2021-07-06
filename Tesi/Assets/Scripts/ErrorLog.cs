@@ -26,10 +26,20 @@ public class ErrorLog : MonoBehaviour
 
 	public IEnumerator Fade()
 	{
-
+		float transparency = 1f;
+		
 		for (int i = 0; i < 255; i++)
 		{
-			//TODO - Fade
+			Color newColor = gameObject.GetComponent<Image>().color;
+			newColor.a = transparency;
+			gameObject.GetComponent<Image>().color = newColor;
+
+			Color newColorText = gameObject.transform.GetChild(0).GetComponent<TMP_Text>().color;
+			newColorText.a = transparency;
+			gameObject.transform.GetChild(0).GetComponent<TMP_Text>().color = newColorText;
+
+			transparency -= 1f / 255f;
+
 			yield return null;
 		}
 		DestroyObject(gameObject);
