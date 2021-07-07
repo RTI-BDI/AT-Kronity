@@ -20,16 +20,27 @@ public class ProblemGenerator : MonoBehaviour
 	public Sprite producerSprite;
 	public Sprite rechargeStationSprite;
 
+	public GameObject mainPanel;
 	public GameObject addingPanel;
 	public GameObject specificsPanel;
 	public GameObject constantsPanel;
+	public GameObject levelPanel;
+
+	public GameObject levelSelectionButton;
+	public GameObject constantsSelectionButton;
+	public GameObject entitiesSelectionButton;
 
 	public GameObject generatingText;
 
 	public GameObject[] fieldTexts = new GameObject[7]; 
-	public GameObject[] fieldInputs = new GameObject[7]; 
+	public GameObject[] fieldInputs = new GameObject[7];
+
+	public GameObject levelText;
 
 	public Image objectSprite;
+	public Sprite woodSprite;
+	public Sprite stoneSprite;
+	public Sprite storageSprite;
 
 	[SerializeField]
 	private Domain activeDomain;
@@ -53,16 +64,62 @@ public class ProblemGenerator : MonoBehaviour
 
 	}
 
+	private struct Level
+	{
+		public int id;
+		public List<Entity> entities;
+		public Dictionary<string, Dictionary<string, int>> goals;
+
+		public Level(int id)
+		{
+			this.id = id;
+			this.entities = new List<Entity>();
+			this.goals = new Dictionary<string, Dictionary<string, int>>();
+		}
+
+		public string ToString()
+		{
+			string result = "";
+
+			result = result + "Level - " + this.id + "\n";
+			foreach (Entity e in this.entities)
+			{
+				result = result + e.name + " - " + e.type + ": \n";
+				foreach (KeyValuePair<string, int> b in e.beliefs)
+				{
+					result = result + " ( " + b.Key + " -> " + b.Value + " ) \n";
+				}
+			}
+			foreach (KeyValuePair<string, Dictionary<string, int>> entry in this.goals)
+			{
+				result = result + "Goals for " + entry.Key + ": \n";
+				foreach (KeyValuePair<string, int> kvp in entry.Value)
+				{
+					result = result + " ( " + kvp.Key + " -> " + kvp.Value + " ) \n";
+				}
+			}
+
+			return result;
+		}
+	}
+
 	private List<Entity> problemEntities = new List<Entity>();
 	private Dictionary<string, int> constants = new Dictionary<string, int>();
+	private Level level_1;
+	private Level level_2;
+	private Level level_3;
+	private Level chosenLevel;
 
     // Start is called before the first frame update
     void Start()
     {
 		Application.targetFrameRate = 60;
 
+		InstantiateLevels();
+
 		activeDomain = Parser.ParseDomain();
-		GoToConstants();
+		chosenLevel = new Level(0);
+		GoToMainPanel();
     }
 
     // Update is called once per frame
@@ -71,11 +128,59 @@ public class ProblemGenerator : MonoBehaviour
         
     }
 
+	public void GoToMainPanel()
+	{
+		addingPanel.SetActive(false);
+		specificsPanel.SetActive(false);
+		constantsPanel.SetActive(false);
+		mainPanel.SetActive(true);
+		levelPanel.SetActive(false);
+
+		if (chosenLevel.id == 0)
+		{
+			constantsSelectionButton.GetComponent<Button>().interactable = false;
+			Color originalColor = constantsSelectionButton.GetComponent<Image>().color;
+			originalColor.a = 0.2f;
+			constantsSelectionButton.GetComponent<Image>().color = originalColor;
+		} else
+		{
+			constantsSelectionButton.GetComponent<Button>().interactable = true;
+			Color originalColor = constantsSelectionButton.GetComponent<Image>().color;
+			originalColor.a = 0.6f;
+			constantsSelectionButton.GetComponent<Image>().color = originalColor;
+		}
+
+		if (constants.Count == 0)
+		{
+			entitiesSelectionButton.GetComponent<Button>().interactable = false;
+			Color originalColor = entitiesSelectionButton.GetComponent<Image>().color;
+			originalColor.a = 0.2f;
+			entitiesSelectionButton.GetComponent<Image>().color = originalColor;
+		} else
+		{
+			entitiesSelectionButton.GetComponent<Button>().interactable = true;
+			Color originalColor = entitiesSelectionButton.GetComponent<Image>().color;
+			originalColor.a = 0.6f;
+			entitiesSelectionButton.GetComponent<Image>().color = originalColor;
+		}
+	}
+
+	public void GoToLevelSelection()
+	{
+		addingPanel.SetActive(false);
+		specificsPanel.SetActive(false);
+		constantsPanel.SetActive(false);
+		mainPanel.SetActive(false);
+		levelPanel.SetActive(true);
+	}
+
 	public void ChangeView(string obj)
 	{
 		addingPanel.SetActive(false);
 		specificsPanel.SetActive(true);
 		constantsPanel.SetActive(false);
+		mainPanel.SetActive(false);
+		levelPanel.SetActive(false);
 
 		generatingText.GetComponent<TMP_Text>().text = obj;
 		ActivateAllInputFields();
@@ -130,19 +235,13 @@ public class ProblemGenerator : MonoBehaviour
 		}
 	}
 
-	private void ActivateAllInputFields()
-	{
-		for (int i = 0; i < fieldInputs.Length; i++)
-		{
-			fieldInputs[i].SetActive(true);
-		}
-	}
-
 	public void GoToMenu()
 	{
 		addingPanel.SetActive(true);
 		specificsPanel.SetActive(false);
 		constantsPanel.SetActive(false);
+		mainPanel.SetActive(false);
+		levelPanel.SetActive(false);
 
 		GameObject referenceAddedObject = (GameObject)Instantiate(Resources.Load("AddedObject"));
 
@@ -167,6 +266,8 @@ public class ProblemGenerator : MonoBehaviour
 		addingPanel.SetActive(false);
 		specificsPanel.SetActive(false);
 		constantsPanel.SetActive(true);
+		mainPanel.SetActive(false);
+		levelPanel.SetActive(false);
 
 		constants = new Dictionary<string, int>();
 
@@ -320,6 +421,26 @@ public class ProblemGenerator : MonoBehaviour
 			
 	}
 
+	public void SelectLevel(int levelId)
+	{
+		switch (levelId)
+		{
+			case 1:
+				chosenLevel = level_1;
+				break;
+			case 2:
+				chosenLevel = level_2;
+				break;
+			case 3:
+				chosenLevel = level_3;
+				break;
+			default:
+				break;
+		}
+
+		levelText.GetComponent<TMP_Text>().text = chosenLevel.ToString();
+	}
+
 	public void GenerateProblem()
 	{
 
@@ -391,6 +512,86 @@ public class ProblemGenerator : MonoBehaviour
 		{
 			BadInput("Missing Problem Name");
 		}
+	}
+
+	private void ActivateAllInputFields()
+	{
+		for (int i = 0; i < fieldInputs.Length; i++)
+		{
+			fieldInputs[i].SetActive(true);
+		}
+	}
+
+	private void InstantiateLevels()
+	{
+		level_1 = new Level(1);
+		List<Entity> lvl_1_entities = new List<Entity>();
+		lvl_1_entities.Add(CreateResource("w1", "wood", 3, 3, woodSprite));
+		lvl_1_entities.Add(CreateResource("w2", "wood", 9, 9, woodSprite));
+		lvl_1_entities.Add(CreateResource("s1", "stone", 3, 9, stoneSprite));
+		lvl_1_entities.Add(CreateResource("s2", "stone", 9, 3, stoneSprite));
+		lvl_1_entities.Add(CreateStorage("st", 6, 6, storageSprite));
+		Dictionary<string, Dictionary<string, int>> lvl_1_goals = new Dictionary<string, Dictionary<string, int>>();
+		Dictionary<string, int> lvl_1_subgoals = new Dictionary<string, int>();
+		lvl_1_subgoals.Add("wood-stored", 3);
+		lvl_1_subgoals.Add("stone-stored", 8);
+		lvl_1_goals.Add("st", lvl_1_subgoals);
+		level_1.entities = lvl_1_entities;
+		level_1.goals = lvl_1_goals;
+
+
+		level_2 = new Level(2);
+		List<Entity> lvl_2_entities = new List<Entity>();
+		lvl_2_entities.Add(CreateResource("w1", "wood", 9, 3, woodSprite));
+		lvl_2_entities.Add(CreateResource("w2", "wood", 9, 9, woodSprite));
+		lvl_2_entities.Add(CreateResource("s1", "stone", 3, 3, stoneSprite));
+		lvl_2_entities.Add(CreateResource("s2", "stone", 3, 9, stoneSprite));
+		lvl_2_entities.Add(CreateStorage("st1", 3, 6, storageSprite));
+		lvl_2_entities.Add(CreateStorage("st2", 9, 6, storageSprite));
+		Dictionary<string, Dictionary<string, int>> lvl_2_goals = new Dictionary<string, Dictionary<string, int>>();
+		Dictionary<string, int> lvl_2_subgoals_st1 = new Dictionary<string, int>();
+		lvl_2_subgoals_st1.Add("wood-stored", 5);
+		lvl_2_goals.Add("st1", lvl_2_subgoals_st1);
+		Dictionary<string, int> lvl_2_subgoals_st2 = new Dictionary<string, int>();
+		lvl_2_subgoals_st2.Add("stone-stored", 5);
+		lvl_2_goals.Add("st2", lvl_2_subgoals_st2);
+		level_2.entities = lvl_2_entities;
+		level_2.goals = lvl_2_goals;
+
+
+		level_3 = new Level(3);
+		List<Entity> lvl_3_entities = new List<Entity>();
+		lvl_3_entities.Add(CreateResource("w1", "wood", 3, 3, woodSprite));
+		lvl_3_entities.Add(CreateResource("w2", "wood", 9, 9, woodSprite));
+		lvl_3_entities.Add(CreateResource("s1", "stone", 3, 9, stoneSprite));
+		lvl_3_entities.Add(CreateResource("s2", "stone", 9, 3, stoneSprite));
+		lvl_3_entities.Add(CreateStorage("st", 6, 6, storageSprite));
+		Dictionary<string, Dictionary<string, int>> lvl_3_goals = new Dictionary<string, Dictionary<string, int>>();
+		Dictionary<string, int> lvl_3_subgoals = new Dictionary<string, int>();
+		lvl_3_subgoals.Add("chest-stored", 10);
+		lvl_3_goals.Add("st", lvl_3_subgoals);
+		level_3.entities = lvl_3_entities;
+		level_3.goals = lvl_3_goals;
+
+	}
+
+	private Entity CreateResource(string name, string type, int posX, int posY, Sprite sprite)
+	{
+		Dictionary<string, int> tempBeliefs = new Dictionary<string, int>();
+		tempBeliefs.Add("posX", posX);
+		tempBeliefs.Add("posY", posY);
+		return new Entity(name, type, tempBeliefs, sprite);
+	}
+
+	private Entity CreateStorage(string name, int posX, int posY, Sprite sprite)
+	{
+		Dictionary<string, int> tempBeliefs = new Dictionary<string, int>();
+		tempBeliefs.Add("posX", posX);
+		tempBeliefs.Add("posY", posY);
+		tempBeliefs.Add("wood-stored", 0);
+		tempBeliefs.Add("stone-stored", 0);
+		tempBeliefs.Add("chest-stored", 0);
+		return new Entity(name, "storage", tempBeliefs, sprite);
 	}
 
 	private void BadInput(string why)
