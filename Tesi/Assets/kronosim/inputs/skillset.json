@@ -31,28 +31,28 @@
       "goal_name": "collect-wood_c1_w1"
     },
     {
-      "goal_name": "collect-stone_c1_st1"
+      "goal_name": "collect-wood_c1_w2"
     },
     {
-      "goal_name": "recharge_c1_rs1"
+      "goal_name": "collect-stone_c1_s1"
     },
     {
-      "goal_name": "recharge_p1_rs1"
+      "goal_name": "collect-stone_c1_s2"
     },
     {
-      "goal_name": "store-wood_c1_s1"
+      "goal_name": "store-wood_c1_st"
     },
     {
-      "goal_name": "store-wood_p1_s1"
+      "goal_name": "store-wood_p1_st"
     },
     {
-      "goal_name": "store-stone_c1_s1"
+      "goal_name": "store-stone_c1_st"
     },
     {
-      "goal_name": "store-stone_p1_s1"
+      "goal_name": "store-stone_p1_st"
     },
     {
-      "goal_name": "store-chest_p1_s1"
+      "goal_name": "store-chest_p1_st"
     },
     {
       "goal_name": "retrieve-wood_p1_c1"

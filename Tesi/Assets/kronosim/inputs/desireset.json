@@ -16,17 +16,129 @@
             "==",
             [
               "READ_BELIEF",
-              "battery-amount_c1"
+              "posX_w1"
             ],
-            50
+            3
           ],
           [
             "==",
             [
               "READ_BELIEF",
-              "battery-amount_p1"
+              "posY_w1"
             ],
-            50
+            3
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_w2"
+            ],
+            9
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_w2"
+            ],
+            9
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_s1"
+            ],
+            3
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_s1"
+            ],
+            9
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_s2"
+            ],
+            9
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_s2"
+            ],
+            3
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_st"
+            ],
+            6
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_st"
+            ],
+            6
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "wood-stored_st"
+            ],
+            0
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "stone-stored_st"
+            ],
+            0
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "chest-stored_st"
+            ],
+            0
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "battery-amount_c1"
+            ],
+            75
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ],
+            2
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_c1"
+            ],
+            3
           ],
           [
             "==",
@@ -48,6 +160,38 @@
             "==",
             [
               "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "battery-amount_p1"
+            ],
+            50
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_p1"
+            ],
+            8
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_p1"
+            ],
+            7
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
               "wood-amount_p1"
             ],
             0
@@ -64,46 +208,6 @@
             "==",
             [
               "READ_BELIEF",
-              "chest-amount_p1"
-            ],
-            0
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posX_c1"
-            ],
-            6
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posY_c1"
-            ],
-            4
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posX_p1"
-            ],
-            1
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posY_p1"
-            ],
-            2
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
               "free_p1"
             ],
             true
@@ -112,89 +216,9 @@
             "==",
             [
               "READ_BELIEF",
-              "free_c1"
-            ],
-            true
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "wood-stored_s1"
-            ],
-            0
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "stone-stored_s1"
-            ],
-            0
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "chest-stored_s1"
-            ],
-            0
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posX_w1"
-            ],
-            1
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posY_w1"
-            ],
-            1
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posX_st1"
-            ],
-            4
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posY_st1"
-            ],
-            2
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posX_s1"
-            ],
-            7
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posY_s1"
-            ],
-            8
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
               "posX_rs1"
             ],
-            9
+            0
           ],
           [
             "==",
@@ -202,7 +226,7 @@
               "READ_BELIEF",
               "posY_rs1"
             ],
-            2
+            0
           ],
           [
             "==",
@@ -218,7 +242,7 @@
               "READ_BELIEF",
               "sample-capacity"
             ],
-            100
+            15
           ],
           [
             "==",
@@ -226,7 +250,7 @@
               "READ_BELIEF",
               "grid-size"
             ],
-            20
+            11
           ]
         ]
       ],

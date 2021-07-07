@@ -237,16 +237,6 @@
           "action": {
             "priority": 0.5,
             "deadline": 120,
-            "goal_name": "collect-stone_c1_st1",
-            "arrivalTime": 2100.018
-          },
-          "action_type": "GOAL",
-          "execution": "PARALLEL"
-        },
-        {
-          "action": {
-            "priority": 0.5,
-            "deadline": 120,
             "goal_name": "move-right_p1",
             "arrivalTime": 2100.018
           },
@@ -362,26 +352,6 @@
           },
           "action_type": "GOAL",
           "execution": "PARALLEL"
-        },
-        {
-          "action": {
-            "priority": 0.5,
-            "deadline": 60,
-            "goal_name": "store-stone_p1_s1",
-            "arrivalTime": 3480.03
-          },
-          "action_type": "GOAL",
-          "execution": "PARALLEL"
-        },
-        {
-          "action": {
-            "priority": 0.5,
-            "deadline": 60,
-            "goal_name": "store-wood_p1_s1",
-            "arrivalTime": 3540.031
-          },
-          "action_type": "GOAL",
-          "execution": "PARALLEL"
         }
       ],
       "cont_conditions": [],
@@ -395,17 +365,129 @@
             "==",
             [
               "READ_BELIEF",
-              "battery-amount_c1"
+              "posX_w1"
             ],
-            50
+            3
           ],
           [
             "==",
             [
               "READ_BELIEF",
-              "battery-amount_p1"
+              "posY_w1"
             ],
-            50
+            3
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_w2"
+            ],
+            9
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_w2"
+            ],
+            9
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_s1"
+            ],
+            3
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_s1"
+            ],
+            9
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_s2"
+            ],
+            9
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_s2"
+            ],
+            3
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_st"
+            ],
+            6
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_st"
+            ],
+            6
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "wood-stored_st"
+            ],
+            0
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "stone-stored_st"
+            ],
+            0
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "chest-stored_st"
+            ],
+            0
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "battery-amount_c1"
+            ],
+            75
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_c1"
+            ],
+            2
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_c1"
+            ],
+            3
           ],
           [
             "==",
@@ -427,6 +509,38 @@
             "==",
             [
               "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "battery-amount_p1"
+            ],
+            50
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posX_p1"
+            ],
+            8
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_p1"
+            ],
+            7
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
               "wood-amount_p1"
             ],
             0
@@ -443,46 +557,6 @@
             "==",
             [
               "READ_BELIEF",
-              "chest-amount_p1"
-            ],
-            0
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posX_c1"
-            ],
-            6
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posY_c1"
-            ],
-            4
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posX_p1"
-            ],
-            1
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posY_p1"
-            ],
-            2
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
               "free_p1"
             ],
             true
@@ -491,89 +565,9 @@
             "==",
             [
               "READ_BELIEF",
-              "free_c1"
-            ],
-            true
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "wood-stored_s1"
-            ],
-            0
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "stone-stored_s1"
-            ],
-            0
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "chest-stored_s1"
-            ],
-            0
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posX_w1"
-            ],
-            1
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posY_w1"
-            ],
-            1
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posX_st1"
-            ],
-            4
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posY_st1"
-            ],
-            2
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posX_s1"
-            ],
-            7
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posY_s1"
-            ],
-            8
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
               "posX_rs1"
             ],
-            9
+            0
           ],
           [
             "==",
@@ -581,7 +575,7 @@
               "READ_BELIEF",
               "posY_rs1"
             ],
-            2
+            0
           ],
           [
             "==",
@@ -597,7 +591,7 @@
               "READ_BELIEF",
               "sample-capacity"
             ],
-            100
+            15
           ],
           [
             "==",
@@ -605,7 +599,7 @@
               "READ_BELIEF",
               "grid-size"
             ],
-            20
+            11
           ]
         ]
       ],
@@ -3459,149 +3453,6 @@
       }
     },
     {
-      "goal_name": "collect-stone_c1_st1",
-      "body": [
-        {
-          "action_type": "TASK",
-          "execution": "SEQUENTIAL",
-          "action": {
-            "computationTime": 3,
-            "n_exec": 12,
-            "period": 10,
-            "relativeDeadline": 10,
-            "server": -1
-          }
-        }
-      ],
-      "cont_conditions": [],
-      "effects_at_begin": [
-        [
-          "ASSIGN",
-          "free_c1",
-          false
-        ],
-        [
-          "DEFINE_VARIABLE",
-          "battery-amount_c1_old",
-          [
-            "READ_BELIEF",
-            "battery-amount_c1"
-          ]
-        ],
-        [
-          "DEFINE_VARIABLE",
-          "stone-amount_c1_old",
-          [
-            "READ_BELIEF",
-            "stone-amount_c1"
-          ]
-        ]
-      ],
-      "effects_at_end": [
-        [
-          "ASSIGN",
-          "free_c1",
-          true
-        ]
-      ],
-      "post_conditions": [
-        [
-          "AND",
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "battery-amount_c1"
-            ],
-            [
-              "-",
-              [
-                "READ_VARIABLE",
-                "battery-amount_c1_old"
-              ],
-              5
-            ]
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "stone-amount_c1"
-            ],
-            [
-              "+",
-              [
-                "READ_VARIABLE",
-                "stone-amount_c1_old"
-              ],
-              1
-            ]
-          ]
-        ]
-      ],
-      "preconditions": [
-        [
-          "AND",
-          [
-            ">",
-            [
-              "READ_BELIEF",
-              "battery-amount_c1"
-            ],
-            10
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posX_c1"
-            ],
-            [
-              "READ_BELIEF",
-              "posX_st1"
-            ]
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posY_c1"
-            ],
-            [
-              "READ_BELIEF",
-              "posY_st1"
-            ]
-          ],
-          [
-            "<",
-            [
-              "READ_BELIEF",
-              "stone-amount_c1"
-            ],
-            [
-              "READ_BELIEF",
-              "sample-capacity"
-            ]
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "free_c1"
-            ],
-            true
-          ]
-        ]
-      ],
-      "preference": {
-        "computedDynamically": true,
-        "formula": [
-          0.8
-        ],
-        "reference_table": []
-      }
-    },
-    {
       "goal_name": "move-right_p1",
       "body": [
         {
@@ -5108,332 +4959,6 @@
               ],
               1
             ]
-          ]
-        ]
-      ],
-      "preference": {
-        "computedDynamically": true,
-        "formula": [
-          0.8
-        ],
-        "reference_table": []
-      }
-    },
-    {
-      "goal_name": "store-stone_p1_s1",
-      "body": [
-        {
-          "action_type": "TASK",
-          "execution": "SEQUENTIAL",
-          "action": {
-            "computationTime": 1,
-            "n_exec": 12,
-            "period": 5,
-            "relativeDeadline": 5,
-            "server": -1
-          }
-        }
-      ],
-      "cont_conditions": [],
-      "effects_at_begin": [
-        [
-          "ASSIGN",
-          "free_p1",
-          false
-        ],
-        [
-          "DEFINE_VARIABLE",
-          "battery-amount_p1_old",
-          [
-            "READ_BELIEF",
-            "battery-amount_p1"
-          ]
-        ],
-        [
-          "DEFINE_VARIABLE",
-          "stone-stored_s1_old",
-          [
-            "READ_BELIEF",
-            "stone-stored_s1"
-          ]
-        ],
-        [
-          "DEFINE_VARIABLE",
-          "stone-amount_p1_old",
-          [
-            "READ_BELIEF",
-            "stone-amount_p1"
-          ]
-        ]
-      ],
-      "effects_at_end": [
-        [
-          "ASSIGN",
-          "free_p1",
-          true
-        ]
-      ],
-      "post_conditions": [
-        [
-          "AND",
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "battery-amount_p1"
-            ],
-            [
-              "-",
-              [
-                "READ_VARIABLE",
-                "battery-amount_p1_old"
-              ],
-              1
-            ]
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "stone-stored_s1"
-            ],
-            [
-              "+",
-              [
-                "READ_VARIABLE",
-                "stone-stored_s1_old"
-              ],
-              1
-            ]
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "stone-amount_p1"
-            ],
-            [
-              "-",
-              [
-                "READ_VARIABLE",
-                "stone-amount_p1_old"
-              ],
-              1
-            ]
-          ]
-        ]
-      ],
-      "preconditions": [
-        [
-          "AND",
-          [
-            ">",
-            [
-              "READ_BELIEF",
-              "battery-amount_p1"
-            ],
-            10
-          ],
-          [
-            ">",
-            [
-              "READ_BELIEF",
-              "stone-amount_p1"
-            ],
-            0
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posX_p1"
-            ],
-            [
-              "READ_BELIEF",
-              "posX_s1"
-            ]
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posY_p1"
-            ],
-            [
-              "READ_BELIEF",
-              "posY_s1"
-            ]
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "free_p1"
-            ],
-            true
-          ]
-        ]
-      ],
-      "preference": {
-        "computedDynamically": true,
-        "formula": [
-          0.8
-        ],
-        "reference_table": []
-      }
-    },
-    {
-      "goal_name": "store-wood_p1_s1",
-      "body": [
-        {
-          "action_type": "TASK",
-          "execution": "SEQUENTIAL",
-          "action": {
-            "computationTime": 1,
-            "n_exec": 12,
-            "period": 5,
-            "relativeDeadline": 5,
-            "server": -1
-          }
-        }
-      ],
-      "cont_conditions": [],
-      "effects_at_begin": [
-        [
-          "ASSIGN",
-          "free_p1",
-          false
-        ],
-        [
-          "DEFINE_VARIABLE",
-          "battery-amount_p1_old",
-          [
-            "READ_BELIEF",
-            "battery-amount_p1"
-          ]
-        ],
-        [
-          "DEFINE_VARIABLE",
-          "wood-stored_s1_old",
-          [
-            "READ_BELIEF",
-            "wood-stored_s1"
-          ]
-        ],
-        [
-          "DEFINE_VARIABLE",
-          "wood-amount_p1_old",
-          [
-            "READ_BELIEF",
-            "wood-amount_p1"
-          ]
-        ]
-      ],
-      "effects_at_end": [
-        [
-          "ASSIGN",
-          "free_p1",
-          true
-        ]
-      ],
-      "post_conditions": [
-        [
-          "AND",
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "battery-amount_p1"
-            ],
-            [
-              "-",
-              [
-                "READ_VARIABLE",
-                "battery-amount_p1_old"
-              ],
-              1
-            ]
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "wood-stored_s1"
-            ],
-            [
-              "+",
-              [
-                "READ_VARIABLE",
-                "wood-stored_s1_old"
-              ],
-              1
-            ]
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "wood-amount_p1"
-            ],
-            [
-              "-",
-              [
-                "READ_VARIABLE",
-                "wood-amount_p1_old"
-              ],
-              1
-            ]
-          ]
-        ]
-      ],
-      "preconditions": [
-        [
-          "AND",
-          [
-            ">",
-            [
-              "READ_BELIEF",
-              "battery-amount_p1"
-            ],
-            10
-          ],
-          [
-            ">",
-            [
-              "READ_BELIEF",
-              "wood-amount_p1"
-            ],
-            0
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posX_p1"
-            ],
-            [
-              "READ_BELIEF",
-              "posX_s1"
-            ]
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posY_p1"
-            ],
-            [
-              "READ_BELIEF",
-              "posY_s1"
-            ]
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "free_p1"
-            ],
-            true
           ]
         ]
       ],

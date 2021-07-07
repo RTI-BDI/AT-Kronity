@@ -69,12 +69,14 @@ public class ProblemGenerator : MonoBehaviour
 		public int id;
 		public List<Entity> entities;
 		public Dictionary<string, Dictionary<string, int>> goals;
+		public int minGridSize;
 
 		public Level(int id)
 		{
 			this.id = id;
 			this.entities = new List<Entity>();
 			this.goals = new Dictionary<string, Dictionary<string, int>>();
+			this.minGridSize = 0;
 		}
 
 		public string ToString()
@@ -98,6 +100,7 @@ public class ProblemGenerator : MonoBehaviour
 					result = result + " ( " + kvp.Key + " -> " + kvp.Value + " ) \n";
 				}
 			}
+			result = result + "Min Grid-Size: " + this.minGridSize;
 
 			return result;
 		}
@@ -108,6 +111,7 @@ public class ProblemGenerator : MonoBehaviour
 	private Level level_1;
 	private Level level_2;
 	private Level level_3;
+	private Level selectedLevel;
 	private Level chosenLevel;
 
     // Start is called before the first frame update
@@ -172,6 +176,24 @@ public class ProblemGenerator : MonoBehaviour
 		constantsPanel.SetActive(false);
 		mainPanel.SetActive(false);
 		levelPanel.SetActive(true);
+
+		levelText.GetComponent<TMP_Text>().text = "";
+
+		selectedLevel = new Level(0);
+		chosenLevel = new Level(0);
+
+		constants = new Dictionary<string, int>();
+		problemEntities = new List<Entity>();
+
+		foreach (Transform child in constantsContainer.transform)
+		{
+			GameObject.Destroy(child.gameObject);
+		}
+
+		foreach (Transform child in container.transform)
+		{
+			GameObject.Destroy(child.gameObject);
+		}
 	}
 
 	public void ChangeView(string obj)
@@ -215,7 +237,7 @@ public class ProblemGenerator : MonoBehaviour
 
 				objectSprite.sprite = producerSprite;
 				break;
-			case "Recharge-Station":
+			case "R-Station":
 				fieldTexts[0].GetComponent<TMP_Text>().text = "Name: ";
 				fieldTexts[1].GetComponent<TMP_Text>().text = "";
 				fieldTexts[2].GetComponent<TMP_Text>().text = "Position (X): ";
@@ -268,6 +290,11 @@ public class ProblemGenerator : MonoBehaviour
 		constantsPanel.SetActive(true);
 		mainPanel.SetActive(false);
 		levelPanel.SetActive(false);
+
+		foreach (Transform child in constantsContainer.transform)
+		{
+			GameObject.Destroy(child.gameObject);
+		}
 
 		constants = new Dictionary<string, int>();
 
@@ -397,23 +424,36 @@ public class ProblemGenerator : MonoBehaviour
 
 		foreach (GameObject obj in inputConstants)
 		{
-			int value;
-			bool success = int.TryParse(obj.transform.GetChild(0).GetComponent<TMP_InputField>().text, out value);
+			if(obj != null)
+			{
+				int value;
+				bool success = int.TryParse(obj.transform.GetChild(0).GetComponent<TMP_InputField>().text, out value);
 
-			if (success)
-			{
-				constants.Add(obj.transform.GetChild(1).GetComponent<TMP_Text>().text.ToLower(), value);
-			} else
-			{
-				BadInput("Bad value in " + obj.transform.GetChild(1).GetComponent<TMP_Text>().text);
-				goOn = false;
+				if (success)
+				{
+					if (!(obj.transform.GetChild(1).GetComponent<TMP_Text>().text == "GRID-SIZE") || value >= chosenLevel.minGridSize)
+					{
+						constants.Add(obj.transform.GetChild(1).GetComponent<TMP_Text>().text.ToLower(), value);
+					}
+					else
+					{
+						BadInput("Grid size lower than minimum requested by the level");
+						goOn = false;
+					}
+
+				}
+				else
+				{
+					BadInput("Bad value in " + obj.transform.GetChild(1).GetComponent<TMP_Text>().text);
+					goOn = false;
+				}
 			}
-			
+
 		}
 
 		if (goOn)
 		{
-			GoToMenu();
+			GoToMainPanel();
 		} else
 		{
 			constants = new Dictionary<string, int>();
@@ -423,22 +463,34 @@ public class ProblemGenerator : MonoBehaviour
 
 	public void SelectLevel(int levelId)
 	{
+
+
 		switch (levelId)
 		{
 			case 1:
-				chosenLevel = level_1;
+				selectedLevel = level_1;
 				break;
 			case 2:
-				chosenLevel = level_2;
+				selectedLevel = level_2;
 				break;
 			case 3:
-				chosenLevel = level_3;
+				selectedLevel = level_3;
 				break;
 			default:
 				break;
 		}
 
-		levelText.GetComponent<TMP_Text>().text = chosenLevel.ToString();
+		levelText.GetComponent<TMP_Text>().text = selectedLevel.ToString();
+	}
+
+	public void ConfirmLevel()
+	{
+		chosenLevel = selectedLevel;
+		foreach (Entity e in chosenLevel.entities)
+		{
+			problemEntities.Add(e);
+		}
+		GoToMainPanel();
 	}
 
 	public void GenerateProblem()
@@ -494,9 +546,26 @@ public class ProblemGenerator : MonoBehaviour
 			jsonStr = jsonStr + " ], ";
 
 			//goal still hardcoded
-			jsonStr = jsonStr + " [\"defineGoal\", [\"equal\", [\"function\", \"wood-stored\", [\"array\", \"s1\"]], \"2\"], [\"equal\", [\"function\", \"stone-stored\", [\"array\", \"s1\"]], \"3\" ] ]";
+			jsonStr = jsonStr + " [\"defineGoal\", ";
 
-			jsonStr = jsonStr + " ] }";
+			counter = 0;
+			int secondCounter = 0;
+			foreach (KeyValuePair<string, Dictionary<string, int>> entry in chosenLevel.goals)
+			{
+				foreach (KeyValuePair<string, int> kvp in entry.Value)
+				{
+					jsonStr = jsonStr + " [\"equal\", [\"function\", \"" + kvp.Key + "\", [\"array\", \"" + entry.Key + "\" ] ], \"" + kvp.Value + "\" ]";
+
+					if (counter != chosenLevel.goals.Count - 1 || secondCounter != entry.Value.Count - 1)
+					{
+						jsonStr = jsonStr + ", ";
+					}
+					secondCounter++;
+				}
+				counter++;
+			}
+
+			jsonStr = jsonStr + " ] ] }";
 
 			JObject jobject = JObject.Parse(jsonStr);
 
@@ -538,6 +607,7 @@ public class ProblemGenerator : MonoBehaviour
 		lvl_1_goals.Add("st", lvl_1_subgoals);
 		level_1.entities = lvl_1_entities;
 		level_1.goals = lvl_1_goals;
+		level_1.minGridSize = 10;
 
 
 		level_2 = new Level(2);
@@ -557,6 +627,7 @@ public class ProblemGenerator : MonoBehaviour
 		lvl_2_goals.Add("st2", lvl_2_subgoals_st2);
 		level_2.entities = lvl_2_entities;
 		level_2.goals = lvl_2_goals;
+		level_2.minGridSize = 10;
 
 
 		level_3 = new Level(3);
@@ -572,6 +643,7 @@ public class ProblemGenerator : MonoBehaviour
 		lvl_3_goals.Add("st", lvl_3_subgoals);
 		level_3.entities = lvl_3_entities;
 		level_3.goals = lvl_3_goals;
+		level_3.minGridSize = 10;
 
 	}
 

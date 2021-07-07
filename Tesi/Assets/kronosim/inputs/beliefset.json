@@ -10,7 +10,7 @@
     },
     {
       "name": "battery-amount_c1",
-      "value": 50
+      "value": 75
     },
     {
       "name": "battery-amount_p1",
@@ -37,63 +37,71 @@
       "value": 0
     },
     {
-      "name": "posX_c1",
-      "value": 6
-    },
-    {
-      "name": "posX_p1",
-      "value": 1
-    },
-    {
       "name": "posX_w1",
-      "value": 1
+      "value": 3
     },
     {
-      "name": "posX_st1",
-      "value": 4
-    },
-    {
-      "name": "posX_s1",
-      "value": 7
-    },
-    {
-      "name": "posX_rs1",
+      "name": "posX_w2",
       "value": 9
     },
     {
-      "name": "posY_c1",
-      "value": 4
+      "name": "posX_s1",
+      "value": 3
     },
     {
-      "name": "posY_p1",
+      "name": "posX_s2",
+      "value": 9
+    },
+    {
+      "name": "posX_st",
+      "value": 6
+    },
+    {
+      "name": "posX_c1",
       "value": 2
     },
     {
-      "name": "posY_w1",
-      "value": 1
-    },
-    {
-      "name": "posY_st1",
-      "value": 2
-    },
-    {
-      "name": "posY_s1",
+      "name": "posX_p1",
       "value": 8
     },
     {
-      "name": "posY_rs1",
-      "value": 2
+      "name": "posY_w1",
+      "value": 3
     },
     {
-      "name": "wood-stored_s1",
+      "name": "posY_w2",
+      "value": 9
+    },
+    {
+      "name": "posY_s1",
+      "value": 9
+    },
+    {
+      "name": "posY_s2",
+      "value": 3
+    },
+    {
+      "name": "posY_st",
+      "value": 6
+    },
+    {
+      "name": "posY_c1",
+      "value": 3
+    },
+    {
+      "name": "posY_p1",
+      "value": 7
+    },
+    {
+      "name": "wood-stored_st",
       "value": 0
     },
     {
-      "name": "stone-stored_s1",
+      "name": "stone-stored_st",
       "value": 0
     },
     {
-      "name": "chest-stored_s1",
+      "name": "chest-stored_st",
       "value": 0
     },
     {
@@ -102,11 +110,11 @@
     },
     {
       "name": "sample-capacity",
-      "value": 100
+      "value": 15
     },
     {
       "name": "grid-size",
-      "value": 20
+      "value": 11
     }
   ]
 }

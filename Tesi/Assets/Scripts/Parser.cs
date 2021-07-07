@@ -61,7 +61,7 @@ public class Parser : MonoBehaviour
     {
         //Read Json file to string
         string jsonDomain = File.ReadAllText("./Assets/JSON/Domain.json");
-        string jsonProblem = File.ReadAllText("./Assets/JSON/Problem.json");
+        string jsonProblem = File.ReadAllText("./Assets/JSON/AutomatedProblem.json");
 		string jsonMapping = File.ReadAllText("./Assets/JSON/MethodMapping.json");
 
         //Initial parsing

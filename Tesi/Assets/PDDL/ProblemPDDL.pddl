@@ -1,47 +1,52 @@
 (define 
-(problem S_Example_P)
+(problem Test)
 (:domain S_Example)
 (:objects 
+w1 - wood
+w2 - wood
+s1 - stone
+s2 - stone
+st - storage
 c1 - collector
 p1 - producer
-w1 - wood
-st1 - stone
-s1 - storage
-rs1 - r_station
+rs1 - r-station
 )
 (:init 
-(= (battery-amount c1) 50)
-(= (battery-amount p1) 50)
+(= (posX w1) 3)
+(= (posY w1) 3)
+(= (posX w2) 9)
+(= (posY w2) 9)
+(= (posX s1) 3)
+(= (posY s1) 9)
+(= (posX s2) 9)
+(= (posY s2) 3)
+(= (posX st) 6)
+(= (posY st) 6)
+(= (wood-stored st) 0)
+(= (stone-stored st) 0)
+(= (chest-stored st) 0)
+(= (battery-amount c1) 75)
+(= (posX c1) 2)
+(= (posY c1) 3)
 (= (wood-amount c1) 0)
 (= (stone-amount c1) 0)
+(free c1)
+(= (battery-amount p1) 50)
+(= (posX p1) 8)
+(= (posY p1) 7)
 (= (wood-amount p1) 0)
 (= (stone-amount p1) 0)
-(= (chest-amount p1) 0)
-(= (posX c1) 6)
-(= (posY c1) 4)
-(= (posX p1) 1)
-(= (posY p1) 2)
 (free p1)
-(free c1)
-(= (wood-stored s1) 0)
-(= (stone-stored s1) 0)
-(= (chest-stored s1) 0)
-(= (posX w1) 1)
-(= (posY w1) 1)
-(= (posX st1) 4)
-(= (posY st1) 2)
-(= (posX s1) 7)
-(= (posY s1) 8)
-(= (posX rs1) 9)
-(= (posY rs1) 2)
+(= (posX rs1) 0)
+(= (posY rs1) 0)
 (= (battery-capacity) 100)
-(= (sample-capacity) 100)
-(= (grid-size) 20)
+(= (sample-capacity) 15)
+(= (grid-size) 11)
 )
 (:goal 
 (and 
-(= (wood-stored s1) 2)
-(= (stone-stored s1) 3)
+(= (wood-stored st) 3)
+(= (stone-stored st) 8)
 )
 )
 )
