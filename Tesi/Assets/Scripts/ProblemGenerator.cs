@@ -9,6 +9,8 @@ using UnityEngine.UI;
 
 public class ProblemGenerator : MonoBehaviour
 {
+	public SceneChanger sceneChanger;
+
 	public GameObject canvas;
 	public List<GameObject> errorLogs = new List<GameObject>();
 	public GameObject problemName;
@@ -144,13 +146,13 @@ public class ProblemGenerator : MonoBehaviour
 		{
 			constantsSelectionButton.GetComponent<Button>().interactable = false;
 			Color originalColor = constantsSelectionButton.GetComponent<Image>().color;
-			originalColor.a = 0.2f;
+			originalColor.a = 0.6f;
 			constantsSelectionButton.GetComponent<Image>().color = originalColor;
 		} else
 		{
 			constantsSelectionButton.GetComponent<Button>().interactable = true;
 			Color originalColor = constantsSelectionButton.GetComponent<Image>().color;
-			originalColor.a = 0.6f;
+			originalColor.a = 1f;
 			constantsSelectionButton.GetComponent<Image>().color = originalColor;
 		}
 
@@ -158,13 +160,13 @@ public class ProblemGenerator : MonoBehaviour
 		{
 			entitiesSelectionButton.GetComponent<Button>().interactable = false;
 			Color originalColor = entitiesSelectionButton.GetComponent<Image>().color;
-			originalColor.a = 0.2f;
+			originalColor.a = 0.6f;
 			entitiesSelectionButton.GetComponent<Image>().color = originalColor;
 		} else
 		{
 			entitiesSelectionButton.GetComponent<Button>().interactable = true;
 			Color originalColor = entitiesSelectionButton.GetComponent<Image>().color;
-			originalColor.a = 0.6f;
+			originalColor.a = 1f;
 			entitiesSelectionButton.GetComponent<Image>().color = originalColor;
 		}
 	}
@@ -346,6 +348,7 @@ public class ProblemGenerator : MonoBehaviour
 							} else
 							{
 								BadInput("PosX value out of bound");
+								return;
 							}			
 							break;
 						case "Position (Y): ":
@@ -356,6 +359,7 @@ public class ProblemGenerator : MonoBehaviour
 							else
 							{
 								BadInput("PosY value out of bound");
+								return;
 							}
 							break;
 						case "Initial Wood Amount: ":
@@ -580,7 +584,10 @@ public class ProblemGenerator : MonoBehaviour
 		} else
 		{
 			BadInput("Missing Problem Name");
+			return;
 		}
+
+		sceneChanger.MoveToMainMenu();
 	}
 
 	private void ActivateAllInputFields()

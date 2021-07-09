@@ -38,6 +38,10 @@ public class ErrorLog : MonoBehaviour
 			newColorText.a = transparency;
 			gameObject.transform.GetChild(0).GetComponent<TMP_Text>().color = newColorText;
 
+			Color newColorIcon = gameObject.transform.GetChild(1).GetComponent<Image>().color;
+			newColorIcon.a = transparency;
+			gameObject.transform.GetChild(1).GetComponent<Image>().color = newColorIcon;
+
 			transparency -= 1f / 255f;
 
 			yield return null;

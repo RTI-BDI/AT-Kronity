@@ -15,7 +15,7 @@ TagManager:
   - UI
   - Ground
   - Entities
-  - 
+  - BackGround
   - 
   - 
   - 
@@ -40,6 +40,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 1687514825
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

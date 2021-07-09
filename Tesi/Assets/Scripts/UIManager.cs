@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+	public Camera mainCamera;
+	public GameObject background;
+
 	[SerializeField]
 	private GameObject setPanel;
 	private static GameObject panel;
@@ -74,6 +77,11 @@ public class UIManager : MonoBehaviour
 		panel.SetActive(false);
 	}
 
+	void LateUpdate()
+	{
+		background.transform.position = new Vector2(mainCamera.transform.position.x, mainCamera.transform.position.y);
+	}
+
 	public static void SetVisibleCollector(string objName, int objPosX, int objPosY, int objBatteryAmount, int objWoodAmount, int objStoneAmount, Sprite objSprite)
 	{
 		inspectedObj = objName;
@@ -86,42 +94,50 @@ public class UIManager : MonoBehaviour
 
 		if(text_1 != null)
 		{
-			text_1.GetComponent<TMP_Text>().text = "Name: " + objName;
+			text_1.SetActive(true);
+			text_1.transform.GetChild(0).GetComponent<TMP_Text>().text = "Name: " + objName;
 		}
 
 		if(text_2 != null)
 		{
-			text_2.GetComponent<TMP_Text>().text = "X-Position: " + objPosX;
+			text_2.SetActive(true);
+			text_2.transform.GetChild(0).GetComponent<TMP_Text>().text = "X-Position: " + objPosX;
 		}
 
 		if(text_3 != null)
 		{
-			text_3.GetComponent<TMP_Text>().text = "Y-Position: " + objPosY;
+			text_3.SetActive(true);
+			text_3.transform.GetChild(0).GetComponent<TMP_Text>().text = "Y-Position: " + objPosY;
 		}
 
 		if(text_4 != null)
 		{
-			text_4.GetComponent<TMP_Text>().text = "Battery Level: " + objBatteryAmount + "%";
+			text_4.SetActive(true);
+			text_4.transform.GetChild(0).GetComponent<TMP_Text>().text = "Battery Level: " + objBatteryAmount + "%";
 		}
 
 		if (text_5 != null)
 		{
-			text_5.GetComponent<TMP_Text>().text = "Wood Carried: " + objWoodAmount;
+			text_5.SetActive(true);
+			text_5.transform.GetChild(0).GetComponent<TMP_Text>().text = "Wood Carried: " + objWoodAmount;
 		}
 
 		if (text_6 != null)
 		{
-			text_6.GetComponent<TMP_Text>().text = "Stone Carried: " + objStoneAmount;
+			text_6.SetActive(true);
+			text_6.transform.GetChild(0).GetComponent<TMP_Text>().text = "Stone Carried: " + objStoneAmount;
 		}
 
 		if (text_7 != null)
 		{
-			text_7.GetComponent<TMP_Text>().text = "";
+			text_7.SetActive(false);
+			text_7.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
 		}
 
 		if (text_8 != null)
 		{
-			text_8.GetComponent<TMP_Text>().text = "";
+			text_8.SetActive(false);
+			text_8.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
 		}
 
 		if (sprite != null)
@@ -162,42 +178,50 @@ public class UIManager : MonoBehaviour
 
 		if (text_1 != null)
 		{
-			text_1.GetComponent<TMP_Text>().text = "Name: " + objName;
+			text_1.SetActive(true);
+			text_1.transform.GetChild(0).GetComponent<TMP_Text>().text = "Name: " + objName;
 		}
 
 		if (text_2 != null)
 		{
-			text_2.GetComponent<TMP_Text>().text = "X-Position: " + objPosX;
+			text_2.SetActive(true);
+			text_2.transform.GetChild(0).GetComponent<TMP_Text>().text = "X-Position: " + objPosX;
 		}
 
 		if (text_3 != null)
 		{
-			text_3.GetComponent<TMP_Text>().text = "Y-Position: " + objPosY;
+			text_3.SetActive(true);
+			text_3.transform.GetChild(0).GetComponent<TMP_Text>().text = "Y-Position: " + objPosY;
 		}
 
 		if (text_4 != null)
 		{
-			text_5.GetComponent<TMP_Text>().text = "Wood Carried: " + objWoodAmount;
+			text_4.SetActive(true);
+			text_4.transform.GetChild(0).GetComponent<TMP_Text>().text = "Wood Carried: " + objWoodAmount;
 		}
 
 		if (text_5 != null)
 		{
-			text_6.GetComponent<TMP_Text>().text = "Stone Carried: " + objStoneAmount;
+			text_5.SetActive(true);
+			text_5.transform.GetChild(0).GetComponent<TMP_Text>().text = "Stone Carried: " + objStoneAmount;
 		}
 
 		if (text_6 != null)
 		{
-			text_7.GetComponent<TMP_Text>().text = "Chests Carried: " + objChestAmount;
+			text_6.SetActive(true);
+			text_6.transform.GetChild(0).GetComponent<TMP_Text>().text = "Chests Carried: " + objChestAmount;
 		}
 
 		if (text_7 != null)
 		{
-			text_8.GetComponent<TMP_Text>().text = "";
+			text_7.SetActive(false);
+			text_7.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
 		}
 
 		if (text_8 != null)
 		{
-			text_8.GetComponent<TMP_Text>().text = "";
+			text_8.SetActive(false);
+			text_8.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
 		}
 
 		if (sprite != null)
@@ -238,42 +262,50 @@ public class UIManager : MonoBehaviour
 
 		if (text_1 != null)
 		{
-			text_1.GetComponent<TMP_Text>().text = "Name: " + objName;
+			text_1.SetActive(true);
+			text_1.transform.GetChild(0).GetComponent<TMP_Text>().text = "Name: " + objName;
 		}
 
 		if (text_2 != null)
 		{
-			text_2.GetComponent<TMP_Text>().text = "X-Position: " + objPosX;
+			text_2.SetActive(true);
+			text_2.transform.GetChild(0).GetComponent<TMP_Text>().text = "X-Position: " + objPosX;
 		}
 
 		if (text_3 != null)
 		{
-			text_3.GetComponent<TMP_Text>().text = "Y-Position: " + objPosY;
+			text_3.SetActive(true);
+			text_3.transform.GetChild(0).GetComponent<TMP_Text>().text = "Y-Position: " + objPosY;
 		}
 
 		if (text_4 != null)
 		{
-			text_4.GetComponent<TMP_Text>().text = "Resource: Wood";
+			text_4.SetActive(true);
+			text_4.transform.GetChild(0).GetComponent<TMP_Text>().text = "Resource: Wood";
 		}
 
 		if (text_5 != null)
 		{
-			text_5.GetComponent<TMP_Text>().text = "";
+			text_5.SetActive(false);
+			text_5.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
 		}
 
 		if (text_6 != null)
 		{
-			text_6.GetComponent<TMP_Text>().text = "";
+			text_6.SetActive(false);
+			text_6.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
 		}
 
 		if (text_7 != null)
 		{
-			text_7.GetComponent<TMP_Text>().text = "";
+			text_7.SetActive(false);
+			text_7.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
 		}
 
 		if (text_8 != null)
 		{
-			text_8.GetComponent<TMP_Text>().text = "";
+			text_8.SetActive(false);
+			text_8.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
 		}
 
 		if (sprite != null)
@@ -299,42 +331,50 @@ public class UIManager : MonoBehaviour
 
 		if (text_1 != null)
 		{
-			text_1.GetComponent<TMP_Text>().text = "Name: " + objName;
+			text_1.SetActive(true);
+			text_1.transform.GetChild(0).GetComponent<TMP_Text>().text = "Name: " + objName;
 		}
 
 		if (text_2 != null)
 		{
-			text_2.GetComponent<TMP_Text>().text = "X-Position: " + objPosX;
+			text_2.SetActive(true);
+			text_2.transform.GetChild(0).GetComponent<TMP_Text>().text = "X-Position: " + objPosX;
 		}
 
 		if (text_3 != null)
 		{
-			text_3.GetComponent<TMP_Text>().text = "Y-Position: " + objPosY;
+			text_3.SetActive(true);
+			text_3.transform.GetChild(0).GetComponent<TMP_Text>().text = "Y-Position: " + objPosY;
 		}
 
 		if (text_4 != null)
 		{
-			text_4.GetComponent<TMP_Text>().text = "Resource: Stone";
+			text_4.SetActive(true);
+			text_4.transform.GetChild(0).GetComponent<TMP_Text>().text = "Resource: Stone";
 		}
 
 		if (text_5 != null)
 		{
-			text_5.GetComponent<TMP_Text>().text = "";
+			text_5.SetActive(false);
+			text_5.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
 		}
 
 		if (text_6 != null)
 		{
-			text_6.GetComponent<TMP_Text>().text = "";
+			text_6.SetActive(false);
+			text_6.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
 		}
 
 		if (text_7 != null)
 		{
-			text_7.GetComponent<TMP_Text>().text = "";
+			text_7.SetActive(false);
+			text_7.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
 		}
 
 		if (text_8 != null)
 		{
-			text_8.GetComponent<TMP_Text>().text = "";
+			text_8.SetActive(false);
+			text_8.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
 		}
 
 		if (sprite != null)
@@ -360,42 +400,50 @@ public class UIManager : MonoBehaviour
 
 		if (text_1 != null)
 		{
-			text_1.GetComponent<TMP_Text>().text = "Name: " + objName;
+			text_1.SetActive(true);
+			text_1.transform.GetChild(0).GetComponent<TMP_Text>().text = "Name: " + objName;
 		}
 
 		if (text_2 != null)
 		{
-			text_2.GetComponent<TMP_Text>().text = "X-Position: " + objPosX;
+			text_2.SetActive(true);
+			text_2.transform.GetChild(0).GetComponent<TMP_Text>().text = "X-Position: " + objPosX;
 		}
 
 		if (text_3 != null)
 		{
-			text_3.GetComponent<TMP_Text>().text = "Y-Position: " + objPosY;
+			text_3.SetActive(true);
+			text_3.transform.GetChild(0).GetComponent<TMP_Text>().text = "Y-Position: " + objPosY;
 		}
 
 		if (text_4 != null)
 		{
-			text_4.GetComponent<TMP_Text>().text = "Entity: Recharge station";
+			text_4.SetActive(true);
+			text_4.transform.GetChild(0).GetComponent<TMP_Text>().text = "Entity: Recharge station";
 		}
 
 		if (text_5 != null)
 		{
-			text_5.GetComponent<TMP_Text>().text = "";
+			text_5.SetActive(false);
+			text_5.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
 		}
 
 		if (text_6 != null)
 		{
-			text_6.GetComponent<TMP_Text>().text = "";
+			text_6.SetActive(false);
+			text_6.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
 		}
 
 		if (text_7 != null)
 		{
-			text_7.GetComponent<TMP_Text>().text = "";
+			text_7.SetActive(false);
+			text_7.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
 		}
 
 		if (text_8 != null)
 		{
-			text_8.GetComponent<TMP_Text>().text = "";
+			text_8.SetActive(false);
+			text_8.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
 		}
 
 		if (sprite != null)
@@ -421,42 +469,50 @@ public class UIManager : MonoBehaviour
 
 		if (text_1 != null)
 		{
-			text_1.GetComponent<TMP_Text>().text = "Name: " + objName;
+			text_1.SetActive(true);
+			text_1.transform.GetChild(0).GetComponent<TMP_Text>().text = "Name: " + objName;
 		}
 
 		if (text_2 != null)
 		{
-			text_2.GetComponent<TMP_Text>().text = "X-Position: " + objPosX;
+			text_2.SetActive(true);
+			text_2.transform.GetChild(0).GetComponent<TMP_Text>().text = "X-Position: " + objPosX;
 		}
 
 		if (text_3 != null)
 		{
-			text_3.GetComponent<TMP_Text>().text = "Y-Position: " + objPosY;
+			text_3.SetActive(true);
+			text_3.transform.GetChild(0).GetComponent<TMP_Text>().text = "Y-Position: " + objPosY;
 		}
 
 		if (text_4 != null)
 		{
-			text_4.GetComponent<TMP_Text>().text = "Wood Stored: " + objWoodStored;
+			text_4.SetActive(true);
+			text_4.transform.GetChild(0).GetComponent<TMP_Text>().text = "Wood Stored: " + objWoodStored;
 		}
 
 		if (text_5 != null)
 		{
-			text_5.GetComponent<TMP_Text>().text = "Stone Stored: " + objStoneStored;
+			text_5.SetActive(true);
+			text_5.transform.GetChild(0).GetComponent<TMP_Text>().text = "Stone Stored: " + objStoneStored;
 		}
 
 		if (text_6 != null)
 		{
-			text_6.GetComponent<TMP_Text>().text = "Chests Stored: " + objStoneStored;
+			text_6.SetActive(true);
+			text_6.transform.GetChild(0).GetComponent<TMP_Text>().text = "Chests Stored: " + objStoneStored;
 		}
 
 		if (text_7 != null)
 		{
-			text_7.GetComponent<TMP_Text>().text = "Entity: Storage";
+			text_7.SetActive(true);
+			text_7.transform.GetChild(0).GetComponent<TMP_Text>().text = "Entity: Storage";
 		}
 
 		if (text_8 != null)
 		{
-			text_8.GetComponent<TMP_Text>().text = "";
+			text_8.SetActive(false);
+			text_8.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
 		}
 
 		if (sprite != null)
