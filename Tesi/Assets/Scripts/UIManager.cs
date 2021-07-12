@@ -59,6 +59,16 @@ public class UIManager : MonoBehaviour
 
 	private static string inspectedObj = "";
 
+	[SerializeField]
+	private GameObject setPlayButton;
+	private static GameObject playButton;
+	[SerializeField]
+	private GameObject setPauseButton;
+	private static GameObject pauseButton;
+	[SerializeField]
+	private GameObject setFrameText;
+	private static GameObject frameText;
+
 	void Start()
 	{
 		panel = setPanel;
@@ -73,6 +83,10 @@ public class UIManager : MonoBehaviour
 		sprite = setSprite;
 		slider = setSlider;
 		textSlider = setTextSlider;
+
+		playButton = setPlayButton;
+		pauseButton = setPauseButton;
+		frameText = setFrameText;
 
 		panel.SetActive(false);
 	}
@@ -545,6 +559,33 @@ public class UIManager : MonoBehaviour
 		update.Add("battery-amount_" + inspectedObj, int.Parse(textSlider.GetComponent<TMP_Text>().text));
 
 		Parser.UpdateSensors(update, "SET", GameManager.GetFrame());
+	}
+
+	public static void InPause()
+	{
+		Color originalColor = playButton.GetComponent<Image>().color;
+		originalColor.a = 1f;
+		playButton.GetComponent<Image>().color = originalColor;
+
+		originalColor = pauseButton.GetComponent<Image>().color;
+		originalColor.a = 0.6f;
+		pauseButton.GetComponent<Image>().color = originalColor;
+	}
+
+	public static void InPlay()
+	{
+		Color originalColor = playButton.GetComponent<Image>().color;
+		originalColor.a = 0.6f;
+		playButton.GetComponent<Image>().color = originalColor;
+
+		originalColor = pauseButton.GetComponent<Image>().color;
+		originalColor.a = 1f;
+		pauseButton.GetComponent<Image>().color = originalColor;
+	}
+
+	public static void UpdateFrameText(int frame)
+	{
+		frameText.GetComponent<TMP_Text>().text = frame.ToString();
 	}
 
 }

@@ -24,7 +24,16 @@ public class GameManager : MonoBehaviour
     
     private Client client;
 
+	private enum State
+	{
+		Playing,
+		Pause,
+		Waiting,
+		Planning
+	}
+
 	private static int frame;
+	private State state;
 
 	// Start is called before the first frame update
 	void Start()
@@ -33,6 +42,8 @@ public class GameManager : MonoBehaviour
 
 		//Reset static variables
 		frame = 0;
+		GoPause();
+
 		constants = new Dictionary<string, int>();
 
 		parser = setParse;
@@ -56,10 +67,22 @@ public class GameManager : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
-		frame++;
+
+		switch (state)
+		{
+			case State.Playing:
+				frame++;
+				UIManager.UpdateFrameText(frame);
+				break;
+			case State.Pause:
+				UIManager.UpdateFrameText(frame);
+				break;
+			default:
+				break;
+		}
 
         if(Input.GetKeyDown("g"))
-            StartCoroutine(collectors[0].GetComponent<Collector>().MoveUp(GetTileSize(), GetBatteryDecrease("move-up")));
+            collectors[0].GetComponent<Collector>().MoveUp();
     }
     
     private void InstantiateGame()
@@ -277,5 +300,27 @@ public class GameManager : MonoBehaviour
 	public static Dictionary<string, int> GetConstants()
 	{
 		return constants;
+	}
+
+	public void GoPause()
+	{
+		state = State.Pause;
+		UIManager.InPause();
+
+		foreach (GameObject c in collectors)
+		{
+			c.GetComponent<Collector>().Pause();
+		}
+	}
+
+	public void GoPlay()
+	{
+		state = State.Playing;
+		UIManager.InPlay();
+
+		foreach(GameObject c in collectors)
+		{
+			c.GetComponent<Collector>().Resume();
+		}
 	}
 }

@@ -32,6 +32,8 @@ public class Collector : MonoBehaviour
 	private float distance;
 	private string runningCoroutine = "";
 
+	private bool isPaused = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -126,7 +128,12 @@ public class Collector : MonoBehaviour
         int actionTime = 120;
         for (int i = 0; i < actionTime; i++)
         {
-            gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + tileSize / actionTime);
+			while (isPaused)
+			{
+				yield return null;
+			}
+
+			gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + tileSize / actionTime);
             yield return null;
         }
 		this.posY++;
@@ -150,7 +157,8 @@ public class Collector : MonoBehaviour
     {
         int actionTime = 120;
         for (int i = 0; i < actionTime; i++)
-        {
+		{ 
+
             gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + tileSize / actionTime);
             yield return null;
         }
@@ -175,6 +183,7 @@ public class Collector : MonoBehaviour
         int actionTime = 120;
         for (int i = 0; i < actionTime; i++)
         {
+
             gameObject.transform.position = new Vector2(gameObject.transform.position.x + tileSize / actionTime, gameObject.transform.position.y);
             yield return null;
         }
@@ -800,9 +809,14 @@ public class Collector : MonoBehaviour
 		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
 	}
 
-	public void InterruptActions()
+	public void Pause()
 	{
-		StopAllCoroutines();
+		isPaused = true;
+	}
+
+	public void Resume()
+	{
+		isPaused = false;
 	}
 
 	public void ResetPosition()
@@ -817,7 +831,7 @@ public class Collector : MonoBehaviour
 
 	void OnMouseDown()
 	{
-		InterruptActions();
+		StopAllCoroutines();
 		gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
 		distance = Vector3.Distance(transform.position, Camera.main.transform.position);
 		dragging = true;
