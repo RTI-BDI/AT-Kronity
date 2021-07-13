@@ -62,9 +62,15 @@ public class UIManager : MonoBehaviour
 	[SerializeField]
 	private GameObject setPlayButton;
 	private static GameObject playButton;
+
 	[SerializeField]
 	private GameObject setPauseButton;
 	private static GameObject pauseButton;
+
+	[SerializeField]
+	private GameObject setPausePanel;
+	private static GameObject pausePanel;
+
 	[SerializeField]
 	private GameObject setFrameText;
 	private static GameObject frameText;
@@ -86,9 +92,11 @@ public class UIManager : MonoBehaviour
 
 		playButton = setPlayButton;
 		pauseButton = setPauseButton;
+		pausePanel = setPausePanel;
 		frameText = setFrameText;
 
 		panel.SetActive(false);
+		pausePanel.SetActive(false);
 	}
 
 	void LateUpdate()
@@ -540,6 +548,14 @@ public class UIManager : MonoBehaviour
 		}
 	}
 
+	public static void UpdateStoragePanel(string objName, int objPosX, int objPosY, int objWoodStored, int objStoneStored, int objChestStored, Sprite objSprite)
+	{
+		if (panel.active && inspectedObj == objName)
+		{
+			SetVisibleStorage(objName, objPosX, objPosY, objWoodStored, objStoneStored, objChestStored, objSprite);
+		}
+	}
+
 	public static void ClosePanel()
 	{
 		if(panel != null)
@@ -566,10 +582,15 @@ public class UIManager : MonoBehaviour
 		Color originalColor = playButton.GetComponent<Image>().color;
 		originalColor.a = 1f;
 		playButton.GetComponent<Image>().color = originalColor;
+		playButton.GetComponent<Button>().enabled = true;
 
 		originalColor = pauseButton.GetComponent<Image>().color;
 		originalColor.a = 0.6f;
 		pauseButton.GetComponent<Image>().color = originalColor;
+		pauseButton.GetComponent<Button>().enabled = false;
+
+		pausePanel.SetActive(true);
+
 	}
 
 	public static void InPlay()
@@ -577,10 +598,14 @@ public class UIManager : MonoBehaviour
 		Color originalColor = playButton.GetComponent<Image>().color;
 		originalColor.a = 0.6f;
 		playButton.GetComponent<Image>().color = originalColor;
+		playButton.GetComponent<Button>().enabled = false;
 
 		originalColor = pauseButton.GetComponent<Image>().color;
 		originalColor.a = 1f;
 		pauseButton.GetComponent<Image>().color = originalColor;
+		pauseButton.GetComponent<Button>().enabled = true;
+
+		pausePanel.SetActive(false);
 	}
 
 	public static void UpdateFrameText(int frame)

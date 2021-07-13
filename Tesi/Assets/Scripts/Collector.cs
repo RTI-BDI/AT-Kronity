@@ -157,9 +157,13 @@ public class Collector : MonoBehaviour
     {
         int actionTime = 120;
         for (int i = 0; i < actionTime; i++)
-		{ 
+		{
+			while (isPaused)
+			{
+				yield return null;
+			}
 
-            gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + tileSize / actionTime);
+			gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + tileSize / actionTime);
             yield return null;
         }
 		this.batteryAmount -= batteryDecrease;
@@ -183,8 +187,12 @@ public class Collector : MonoBehaviour
         int actionTime = 120;
         for (int i = 0; i < actionTime; i++)
         {
+			while (isPaused)
+			{
+				yield return null;
+			}
 
-            gameObject.transform.position = new Vector2(gameObject.transform.position.x + tileSize / actionTime, gameObject.transform.position.y);
+			gameObject.transform.position = new Vector2(gameObject.transform.position.x + tileSize / actionTime, gameObject.transform.position.y);
             yield return null;
         }
 		this.batteryAmount -= batteryDecrease;
@@ -208,7 +216,12 @@ public class Collector : MonoBehaviour
         int actionTime = 120;
         for (int i = 0; i < actionTime; i++)
         {
-            gameObject.transform.position = new Vector2(gameObject.transform.position.x - tileSize / actionTime, gameObject.transform.position.y);
+			while (isPaused)
+			{
+				yield return null;
+			}
+
+			gameObject.transform.position = new Vector2(gameObject.transform.position.x - tileSize / actionTime, gameObject.transform.position.y);
             yield return null;
         }
 		this.batteryAmount -= batteryDecrease;
@@ -243,8 +256,12 @@ public class Collector : MonoBehaviour
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
+			while (isPaused)
+			{
+				yield return null;
+			}
 
-            if(i > 0 && i < actionTime / 10)
+			if (i > 0 && i < actionTime / 10)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_1;
                 myText.text = "Collecting Wood";
@@ -332,8 +349,12 @@ public class Collector : MonoBehaviour
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
+			while (isPaused)
+			{
+				yield return null;
+			}
 
-            if (i > 0 && i < actionTime / 10)
+			if (i > 0 && i < actionTime / 10)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_1;
                 myText.text = "Collecting Stone";
@@ -421,8 +442,12 @@ public class Collector : MonoBehaviour
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
+			while (isPaused)
+			{
+				yield return null;
+			}
 
-            if (i > 0 && i < actionTime / 10)
+			if (i > 0 && i < actionTime / 10)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_1;
                 myText.text = "Recharging";
@@ -509,7 +534,12 @@ public class Collector : MonoBehaviour
         for (int i = 0; i < actionTime; i++)
         {
 
-            if (i > 0 && i < actionTime / 10)
+			while (isPaused)
+			{
+				yield return null;
+			}
+
+			if (i > 0 && i < actionTime / 10)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_1;
                 myText.text = "Storing Wood";
@@ -598,8 +628,13 @@ public class Collector : MonoBehaviour
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
+			while (isPaused)
+			{
+				yield return null;
+			}
 
-            if (i > 0 && i < actionTime / 10)
+
+			if (i > 0 && i < actionTime / 10)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_1;
                 myText.text = "Storing Stone";
@@ -680,8 +715,12 @@ public class Collector : MonoBehaviour
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
+			while (isPaused)
+			{
+				yield return null;
+			}
 
-            if (i > 0 && i < actionTime / 10)
+			if (i > 0 && i < actionTime / 10)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_1;
             }
@@ -751,8 +790,12 @@ public class Collector : MonoBehaviour
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
+			while (isPaused)
+			{
+				yield return null;
+			}
 
-            if (i > 0 && i < actionTime / 10)
+			if (i > 0 && i < actionTime / 10)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_1;
             }

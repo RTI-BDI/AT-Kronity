@@ -642,6 +642,20 @@ public class Parser : MonoBehaviour
 		return result;
 	}
 
+	public string MapAction(string groundedAction)
+	{
+		string result;
+		bool success = mapObject.TryGetValue(groundedAction, out result);
+
+		if (success)
+		{
+			return result;
+		} else
+		{
+			return "ERROR - Could not find action";
+		}
+	}
+
 	//function to parse only the domain --> used in problemGenerator
 	public static Domain ParseDomain()
 	{

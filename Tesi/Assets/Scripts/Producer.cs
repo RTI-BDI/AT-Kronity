@@ -32,6 +32,8 @@ public class Producer : MonoBehaviour
 	private GameObject underneathTile = null;
 	private float distance;
 
+	private bool isPaused = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -128,6 +130,11 @@ public class Producer : MonoBehaviour
         int actionTime = 120;
         for (int i = 0; i < actionTime; i++)
         {
+			while (isPaused)
+			{
+				yield return null;
+			}
+
             gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + tileSize / actionTime);
             yield return null;
         }
@@ -154,7 +161,12 @@ public class Producer : MonoBehaviour
         int actionTime = 120;
         for (int i = 0; i < actionTime; i++)
         {
-            gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - tileSize / actionTime);
+			while (isPaused)
+			{
+				yield return null;
+			}
+
+			gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - tileSize / actionTime);
             yield return null;
         }
 
@@ -180,7 +192,12 @@ public class Producer : MonoBehaviour
         int actionTime = 120;
         for (int i = 0; i < actionTime; i++)
         {
-            gameObject.transform.position = new Vector2(gameObject.transform.position.x + tileSize / actionTime, gameObject.transform.position.y);
+			while (isPaused)
+			{
+				yield return null;
+			}
+
+			gameObject.transform.position = new Vector2(gameObject.transform.position.x + tileSize / actionTime, gameObject.transform.position.y);
             yield return null;
         }
 
@@ -206,7 +223,12 @@ public class Producer : MonoBehaviour
         int actionTime = 120;
         for (int i = 0; i < actionTime; i++)
         {
-            gameObject.transform.position = new Vector2(gameObject.transform.position.x - tileSize / actionTime, gameObject.transform.position.y);
+			while (isPaused)
+			{
+				yield return null;
+			}
+
+			gameObject.transform.position = new Vector2(gameObject.transform.position.x - tileSize / actionTime, gameObject.transform.position.y);
             yield return null;
         }
 
@@ -241,8 +263,12 @@ public class Producer : MonoBehaviour
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
+			while (isPaused)
+			{
+				yield return null;
+			}
 
-            if (i > 0 && i < actionTime / 10)
+			if (i > 0 && i < actionTime / 10)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_1;
                 myText.text = "Recharging";
@@ -332,8 +358,12 @@ public class Producer : MonoBehaviour
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
+			while (isPaused)
+			{
+				yield return null;
+			}
 
-            if (i > 0 && i < actionTime / 10)
+			if (i > 0 && i < actionTime / 10)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_1;
                 myText.text = "Store Wood";
@@ -425,8 +455,12 @@ public class Producer : MonoBehaviour
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
+			while (isPaused)
+			{
+				yield return null;
+			}
 
-            if (i > 0 && i < actionTime / 10)
+			if (i > 0 && i < actionTime / 10)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_1;
                 myText.text = "Store Stone";
@@ -518,8 +552,12 @@ public class Producer : MonoBehaviour
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
+			while (isPaused)
+			{
+				yield return null;
+			}
 
-            if (i > 0 && i < actionTime / 10)
+			if (i > 0 && i < actionTime / 10)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_1;
                 myText.text = "Store Chest";
@@ -611,8 +649,12 @@ public class Producer : MonoBehaviour
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
+			while (isPaused)
+			{
+				yield return null;
+			}
 
-            if (i > 0 && i < actionTime / 10)
+			if (i > 0 && i < actionTime / 10)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_1;
                 myText.text = "Exchanging Wood";
@@ -704,8 +746,12 @@ public class Producer : MonoBehaviour
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
+			while (isPaused)
+			{
+				yield return null;
+			}
 
-            if (i > 0 && i < actionTime / 10)
+			if (i > 0 && i < actionTime / 10)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_1;
                 myText.text = "Exchanging Stone";
@@ -797,8 +843,12 @@ public class Producer : MonoBehaviour
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
+			while (isPaused)
+			{
+				yield return null;
+			}
 
-            if (i > 0 && i < actionTime / 10)
+			if (i > 0 && i < actionTime / 10)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = this.sprite_1;
                 myText.text = "Producing Chest";
@@ -880,11 +930,23 @@ public class Producer : MonoBehaviour
 
 	private void UpdatePanel()
 	{
-		UIManager.SetVisibleProducer(this.name, this.posX, this.posY, this.batteryAmount, this.woodAmount, this.stoneAmount, this.chestAmount, this.normalSprite);
+		UIManager.UpdateProducerPanel(this.name, this.posX, this.posY, this.batteryAmount, this.woodAmount, this.stoneAmount, this.chestAmount, this.normalSprite);
+	}
+
+	public void Pause()
+	{
+		isPaused = true;
+	}
+
+	public void Resume()
+	{
+		isPaused = false;
 	}
 
 	void OnMouseDown()
 	{
+		StopAllCoroutines();
+
 		gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
 		distance = Vector3.Distance(transform.position, Camera.main.transform.position);
 		dragging = true;

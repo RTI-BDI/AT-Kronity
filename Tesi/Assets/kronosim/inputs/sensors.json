@@ -1,16 +1,16 @@
 {
   "0": [
     {
-      "belief_name": "posX_c1",
+      "belief_name": "battery-amount_p1",
       "mode": "SET",
-      "time": 148,
-      "value": 0
+      "time": 121,
+      "value": 48
     },
     {
-      "belief_name": "posY_c1",
+      "belief_name": "posY_p1",
       "mode": "SET",
-      "time": 148,
-      "value": 0
+      "time": 121,
+      "value": 8
     }
   ]
 }

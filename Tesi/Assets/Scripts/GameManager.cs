@@ -40,18 +40,18 @@ public class GameManager : MonoBehaviour
     {
         Application.targetFrameRate = 60;
 
+		//Initialize the game
+		parser = setParse;
+		parser.Parse();
+		constants = new Dictionary<string, int>();
+
+		InstantiateGame();
+
 		//Reset static variables
 		frame = 0;
 		GoPause();
 
-		constants = new Dictionary<string, int>();
-
-		parser = setParse;
-        parser.Parse();
-
-		//Initialize the game
-        InstantiateGame();
-
+		//Visual Instantiation of grid and objects
 		grid.SetGridSize(constants["grid-size"]);
 		grid.GenerateGrid();
 		tileSize = grid.GetTileSize();
@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
 		}
 
         if(Input.GetKeyDown("g"))
-            collectors[0].GetComponent<Collector>().MoveUp();
+            producers[0].GetComponent<Producer>().MoveUp();
     }
     
     private void InstantiateGame()
@@ -311,6 +311,14 @@ public class GameManager : MonoBehaviour
 		{
 			c.GetComponent<Collector>().Pause();
 		}
+		foreach (GameObject p in producers)
+		{
+			p.GetComponent<Producer>().Pause();
+		}
+		foreach (GameObject s in storages)
+		{
+			s.GetComponent<Storage>().Pause();
+		}
 	}
 
 	public void GoPlay()
@@ -322,5 +330,109 @@ public class GameManager : MonoBehaviour
 		{
 			c.GetComponent<Collector>().Resume();
 		}
+		foreach (GameObject p in producers)
+		{
+			p.GetComponent<Producer>().Resume();
+		}
+		foreach (GameObject s in storages)
+		{
+			s.GetComponent<Storage>().Resume();
+		}
+	}
+
+	private string ExtractAction(string groundedAction)
+	{
+		string result = string.Empty;
+
+		bool stop = false;
+		foreach (Char c in groundedAction)
+		{
+			if (!stop)
+			{
+				if(c == '_')
+				{
+					stop = true;
+				} else
+				{
+					result = result + c;
+				}
+			}
+		}
+
+		return parser.MapAction(result);
+	}
+
+	private List<string> ExtractEntities(string groundedAction)
+	{
+		bool addingEntity = false;
+
+		List<string> result = new List<string>();
+		string tempResult = "";
+
+		int counter = 0;
+
+		foreach (Char c in groundedAction)
+		{
+			if(c == '_')
+			{
+				if (addingEntity)
+				{
+					result.Add(tempResult);
+				}
+
+				addingEntity = true;
+				tempResult = string.Empty;
+			} else
+			{
+				if (addingEntity)
+				{
+					tempResult = tempResult + c;
+				}
+			}
+
+			if(counter == groundedAction.Length - 1)
+			{
+				result.Add(tempResult);
+
+			}
+
+			counter++;
+		}
+
+		return result;
+	}
+
+	private GameObject SearchEntity(string name)
+	{
+		foreach (GameObject c in collectors)
+		{
+			if(c.GetComponent<Collector>().GetName().Equals(name))
+			{
+				return c;
+			}
+		}
+
+		foreach (GameObject p in producers)
+		{
+			if (p.GetComponent<Producer>().GetName().Equals(name))
+			{
+				return p;
+			}
+		}
+
+		foreach (GameObject s in storages)
+		{
+			if (s.GetComponent<Storage>().GetName().Equals(name))
+			{
+				return s;
+			}
+		}
+
+		return null;
+	}
+
+	private void ExecuteAction(string action, GameObject entity)
+	{
+		entity.SendMessage(action);
 	}
 }

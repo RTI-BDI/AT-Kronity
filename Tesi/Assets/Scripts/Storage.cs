@@ -18,6 +18,8 @@ public class Storage : MonoBehaviour
     [SerializeField]
     private int chestStored;
 
+	private bool isPaused = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -84,7 +86,12 @@ public class Storage : MonoBehaviour
 
         for (int i = 0; i < actionTime; i++)
         {
-            yield return null;
+			while (isPaused)
+			{
+				yield return null;
+			}
+
+			yield return null;
         }
 
         //Actual effect
@@ -101,7 +108,12 @@ public class Storage : MonoBehaviour
 
         for (int i = 0; i < actionTime; i++)
         {
-            yield return null;
+			while (isPaused)
+			{
+				yield return null;
+			}
+
+			yield return null;
         }
 
         //Actual effect
@@ -118,7 +130,12 @@ public class Storage : MonoBehaviour
 
         for (int i = 0; i < actionTime; i++)
         {
-            yield return null;
+			while (isPaused)
+			{
+				yield return null;
+			}
+
+			yield return null;
         }
 
         //Actual effect
@@ -127,6 +144,21 @@ public class Storage : MonoBehaviour
 		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
 		toUpdate.Add("chest-stored_" + this.name, this.chestStored);
 		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
+	}
+
+	private void UpdatePanel()
+	{
+		UIManager.UpdateStoragePanel(this.name, this.posX, this.posY, this.woodStored, this.stoneStored, this.chestStored, gameObject.GetComponent<SpriteRenderer>().sprite);
+	}
+
+	public void Pause()
+	{
+		isPaused = true;
+	}
+
+	public void Resume()
+	{
+		isPaused = false;
 	}
 
 }
