@@ -13,7 +13,7 @@ public class Client
 	
 	public Client() { }
 	
-	public void SendMessage(string message){
+	public string SendMessage(string message){
 		        // Data buffer for incoming data.  
         byte[] bytes = new byte[1024];  
   
@@ -48,9 +48,12 @@ public class Client
   
                 // Release the socket.  
                 sender.Shutdown(SocketShutdown.Both);  
-                sender.Close();  
-  
-            } catch (ArgumentNullException ane) {  
+                sender.Close();
+
+				return Encoding.ASCII.GetString(bytes, 0, bytesRec);
+
+
+			} catch (ArgumentNullException ane) {  
                 Debug.Log("ArgumentNullException : " + ane.ToString());  
             } catch (SocketException se) {  
                 Debug.Log("SocketException : " + se.ToString());  
@@ -60,6 +63,32 @@ public class Client
   
         } catch (Exception e) {  
             Debug.Log( e.ToString());  
-        } 
+        }
+
+		return "Error";
+	}
+
+	public string SendRun(int frame)
+	{
+		string message = "{ \"command\" : \"RUN\", \"time\" : " + frame + " }";
+		return SendMessage(message);
+	}
+
+	public string SendPoke()
+	{
+		string message = "{ \"command\" : \"POKE\" }";
+		return SendMessage(message);
+	}
+
+	public string SendUpdate(string fileName, string content)
+	{
+		string message = "{ \"command\" : \"UPDATE\", \"file\" : " + fileName + ", \"content\" : " + content + " }";
+		return SendMessage(message);
+	}
+
+	public string SendInitialize(string fileName, string content)
+	{
+		string message = "{ \"command\" : \"UTIL\", \"request\" : \"INITIALIZE\", \"file\" : " + fileName + ", \"content\" : " + content " }";
+		return SendMessage(message);
 	}
 }

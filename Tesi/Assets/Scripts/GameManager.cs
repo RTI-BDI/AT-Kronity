@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using Newtonsoft.Json.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class GameManager : MonoBehaviour
     private List<GameObject> stones = new List<GameObject>();
     private List<GameObject> storages = new List<GameObject>();
     private List<GameObject> rechargeStations = new List<GameObject>();
+
+	private static List<KeyValuePair<string, string>> updates = new List<KeyValuePair<string, string>>();
     
     private Client client;
 
@@ -59,9 +62,7 @@ public class GameManager : MonoBehaviour
 
 		PositionEntities();
 
-		//Client client = new Client();
-		//Debug.Log("OK");
-		//client.SendMessage("EXIT");
+		Client client = new Client();
 	}
 
 	// Update is called once per frame
@@ -80,6 +81,8 @@ public class GameManager : MonoBehaviour
 			default:
 				break;
 		}
+
+		KronosimInteraction();
 
         if(Input.GetKeyDown("g"))
             producers[0].GetComponent<Producer>().MoveUp();
@@ -434,5 +437,84 @@ public class GameManager : MonoBehaviour
 	private void ExecuteAction(string action, GameObject entity)
 	{
 		entity.SendMessage(action);
+	}
+
+	public static void addUpdate(string fileName, string content)
+	{
+		updates.Add(new KeyValuePair<string, string>(fileName, content));
+	}
+
+	private void KronosimInteraction()
+	{
+		//If game going on...
+		if(state == State.Playing)
+		{
+
+			//First, send all the updates to kronosim
+			foreach (KeyValuePair<string, string> kvp in updates)
+			{
+				string updateResponse = client.SendUpdate(kvp.Key, kvp.Value);
+				JObject jsonUpdateResponse = JObject.Parse(updateResponse);
+				if(jsonUpdateResponse["command"].ToString().Equals("ACK_UPDATE"))
+				{
+					Debug.Log("Update OK : " + jsonUpdateResponse["file"].ToString());
+				} else
+				{
+					Debug.Log("Update ERROR : " + kvp.Key);
+				}
+			}
+			
+			//Clear the updates
+			updates = new List<KeyValuePair<string, string>>();
+
+			//Move the simulation forward
+			string runResponse = client.SendRun(frame);
+			JObject jsonRunResponse = JObject.Parse(runResponse);
+			if (jsonRunResponse["command"].ToString().Equals("ACK_RUN"))
+			{
+				JArray actions = jsonRunResponse["actions"] as JArray;
+				foreach (JToken token in actions)
+				{
+					string action = ExtractAction(token.ToString());
+					List<string> entities = ExtractEntities(token.ToString());
+					foreach (string entity in entities)
+					{
+						ExecuteAction(action, SearchEntity(entity));
+					}
+				}
+			} else if (jsonRunResponse["command"].ToString().Equals("ERR_RUN"))
+			{
+				Debug.Log("Plan failed : " + jsonRunResponse["reason"].ToString());
+				state = State.Waiting;
+			} else
+			{
+				Debug.Log("Unknown Error - Run (frame " + frame + ")");
+			}
+		//If we are waiting for a new solution from kronosim...
+		} else if (state == State.Waiting)
+		{
+			string pokeResponse = client.SendPoke();
+			JObject jsonPokeResponse = JObject.Parse(pokeResponse);
+
+			switch (jsonPokeResponse["command"].ToString())
+			{
+				case "ACK_POKE":
+					Debug.Log("Poke send even if not needed - Check (frame " + frame ")");
+					state = State.Playing;
+					break;
+				case "WAIT":
+					Debug.Log("Kronosim asked to wait...");
+					break;
+				case "NEW_SOLUTION":
+					//To implement
+					break;
+				case "NO_SOLUTION":
+					//TODO --- Needs planner logic
+					break;
+				default:
+					Debug.Log("Unknown Error - Poke (frame " + frame + ")");
+					break;
+			}
+		}
 	}
 }

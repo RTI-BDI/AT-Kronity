@@ -618,15 +618,7 @@ public class Parser : MonoBehaviour
 		
 		jsonStr += " ] }";
 
-		JObject jobject = JObject.Parse(jsonStr);
-
-		// write JSON directly to a file
-		using (StreamWriter file = File.CreateText("./Assets/kronosim/inputs/sensors.json"))
-		using (JsonTextWriter writer = new JsonTextWriter(file))
-		{
-			writer.Formatting = Formatting.Indented;
-			jobject.WriteTo(writer);
-		}
+		GameManager.addUpdate("sensors.json", jsonStr);
 
 	}
 
