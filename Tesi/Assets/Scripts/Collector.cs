@@ -872,6 +872,21 @@ public class Collector : MonoBehaviour
 		UIManager.UpdateCollectorPanel(this.name, this.posX, this.posY, this.batteryAmount, this.woodAmount, this.stoneAmount, this.normalSprite);
 	}
 
+	private bool IsMovement(string actionName)
+	{
+		return (actionName.Equals("MoveUp") || actionName.Equals("MoveDown") || actionName.Equals("MoveRight") || actionName.Equals("MoveLeft"));
+	}
+
+	public void StopAction(string action)
+	{
+		StopCoroutine(action);
+
+		if (IsMovement(action))
+		{
+			MoveToDestination(GameManager.GetTileSize(), new Vector2(this.posX, this.posY));
+		} 
+	}
+
 	void OnMouseDown()
 	{
 		StopAllCoroutines();

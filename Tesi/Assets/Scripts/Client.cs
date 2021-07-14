@@ -88,7 +88,7 @@ public class Client
 
 	public string SendInitialize(string fileName, string content)
 	{
-		string message = "{ \"command\" : \"UTIL\", \"request\" : \"INITIALIZE\", \"file\" : " + fileName + ", \"content\" : " + content " }";
+		string message = "{ \"command\" : \"UTIL\", \"request\" : \"INITIALIZE\", \"file\" : " + fileName + ", \"content\" : " + content + " }";
 		return SendMessage(message);
 	}
 }

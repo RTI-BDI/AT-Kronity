@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using Newtonsoft.Json.Linq;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
@@ -62,7 +63,8 @@ public class GameManager : MonoBehaviour
 
 		PositionEntities();
 
-		Client client = new Client();
+		//Client client = new Client();
+		//KronosimInitialization();
 	}
 
 	// Update is called once per frame
@@ -82,7 +84,7 @@ public class GameManager : MonoBehaviour
 				break;
 		}
 
-		KronosimInteraction();
+		//KronosimInteraction();
 
         if(Input.GetKeyDown("g"))
             producers[0].GetComponent<Producer>().MoveUp();
@@ -405,13 +407,13 @@ public class GameManager : MonoBehaviour
 		return result;
 	}
 
-	private GameObject SearchEntity(string name)
+	private KeyValuePair<GameObject, string> SearchEntity(string name)
 	{
 		foreach (GameObject c in collectors)
 		{
 			if(c.GetComponent<Collector>().GetName().Equals(name))
 			{
-				return c;
+				return new KeyValuePair<GameObject, string>(c, "collector");
 			}
 		}
 
@@ -419,7 +421,7 @@ public class GameManager : MonoBehaviour
 		{
 			if (p.GetComponent<Producer>().GetName().Equals(name))
 			{
-				return p;
+				return new KeyValuePair<GameObject, string>(p, "producer");
 			}
 		}
 
@@ -427,11 +429,11 @@ public class GameManager : MonoBehaviour
 		{
 			if (s.GetComponent<Storage>().GetName().Equals(name))
 			{
-				return s;
+				return new KeyValuePair<GameObject, string>(s, "storage");
 			}
 		}
 
-		return null;
+		return new KeyValuePair<GameObject, string>(null, "");
 	}
 
 	private void ExecuteAction(string action, GameObject entity)
@@ -439,11 +441,30 @@ public class GameManager : MonoBehaviour
 		entity.SendMessage(action);
 	}
 
+	private void StopAction(string action, KeyValuePair<GameObject, string> entity)
+	{
+		switch (entity.Value)
+		{
+			case "collector":
+				entity.Key.GetComponent<Collector>().StopAction(action);
+				break;
+			case "producer":
+				entity.Key.GetComponent<Producer>().StopAction(action);
+				break;
+			case "storage":
+				entity.Key.GetComponent<Storage>().StopAction(action);
+				break;
+			default:
+				break;
+		}
+	}
+
 	public static void addUpdate(string fileName, string content)
 	{
 		updates.Add(new KeyValuePair<string, string>(fileName, content));
 	}
 
+	//TODO - NO_SOLUTION missing planning phase logic
 	private void KronosimInteraction()
 	{
 		//If game going on...
@@ -455,12 +476,12 @@ public class GameManager : MonoBehaviour
 			{
 				string updateResponse = client.SendUpdate(kvp.Key, kvp.Value);
 				JObject jsonUpdateResponse = JObject.Parse(updateResponse);
-				if(jsonUpdateResponse["command"].ToString().Equals("ACK_UPDATE"))
+				if(jsonUpdateResponse["status"].ToString().Equals("success"))
 				{
 					Debug.Log("Update OK : " + jsonUpdateResponse["file"].ToString());
 				} else
 				{
-					Debug.Log("Update ERROR : " + kvp.Key);
+					Debug.Log("Update ERROR : " + jsonUpdateResponse["status"].ToString());
 				}
 			}
 			
@@ -479,7 +500,7 @@ public class GameManager : MonoBehaviour
 					List<string> entities = ExtractEntities(token.ToString());
 					foreach (string entity in entities)
 					{
-						ExecuteAction(action, SearchEntity(entity));
+						ExecuteAction(action, SearchEntity(entity).Key);
 					}
 				}
 			} else if (jsonRunResponse["command"].ToString().Equals("ERR_RUN"))
@@ -499,14 +520,36 @@ public class GameManager : MonoBehaviour
 			switch (jsonPokeResponse["command"].ToString())
 			{
 				case "ACK_POKE":
-					Debug.Log("Poke send even if not needed - Check (frame " + frame ")");
+					Debug.Log("Poke send even if not needed - Check (frame " + frame + ")");
 					state = State.Playing;
 					break;
 				case "WAIT":
 					Debug.Log("Kronosim asked to wait...");
 					break;
 				case "NEW_SOLUTION":
-					//To implement
+					Debug.Log("Kronosim found a new solution: ");
+					//Stop all the actions
+					JArray actionsToStop = jsonPokeResponse["stopped_actions"] as JArray;
+					foreach (JToken token in actionsToStop)
+					{
+						string action = ExtractAction(token.ToString());
+						List<string> entitiesInvolved = ExtractEntities(token.ToString());
+						foreach (string e in entitiesInvolved)
+						{
+							StopAction(action, SearchEntity(e));
+						}
+					}
+					//Start new actions
+					JArray actionsToStart = jsonPokeResponse["new_actions"] as JArray;
+					foreach (JToken token in actionsToStart)
+					{
+						string action = ExtractAction(token.ToString());
+						List<string> entitiesInvolved = ExtractEntities(token.ToString());
+						foreach (string e in entitiesInvolved)
+						{
+							ExecuteAction(action, SearchEntity(e).Key);
+						}
+					}
 					break;
 				case "NO_SOLUTION":
 					//TODO --- Needs planner logic
@@ -516,5 +559,36 @@ public class GameManager : MonoBehaviour
 					break;
 			}
 		}
+	}
+
+	private void KronosimInitialization()
+	{
+		string response = client.SendInitialize("beliefset.json", File.ReadAllText("./Assets/kronosim/inputs/beliefset.json"));
+		JObject jsonResponse = JObject.Parse(response);
+		Debug.Log(jsonResponse["command"].ToString() + " -- Initialized " + jsonResponse["file"].ToString());
+
+		response = client.SendInitialize("desireset.json", File.ReadAllText("./Assets/kronosim/inputs/desireset.json"));
+		jsonResponse = JObject.Parse(response);
+		Debug.Log(jsonResponse["command"].ToString() + " -- Initialized " + jsonResponse["file"].ToString());
+
+		response = client.SendInitialize("planset.json", File.ReadAllText("./Assets/kronosim/inputs/planset.json"));
+		jsonResponse = JObject.Parse(response);
+		Debug.Log(jsonResponse["command"].ToString() + " -- Initialized " + jsonResponse["file"].ToString());
+
+		response = client.SendInitialize("sensors.json", "{ \"0\" : [ ] }");
+		jsonResponse = JObject.Parse(response);
+		Debug.Log(jsonResponse["command"].ToString() + " -- Initialized " + jsonResponse["file"].ToString());
+
+		response = client.SendInitialize("servers.json", File.ReadAllText("./Assets/kronosim/inputs/servers.json"));
+		jsonResponse = JObject.Parse(response);
+		Debug.Log(jsonResponse["command"].ToString() + " -- Initialized " + jsonResponse["file"].ToString());
+
+		response = client.SendInitialize("skillset.json", File.ReadAllText("./Assets/kronosim/inputs/skillset.json"));
+		jsonResponse = JObject.Parse(response);
+		Debug.Log(jsonResponse["command"].ToString() + " -- Initialized " + jsonResponse["file"].ToString());
+
+		response = client.SendInitialize("update-beliefset.json", File.ReadAllText("./Assets/kronosim/inputs/update-beliefset.json"));
+		jsonResponse = JObject.Parse(response);
+		Debug.Log(jsonResponse["command"].ToString() + " -- Initialized " + jsonResponse["file"].ToString());
 	}
 }

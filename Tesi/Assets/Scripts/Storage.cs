@@ -161,4 +161,9 @@ public class Storage : MonoBehaviour
 		isPaused = false;
 	}
 
+	public void StopAction(string action)
+	{
+		StopCoroutine(action);
+	}
+
 }

@@ -282,7 +282,7 @@ public class Parser : MonoBehaviour
             jobject.WriteTo(writer);
         }
 
-        using (StreamWriter file = File.CreateText("./Assets/kronosim/inputs/update-beliefSet.json"))
+        using (StreamWriter file = File.CreateText("./Assets/kronosim/inputs/update-beliefset.json"))
         using (JsonTextWriter writer = new JsonTextWriter(file))
         {
             writer.Formatting = Formatting.Indented;
