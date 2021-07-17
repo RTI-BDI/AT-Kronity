@@ -3291,7 +3291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d002f7935c2d15a4bb6799630523c87b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneChanger: {fileID: 0}
+  sceneChanger: {fileID: 302379019}
   canvas: {fileID: 2012062520}
   errorLogs: []
   problemName: {fileID: 1904478480}

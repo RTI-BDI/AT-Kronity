@@ -5,15 +5,7 @@
       "value": true
     },
     {
-      "name": "free_p1",
-      "value": true
-    },
-    {
       "name": "battery-amount_c1",
-      "value": 75
-    },
-    {
-      "name": "battery-amount_p1",
       "value": 50
     },
     {
@@ -21,24 +13,12 @@
       "value": 0
     },
     {
-      "name": "wood-amount_p1",
-      "value": 0
-    },
-    {
       "name": "stone-amount_c1",
       "value": 0
     },
     {
-      "name": "stone-amount_p1",
-      "value": 0
-    },
-    {
-      "name": "chest-amount_p1",
-      "value": 0
-    },
-    {
       "name": "posX_w1",
-      "value": 3
+      "value": 9
     },
     {
       "name": "posX_w2",
@@ -50,19 +30,19 @@
     },
     {
       "name": "posX_s2",
+      "value": 3
+    },
+    {
+      "name": "posX_st1",
+      "value": 3
+    },
+    {
+      "name": "posX_st2",
       "value": 9
     },
     {
-      "name": "posX_st",
-      "value": 6
-    },
-    {
       "name": "posX_c1",
-      "value": 2
-    },
-    {
-      "name": "posX_p1",
-      "value": 8
+      "value": 0
     },
     {
       "name": "posY_w1",
@@ -74,34 +54,46 @@
     },
     {
       "name": "posY_s1",
-      "value": 9
-    },
-    {
-      "name": "posY_s2",
       "value": 3
     },
     {
-      "name": "posY_st",
+      "name": "posY_s2",
+      "value": 9
+    },
+    {
+      "name": "posY_st1",
+      "value": 6
+    },
+    {
+      "name": "posY_st2",
       "value": 6
     },
     {
       "name": "posY_c1",
-      "value": 3
-    },
-    {
-      "name": "posY_p1",
-      "value": 7
-    },
-    {
-      "name": "wood-stored_st",
       "value": 0
     },
     {
-      "name": "stone-stored_st",
+      "name": "wood-stored_st1",
       "value": 0
     },
     {
-      "name": "chest-stored_st",
+      "name": "wood-stored_st2",
+      "value": 0
+    },
+    {
+      "name": "stone-stored_st1",
+      "value": 0
+    },
+    {
+      "name": "stone-stored_st2",
+      "value": 0
+    },
+    {
+      "name": "chest-stored_st1",
+      "value": 0
+    },
+    {
+      "name": "chest-stored_st2",
       "value": 0
     },
     {
@@ -110,11 +102,11 @@
     },
     {
       "name": "sample-capacity",
-      "value": 15
+      "value": 100
     },
     {
       "name": "grid-size",
-      "value": 11
+      "value": 20
     }
   ]
 }

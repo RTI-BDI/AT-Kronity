@@ -1,7 +1,7 @@
 {
   "problem": [
     "defineProblem",
-    "Test",
+    "test",
     "S_Example",
     [
       "defineObjects",
@@ -29,23 +29,18 @@
         ],
         [
           "parameter",
-          "st",
+          "st1",
+          "storage"
+        ],
+        [
+          "parameter",
+          "st2",
           "storage"
         ],
         [
           "parameter",
           "c1",
           "collector"
-        ],
-        [
-          "parameter",
-          "p1",
-          "producer"
-        ],
-        [
-          "parameter",
-          "rs1",
-          "r-station"
         ]
       ]
     ],
@@ -61,7 +56,7 @@
             "w1"
           ]
         ],
-        "3"
+        "9"
       ],
       [
         "equal",
@@ -121,25 +116,13 @@
             "s1"
           ]
         ],
-        "9"
+        "3"
       ],
       [
         "equal",
         [
           "function",
           "posX",
-          [
-            "array",
-            "s2"
-          ]
-        ],
-        "9"
-      ],
-      [
-        "equal",
-        [
-          "function",
-          "posY",
           [
             "array",
             "s2"
@@ -151,13 +134,25 @@
         "equal",
         [
           "function",
+          "posY",
+          [
+            "array",
+            "s2"
+          ]
+        ],
+        "9"
+      ],
+      [
+        "equal",
+        [
+          "function",
           "posX",
           [
             "array",
-            "st"
+            "st1"
           ]
         ],
-        "6"
+        "3"
       ],
       [
         "equal",
@@ -166,7 +161,7 @@
           "posY",
           [
             "array",
-            "st"
+            "st1"
           ]
         ],
         "6"
@@ -178,7 +173,7 @@
           "wood-stored",
           [
             "array",
-            "st"
+            "st1"
           ]
         ],
         "0"
@@ -190,7 +185,7 @@
           "stone-stored",
           [
             "array",
-            "st"
+            "st1"
           ]
         ],
         "0"
@@ -202,22 +197,10 @@
           "chest-stored",
           [
             "array",
-            "st"
+            "st1"
           ]
         ],
         "0"
-      ],
-      [
-        "equal",
-        [
-          "function",
-          "battery-amount",
-          [
-            "array",
-            "c1"
-          ]
-        ],
-        "75"
       ],
       [
         "equal",
@@ -226,10 +209,10 @@
           "posX",
           [
             "array",
-            "c1"
+            "st2"
           ]
         ],
-        "2"
+        "9"
       ],
       [
         "equal",
@@ -238,19 +221,19 @@
           "posY",
           [
             "array",
-            "c1"
+            "st2"
           ]
         ],
-        "3"
+        "6"
       ],
       [
         "equal",
         [
           "function",
-          "wood-amount",
+          "wood-stored",
           [
             "array",
-            "c1"
+            "st2"
           ]
         ],
         "0"
@@ -259,24 +242,25 @@
         "equal",
         [
           "function",
-          "stone-amount",
+          "stone-stored",
           [
             "array",
-            "c1"
+            "st2"
           ]
         ],
         "0"
       ],
       [
-        "true",
+        "equal",
         [
-          "predicate",
-          "free",
+          "function",
+          "chest-stored",
           [
             "array",
-            "c1"
+            "st2"
           ]
-        ]
+        ],
+        "0"
       ],
       [
         "equal",
@@ -285,7 +269,7 @@
           "battery-amount",
           [
             "array",
-            "p1"
+            "c1"
           ]
         ],
         "50"
@@ -297,10 +281,10 @@
           "posX",
           [
             "array",
-            "p1"
+            "c1"
           ]
         ],
-        "8"
+        "0"
       ],
       [
         "equal",
@@ -309,10 +293,10 @@
           "posY",
           [
             "array",
-            "p1"
+            "c1"
           ]
         ],
-        "7"
+        "0"
       ],
       [
         "equal",
@@ -321,7 +305,7 @@
           "wood-amount",
           [
             "array",
-            "p1"
+            "c1"
           ]
         ],
         "0"
@@ -333,7 +317,7 @@
           "stone-amount",
           [
             "array",
-            "p1"
+            "c1"
           ]
         ],
         "0"
@@ -345,33 +329,9 @@
           "free",
           [
             "array",
-            "p1"
+            "c1"
           ]
         ]
-      ],
-      [
-        "equal",
-        [
-          "function",
-          "posX",
-          [
-            "array",
-            "rs1"
-          ]
-        ],
-        "0"
-      ],
-      [
-        "equal",
-        [
-          "function",
-          "posY",
-          [
-            "array",
-            "rs1"
-          ]
-        ],
-        "0"
       ],
       [
         "equal",
@@ -387,7 +347,7 @@
           "constant",
           "sample-capacity"
         ],
-        "15"
+        "100"
       ],
       [
         "equal",
@@ -395,7 +355,7 @@
           "constant",
           "grid-size"
         ],
-        "11"
+        "20"
       ]
     ],
     [
@@ -407,10 +367,10 @@
           "wood-stored",
           [
             "array",
-            "st"
+            "st1"
           ]
         ],
-        "3"
+        "5"
       ],
       [
         "equal",
@@ -419,10 +379,10 @@
           "stone-stored",
           [
             "array",
-            "st"
+            "st2"
           ]
         ],
-        "8"
+        "5"
       ]
     ]
   ]

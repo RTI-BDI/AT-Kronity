@@ -7,25 +7,13 @@
       "goal_name": "move-up_c1"
     },
     {
-      "goal_name": "move-up_p1"
-    },
-    {
       "goal_name": "move-down_c1"
-    },
-    {
-      "goal_name": "move-down_p1"
     },
     {
       "goal_name": "move-right_c1"
     },
     {
-      "goal_name": "move-right_p1"
-    },
-    {
       "goal_name": "move-left_c1"
-    },
-    {
-      "goal_name": "move-left_p1"
     },
     {
       "goal_name": "collect-wood_c1_w1"
@@ -40,28 +28,16 @@
       "goal_name": "collect-stone_c1_s2"
     },
     {
-      "goal_name": "store-wood_c1_st"
+      "goal_name": "store-wood_c1_st1"
     },
     {
-      "goal_name": "store-wood_p1_st"
+      "goal_name": "store-wood_c1_st2"
     },
     {
-      "goal_name": "store-stone_c1_st"
+      "goal_name": "store-stone_c1_st1"
     },
     {
-      "goal_name": "store-stone_p1_st"
-    },
-    {
-      "goal_name": "store-chest_p1_st"
-    },
-    {
-      "goal_name": "retrieve-wood_p1_c1"
-    },
-    {
-      "goal_name": "retrieve-stone_p1_c1"
-    },
-    {
-      "goal_name": "produce-chest_p1"
+      "goal_name": "store-stone_c1_st2"
     }
   ]
 }
