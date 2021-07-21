@@ -6,7 +6,7 @@
     },
     {
       "name": "battery-amount_c1",
-      "value": 50
+      "value": 65
     },
     {
       "name": "wood-amount_c1",
@@ -45,6 +45,10 @@
       "value": 0
     },
     {
+      "name": "posX_rs1",
+      "value": 6
+    },
+    {
       "name": "posY_w1",
       "value": 3
     },
@@ -71,6 +75,10 @@
     {
       "name": "posY_c1",
       "value": 0
+    },
+    {
+      "name": "posY_rs1",
+      "value": 6
     },
     {
       "name": "wood-stored_st1",

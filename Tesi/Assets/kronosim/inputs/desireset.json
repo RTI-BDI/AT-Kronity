@@ -24,6 +24,22 @@
             "==",
             [
               "READ_BELIEF",
+              "posX_rs1"
+            ],
+            6
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_rs1"
+            ],
+            6
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
               "posY_w1"
             ],
             3
@@ -162,7 +178,7 @@
               "READ_BELIEF",
               "battery-amount_c1"
             ],
-            50
+            65
           ],
           [
             "==",

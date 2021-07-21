@@ -41,6 +41,11 @@
           "parameter",
           "c1",
           "collector"
+        ],
+        [
+          "parameter",
+          "rs1",
+          "r_station"
         ]
       ]
     ],
@@ -57,6 +62,30 @@
           ]
         ],
         "9"
+      ],
+      [
+        "equal",
+        [
+          "function",
+          "posX",
+          [
+            "array",
+            "rs1"
+          ]
+        ],
+        "6"
+      ],
+      [
+        "equal",
+        [
+          "function",
+          "posY",
+          [
+            "array",
+            "rs1"
+          ]
+        ],
+        "6"
       ],
       [
         "equal",
@@ -272,7 +301,7 @@
             "c1"
           ]
         ],
-        "50"
+        "65"
       ],
       [
         "equal",
@@ -370,19 +399,7 @@
             "st1"
           ]
         ],
-        "5"
-      ],
-      [
-        "equal",
-        [
-          "function",
-          "stone-stored",
-          [
-            "array",
-            "st2"
-          ]
-        ],
-        "5"
+        "2"
       ]
     ]
   ]

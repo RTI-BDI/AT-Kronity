@@ -63,8 +63,11 @@ public class GameManager : MonoBehaviour
 
 		PositionEntities();
 
-		//Client client = new Client();
-		//KronosimInitialization();
+		client = new Client();
+		client.Connect();
+		
+		KronosimInitialization(client);
+		
 	}
 
 	// Update is called once per frame
@@ -76,6 +79,7 @@ public class GameManager : MonoBehaviour
 			case State.Playing:
 				frame++;
 				UIManager.UpdateFrameText(frame);
+				KronosimInteraction();
 				break;
 			case State.Pause:
 				UIManager.UpdateFrameText(frame);
@@ -84,7 +88,7 @@ public class GameManager : MonoBehaviour
 				break;
 		}
 
-		//KronosimInteraction();
+		
 
         if(Input.GetKeyDown("g"))
             producers[0].GetComponent<Producer>().MoveUp();
@@ -507,6 +511,38 @@ public class GameManager : MonoBehaviour
 			{
 				Debug.Log("Plan failed : " + jsonRunResponse["reason"].ToString());
 				state = State.Waiting;
+			} else if (jsonRunResponse["command"].ToString().Equals("NEW_SOLUTION"))
+			{
+				Debug.Log("Kronosim found a new solution: ");
+				
+				//Stop all the actions
+				JArray actionsToStop = jsonRunResponse["stopped_actions"] as JArray;
+				foreach (JToken token in actionsToStop)
+				{
+					string action = ExtractAction(token.ToString());
+					if(action != "plan_execution") {
+						
+						List<string> entitiesInvolved = ExtractEntities(token.ToString());
+						foreach (string e in entitiesInvolved)
+						{
+							StopAction(action, SearchEntity(e));
+						}
+					}
+				}
+				//Start new actions
+				JArray actionsToStart = jsonRunResponse["new_actions"] as JArray;
+				foreach (JToken token in actionsToStart)
+				{
+					if(token.ToString() != "plan_execution") {
+						string action = ExtractAction(token.ToString());
+						List<string> entitiesInvolved = ExtractEntities(token.ToString());
+						foreach (string e in entitiesInvolved)
+						{
+							ExecuteAction(action, SearchEntity(e).Key);
+						}
+					}
+				}
+			
 			} else
 			{
 				Debug.Log("Unknown Error - Run (frame " + frame + ")");
@@ -548,10 +584,12 @@ public class GameManager : MonoBehaviour
 						foreach (JToken token in actionsToStart)
 						{
 							string action = ExtractAction(token.ToString());
-							List<string> entitiesInvolved = ExtractEntities(token.ToString());
-							foreach (string e in entitiesInvolved)
-							{
-								ExecuteAction(action, SearchEntity(e).Key);
+							if(action != "plan_execution") {
+								List<string> entitiesInvolved = ExtractEntities(token.ToString());
+								foreach (string e in entitiesInvolved)
+								{
+									ExecuteAction(action, SearchEntity(e).Key);
+								}
 							}
 						}
 
@@ -570,34 +608,37 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	private void KronosimInitialization()
+	private void KronosimInitialization(Client c)
 	{
-		string response = client.SendUpdate("beliefset.json", File.ReadAllText("./Assets/kronosim/inputs/beliefset.json"));
+		string response = c.SendInitialize("beliefset.json", File.ReadAllText("./Assets/kronosim/inputs/beliefset.json"));
 		JObject jsonResponse = JObject.Parse(response);
 		Debug.Log(jsonResponse["command"].ToString() + " -- Initialized " + jsonResponse["file"].ToString());
-
-		response = client.SendUpdate("desireset.json", File.ReadAllText("./Assets/kronosim/inputs/desireset.json"));
+		
+		response = c.SendInitialize("skillset.json", File.ReadAllText("./Assets/kronosim/inputs/skillset.json"));
 		jsonResponse = JObject.Parse(response);
 		Debug.Log(jsonResponse["command"].ToString() + " -- Initialized " + jsonResponse["file"].ToString());
 
-		response = client.SendUpdate("planset.json", File.ReadAllText("./Assets/kronosim/inputs/planset.json"));
+		response = c.SendInitialize("desireset.json", File.ReadAllText("./Assets/kronosim/inputs/desireset.json"));
+		jsonResponse = JObject.Parse(response);
+		Debug.Log(jsonResponse["command"].ToString() + " -- Initialized " + jsonResponse["file"].ToString());
+		
+		response = c.SendInitialize("servers.json", File.ReadAllText("./Assets/kronosim/inputs/servers.json"));
 		jsonResponse = JObject.Parse(response);
 		Debug.Log(jsonResponse["command"].ToString() + " -- Initialized " + jsonResponse["file"].ToString());
 
-		response = client.SendUpdate("sensors.json", "{ \"0\" : [ ] }");
+		response = c.SendInitialize("planset.json", File.ReadAllText("./Assets/kronosim/inputs/planset.json"));
 		jsonResponse = JObject.Parse(response);
 		Debug.Log(jsonResponse["command"].ToString() + " -- Initialized " + jsonResponse["file"].ToString());
 
-		response = client.SendUpdate("servers.json", File.ReadAllText("./Assets/kronosim/inputs/servers.json"));
+		response = c.SendInitialize("sensors.json", "{ \"0\" : [ ] }");
 		jsonResponse = JObject.Parse(response);
 		Debug.Log(jsonResponse["command"].ToString() + " -- Initialized " + jsonResponse["file"].ToString());
 
-		response = client.SendUpdate("skillset.json", File.ReadAllText("./Assets/kronosim/inputs/skillset.json"));
+		response = c.SendInitialize("update-beliefset.json", File.ReadAllText("./Assets/kronosim/inputs/update-beliefset.json"));
 		jsonResponse = JObject.Parse(response);
 		Debug.Log(jsonResponse["command"].ToString() + " -- Initialized " + jsonResponse["file"].ToString());
-
-		response = client.SendUpdate("update-beliefset.json", File.ReadAllText("./Assets/kronosim/inputs/update-beliefset.json"));
-		jsonResponse = JObject.Parse(response);
-		Debug.Log(jsonResponse["command"].ToString() + " -- Initialized " + jsonResponse["file"].ToString());
+		
+		response = c.SendSetupCompleted();
+		Debug.Log(response);
 	}
 }

@@ -9,9 +9,12 @@ s2 - stone
 st1 - storage
 st2 - storage
 c1 - collector
+rs1 - r_station
 )
 (:init 
 (= (posX w1) 9)
+(= (posX rs1) 6)
+(= (posY rs1) 6)
 (= (posY w1) 3)
 (= (posX w2) 9)
 (= (posY w2) 9)
@@ -29,7 +32,7 @@ c1 - collector
 (= (wood-stored st2) 0)
 (= (stone-stored st2) 0)
 (= (chest-stored st2) 0)
-(= (battery-amount c1) 50)
+(= (battery-amount c1) 65)
 (= (posX c1) 0)
 (= (posY c1) 0)
 (= (wood-amount c1) 0)
@@ -41,8 +44,7 @@ c1 - collector
 )
 (:goal 
 (and 
-(= (wood-stored st1) 5)
-(= (stone-stored st2) 5)
+(= (wood-stored st1) 2)
 )
 )
 )

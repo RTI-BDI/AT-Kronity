@@ -28,6 +28,9 @@
       "goal_name": "collect-stone_c1_s2"
     },
     {
+      "goal_name": "recharge_c1_rs1"
+    },
+    {
       "goal_name": "store-wood_c1_st1"
     },
     {
