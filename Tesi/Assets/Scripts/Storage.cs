@@ -82,7 +82,7 @@ public class Storage : MonoBehaviour
 
     public IEnumerator StoreWood()
     {
-        int actionTime = 120;
+        int actionTime = 100;
 
         for (int i = 0; i < actionTime; i++)
         {
@@ -104,7 +104,7 @@ public class Storage : MonoBehaviour
 
     public IEnumerator StoreStone()
     {
-        int actionTime = 120;
+        int actionTime = 100;
 
         for (int i = 0; i < actionTime; i++)
         {
@@ -126,7 +126,7 @@ public class Storage : MonoBehaviour
 
     public IEnumerator StoreChest()
     {
-        int actionTime = 120;
+        int actionTime = 100;
 
         for (int i = 0; i < actionTime; i++)
         {

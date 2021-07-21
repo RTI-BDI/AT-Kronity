@@ -127,7 +127,7 @@ public class Producer : MonoBehaviour
 
 	public IEnumerator MoveUp(float tileSize, int batteryDecrease)
     {
-        int actionTime = 120;
+        int actionTime = 100;
         for (int i = 0; i < actionTime; i++)
         {
 			while (isPaused)
@@ -158,7 +158,7 @@ public class Producer : MonoBehaviour
 
 	public IEnumerator MoveDown(float tileSize, int batteryDecrease)
     {
-        int actionTime = 120;
+        int actionTime = 100;
         for (int i = 0; i < actionTime; i++)
         {
 			while (isPaused)
@@ -189,7 +189,7 @@ public class Producer : MonoBehaviour
 
 	public IEnumerator MoveRight(float tileSize, int batteryDecrease)
     {
-        int actionTime = 120;
+        int actionTime = 100;
         for (int i = 0; i < actionTime; i++)
         {
 			while (isPaused)
@@ -220,7 +220,7 @@ public class Producer : MonoBehaviour
 
 	public IEnumerator MoveLeft(float tileSize, int batteryDecrease)
     {
-        int actionTime = 120;
+        int actionTime = 100;
         for (int i = 0; i < actionTime; i++)
         {
 			while (isPaused)
@@ -353,7 +353,7 @@ public class Producer : MonoBehaviour
         myText.fontSize = 4.5f;
         myText.text = "Store Wood...";
 
-        int actionTime = 120;
+        int actionTime = 100;
 
         //Animation
         for (int i = 0; i < actionTime; i++)
@@ -450,7 +450,7 @@ public class Producer : MonoBehaviour
         myText.fontSize = 4.5f;
         myText.text = "Store Stone...";
 
-        int actionTime = 120;
+        int actionTime = 100;
 
         //Animation
         for (int i = 0; i < actionTime; i++)
@@ -547,7 +547,7 @@ public class Producer : MonoBehaviour
         myText.fontSize = 4.5f;
         myText.text = "Store Chest...";
 
-        int actionTime = 120;
+        int actionTime = 100;
 
         //Animation
         for (int i = 0; i < actionTime; i++)
@@ -644,7 +644,7 @@ public class Producer : MonoBehaviour
         myText.fontSize = 4.5f;
         myText.text = "Exchanging Wood...";
 
-        int actionTime = 120;
+        int actionTime = 100;
 
         //Animation
         for (int i = 0; i < actionTime; i++)
@@ -741,7 +741,7 @@ public class Producer : MonoBehaviour
         myText.fontSize = 4.5f;
         myText.text = "Exchanging Stone...";
 
-        int actionTime = 120;
+        int actionTime = 100;
 
         //Animation
         for (int i = 0; i < actionTime; i++)
@@ -838,7 +838,7 @@ public class Producer : MonoBehaviour
         myText.fontSize = 4.5f;
         myText.text = "Producing Chest...";
 
-        int actionTime = 120;
+        int actionTime = 100;
 
         //Animation
         for (int i = 0; i < actionTime; i++)

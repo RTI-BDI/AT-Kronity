@@ -125,7 +125,7 @@ public class Collector : MonoBehaviour
 
 	public IEnumerator MoveUp(float tileSize, int batteryDecrease)
     {
-        int actionTime = 120;
+        int actionTime = 100;
         for (int i = 0; i < actionTime; i++)
         {
 			while (isPaused)
@@ -155,7 +155,7 @@ public class Collector : MonoBehaviour
 
 	public IEnumerator MoveDown(float tileSize, int batteryDecrease)
     {
-        int actionTime = 120;
+        int actionTime = 100;
         for (int i = 0; i < actionTime; i++)
 		{
 			while (isPaused)
@@ -184,7 +184,7 @@ public class Collector : MonoBehaviour
 
 	public IEnumerator MoveRight(float tileSize, int batteryDecrease)
     {
-        int actionTime = 120;
+        int actionTime = 100;
         for (int i = 0; i < actionTime; i++)
         {
 			while (isPaused)
@@ -213,7 +213,7 @@ public class Collector : MonoBehaviour
 
 	public IEnumerator MoveLeft(float tileSize, int batteryDecrease)
     {
-        int actionTime = 120;
+        int actionTime = 100;
         for (int i = 0; i < actionTime; i++)
         {
 			while (isPaused)
@@ -252,7 +252,7 @@ public class Collector : MonoBehaviour
         myText.fontSize = 4.5f;
         myText.text = "Collecting Wood...";
 
-        int actionTime = 120;
+        int actionTime = 100;
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
@@ -345,7 +345,7 @@ public class Collector : MonoBehaviour
         myText.fontSize = 4.5f;
         myText.text = "Collecting Stone...";
 
-        int actionTime = 120;
+        int actionTime = 100;
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
@@ -529,7 +529,7 @@ public class Collector : MonoBehaviour
         myText.fontSize = 4.5f;
         myText.text = "Storing Wood...";
 
-        int actionTime = 120;
+        int actionTime = 100;
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
@@ -624,7 +624,7 @@ public class Collector : MonoBehaviour
         myText.fontSize = 4.5f;
         myText.text = "Storing Stone...";
 
-        int actionTime = 120;
+        int actionTime = 100;
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
@@ -711,7 +711,7 @@ public class Collector : MonoBehaviour
 	public IEnumerator ExchangeWood(float tileSize, int batteryDecrease)
     {
 
-        int actionTime = 120;
+        int actionTime = 100;
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
@@ -786,7 +786,7 @@ public class Collector : MonoBehaviour
 	public IEnumerator ExchangeStone(float tileSize, int batteryDecrease)
     {
 
-        int actionTime = 120;
+        int actionTime = 100;
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
