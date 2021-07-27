@@ -69,6 +69,7 @@ public class ProblemGenerator : MonoBehaviour
 	private struct Level
 	{
 		public int id;
+		public int initialCoins;
 		public List<Entity> entities;
 		public Dictionary<string, Dictionary<string, int>> goals;
 		public int minGridSize;
@@ -79,6 +80,7 @@ public class ProblemGenerator : MonoBehaviour
 			this.entities = new List<Entity>();
 			this.goals = new Dictionary<string, Dictionary<string, int>>();
 			this.minGridSize = 0;
+			this.initialCoins = 0;
 		}
 
 		public string ToString()
@@ -102,19 +104,23 @@ public class ProblemGenerator : MonoBehaviour
 					result = result + " ( " + kvp.Key + " -> " + kvp.Value + " ) \n";
 				}
 			}
-			result = result + "Min Grid-Size: " + this.minGridSize;
-
+			result = result + "Min Grid-Size: " + this.minGridSize + "\n";
+			result = result + "Initial coins: " + this.initialCoins;
 			return result;
 		}
 	}
 
 	private List<Entity> problemEntities = new List<Entity>();
+	private List<Entity> levelEntities = new List<Entity>();
 	private Dictionary<string, int> constants = new Dictionary<string, int>();
 	private Level level_1;
 	private Level level_2;
 	private Level level_3;
 	private Level selectedLevel;
 	private Level chosenLevel;
+
+	private int coins = 0;
+	public GameObject coinContainer;
 
     // Start is called before the first frame update
     void Start()
@@ -141,6 +147,7 @@ public class ProblemGenerator : MonoBehaviour
 		constantsPanel.SetActive(false);
 		mainPanel.SetActive(true);
 		levelPanel.SetActive(false);
+		coinContainer.SetActive(false);
 
 		if (chosenLevel.id == 0)
 		{
@@ -178,6 +185,7 @@ public class ProblemGenerator : MonoBehaviour
 		constantsPanel.SetActive(false);
 		mainPanel.SetActive(false);
 		levelPanel.SetActive(true);
+		coinContainer.SetActive(false);
 
 		levelText.GetComponent<TMP_Text>().text = "";
 
@@ -205,9 +213,11 @@ public class ProblemGenerator : MonoBehaviour
 		constantsPanel.SetActive(false);
 		mainPanel.SetActive(false);
 		levelPanel.SetActive(false);
+		coinContainer.SetActive(true);
 
 		generatingText.GetComponent<TMP_Text>().text = obj;
 		ActivateAllInputFields();
+		UpdateCoins();
 
 		for (int i = 0; i < fieldInputs.Length - 1; i++)
 		{
@@ -266,12 +276,22 @@ public class ProblemGenerator : MonoBehaviour
 		constantsPanel.SetActive(false);
 		mainPanel.SetActive(false);
 		levelPanel.SetActive(false);
+		coinContainer.SetActive(true);
 
 		GameObject referenceAddedObject = (GameObject)Instantiate(Resources.Load("AddedObject"));
+		UpdateCoins();
 
 		foreach (Transform child in container.transform)
 		{
 			GameObject.Destroy(child.gameObject);
+		}
+
+		foreach (Entity e in levelEntities)
+		{
+			GameObject newObj = (GameObject)Instantiate(referenceAddedObject);
+			newObj.transform.parent = container.transform;
+			newObj.transform.GetChild(0).GetComponent<Image>().sprite = e.mySprite;
+			newObj.GetComponentInChildren<TMP_Text>().text = e.name;
 		}
 
 		foreach (Entity e in problemEntities)
@@ -292,11 +312,18 @@ public class ProblemGenerator : MonoBehaviour
 		constantsPanel.SetActive(true);
 		mainPanel.SetActive(false);
 		levelPanel.SetActive(false);
+		coinContainer.SetActive(true);
+
+		this.coins = chosenLevel.initialCoins;
+
+		UpdateCoins();
 
 		foreach (Transform child in constantsContainer.transform)
 		{
 			GameObject.Destroy(child.gameObject);
 		}
+
+		problemEntities = new List<Entity>();
 
 		constants = new Dictionary<string, int>();
 
@@ -319,6 +346,11 @@ public class ProblemGenerator : MonoBehaviour
 	{
 		Dictionary<string, int> tempBeliefs = new Dictionary<string, int>();
 
+		int batteryChosen = 0;
+		int woodAmount = 0;
+		int stoneAmount = 0;
+		int chestAmount = 0;
+
 		//"i" starts at 1 in order to avoid name
 		for (int i = 1; i < fieldInputs.Length - 1; i++)
 		{
@@ -332,6 +364,7 @@ public class ProblemGenerator : MonoBehaviour
 					switch (fieldTexts[i].GetComponent<TMP_Text>().text)
 					{
 						case "Battery-Amount: ":
+							batteryChosen = value;
 							if(value > 0 && value < constants["battery-capacity"])
 							{
 								tempBeliefs.Add("battery-amount", value);
@@ -363,6 +396,7 @@ public class ProblemGenerator : MonoBehaviour
 							}
 							break;
 						case "Initial Wood Amount: ":
+							woodAmount = value;
 							if (value >= 0 && value < constants["sample-capacity"])
 							{
 								tempBeliefs.Add("wood-amount", value);
@@ -374,6 +408,7 @@ public class ProblemGenerator : MonoBehaviour
 							}
 							break;
 						case "Initial Stone Amount: ":
+							stoneAmount = value;
 							if (value >= 0 && value < constants["sample-capacity"])
 							{
 								tempBeliefs.Add("stone-amount", value);
@@ -385,6 +420,7 @@ public class ProblemGenerator : MonoBehaviour
 							}
 							break;
 						case "Initial Chest Amount: ":
+							chestAmount = value;
 							if (value >= 0 && value < constants["sample-capacity"])
 							{
 								tempBeliefs.Add("chest-amount", value);
@@ -415,10 +451,22 @@ public class ProblemGenerator : MonoBehaviour
 			}
 		}
 
+		int cost = 0;
+		cost = 120 + ((batteryChosen - 50) * 3) + woodAmount*100 + stoneAmount*100 + chestAmount*250;
 
-		Entity toAdd = new Entity(fieldInputs[0].GetComponent<TMP_InputField>().text, generatingText.GetComponent<TMP_Text>().text.ToLower(), tempBeliefs, objectSprite.sprite);
+		if (cost <= this.coins)
+		{
+			Entity toAdd = new Entity(fieldInputs[0].GetComponent<TMP_InputField>().text, generatingText.GetComponent<TMP_Text>().text.ToLower(), tempBeliefs, objectSprite.sprite);
+			problemEntities.Add(toAdd);
 
-		problemEntities.Add(toAdd);
+			this.coins = this.coins - cost;
+			UpdateCoins();
+		} else
+		{
+			BadInput("Not enough coins to perform the action");
+		}
+
+		
 		GoToMenu();
 	}
 
@@ -428,6 +476,8 @@ public class ProblemGenerator : MonoBehaviour
 
 		foreach (GameObject obj in inputConstants)
 		{
+			int cost = 0;
+
 			if(obj != null)
 			{
 				int value;
@@ -435,14 +485,27 @@ public class ProblemGenerator : MonoBehaviour
 
 				if (success)
 				{
-					if (!(obj.transform.GetChild(1).GetComponent<TMP_Text>().text == "GRID-SIZE") || value >= chosenLevel.minGridSize)
+					if(obj.transform.GetChild(1).GetComponent<TMP_Text>().text == "BATTERY-CAPACITY")
 					{
-						constants.Add(obj.transform.GetChild(1).GetComponent<TMP_Text>().text.ToLower(), value);
+						cost = (value - 100) * 5;
 					}
-					else
+
+					if (cost <= this.coins)
 					{
-						BadInput("Grid size lower than minimum requested by the level");
+						if (!(obj.transform.GetChild(1).GetComponent<TMP_Text>().text == "GRID-SIZE") || value >= chosenLevel.minGridSize)
+						{
+							constants.Add(obj.transform.GetChild(1).GetComponent<TMP_Text>().text.ToLower(), value);
+							this.coins = this.coins - cost;
+						}
+						else
+						{
+							BadInput("Grid size lower than minimum requested by the level");
+							goOn = false;
+						}
+					} else
+					{
 						goOn = false;
+						BadInput("Not enough coins to perform the action");
 					}
 
 				}
@@ -454,6 +517,9 @@ public class ProblemGenerator : MonoBehaviour
 			}
 
 		}
+
+		
+
 
 		if (goOn)
 		{
@@ -485,15 +551,19 @@ public class ProblemGenerator : MonoBehaviour
 		}
 
 		levelText.GetComponent<TMP_Text>().text = selectedLevel.ToString();
+		
 	}
 
 	public void ConfirmLevel()
 	{
 		chosenLevel = selectedLevel;
+		levelEntities = new List<Entity>();
+
 		foreach (Entity e in chosenLevel.entities)
 		{
-			problemEntities.Add(e);
+			levelEntities.Add(e);
 		}
+		this.coins = chosenLevel.initialCoins;
 		GoToMainPanel();
 	}
 
@@ -536,6 +606,20 @@ public class ProblemGenerator : MonoBehaviour
 					jsonStr = jsonStr + " [\"true\", [\"predicate\", \"free\", [ \"array\", \"" + e.name + "\" ] ] ], ";
 				}
 			}
+			foreach (Entity e in levelEntities)
+			{
+				//functions
+				foreach (KeyValuePair<string, int> entry in e.beliefs)
+				{
+					jsonStr = jsonStr + " [\"equal\", [ \"function\", \"" + entry.Key + "\", [ \"array\", \"" + e.name + "\" ] ], \"" + entry.Value + "\" ], ";
+				}
+				//predicates
+				if (e.type == "collector" || e.type == "producer")
+				{
+					jsonStr = jsonStr + " [\"true\", [\"predicate\", \"free\", [ \"array\", \"" + e.name + "\" ] ] ], ";
+				}
+			}
+
 			//define constants
 			counter = 0;
 			foreach (KeyValuePair<string, int> entry in constants)
@@ -615,6 +699,7 @@ public class ProblemGenerator : MonoBehaviour
 		level_1.entities = lvl_1_entities;
 		level_1.goals = lvl_1_goals;
 		level_1.minGridSize = 10;
+		level_1.initialCoins = 500;
 
 
 		level_2 = new Level(2);
@@ -635,6 +720,7 @@ public class ProblemGenerator : MonoBehaviour
 		level_2.entities = lvl_2_entities;
 		level_2.goals = lvl_2_goals;
 		level_2.minGridSize = 10;
+		level_2.initialCoins = 500;
 
 
 		level_3 = new Level(3);
@@ -651,6 +737,7 @@ public class ProblemGenerator : MonoBehaviour
 		level_3.entities = lvl_3_entities;
 		level_3.goals = lvl_3_goals;
 		level_3.minGridSize = 10;
+		level_3.initialCoins = 750;
 
 	}
 
@@ -688,5 +775,10 @@ public class ProblemGenerator : MonoBehaviour
 
 		//Debug.Log("ERROR -- " + why);
 		return;
+	}
+
+	private void UpdateCoins()
+	{
+		coinContainer.transform.GetChild(1).GetComponent<TMP_Text>().text = this.coins.ToString();
 	}
 }
