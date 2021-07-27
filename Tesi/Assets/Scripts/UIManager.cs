@@ -9,6 +9,10 @@ public class UIManager : MonoBehaviour
 	public Camera mainCamera;
 	public GameObject background;
 
+	public GameObject setCanvas;
+	public static GameObject canvas;
+	public static List<GameObject> errorLogs = new List<GameObject>();
+
 	[SerializeField]
 	private GameObject setPanel;
 	private static GameObject panel;
@@ -75,8 +79,14 @@ public class UIManager : MonoBehaviour
 	private GameObject setFrameText;
 	private static GameObject frameText;
 
+	[SerializeField]
+	private GameObject setCoinText;
+	private static GameObject coinText;
+
 	void Start()
 	{
+		canvas = setCanvas;
+
 		panel = setPanel;
 		text_1 = setText_1;
 		text_2 = setText_2;
@@ -89,6 +99,7 @@ public class UIManager : MonoBehaviour
 		sprite = setSprite;
 		slider = setSlider;
 		textSlider = setTextSlider;
+		coinText = setCoinText;
 
 		playButton = setPlayButton;
 		pauseButton = setPauseButton;
@@ -611,6 +622,29 @@ public class UIManager : MonoBehaviour
 	public static void UpdateFrameText(int frame)
 	{
 		frameText.GetComponent<TMP_Text>().text = frame.ToString();
+	}
+
+	public static void UpdateCoinText(int coins)
+	{
+		coinText.GetComponent<TMP_Text>().text = coins.ToString();
+	}
+
+	public static void CoinError(string why)
+	{
+		GameObject referenceErrorLog = (GameObject)Instantiate(Resources.Load("ErrorMessage"), canvas.transform);
+		referenceErrorLog.transform.GetChild(0).GetComponent<TMP_Text>().text = "ERROR -- " + why;
+		referenceErrorLog.GetComponent<ErrorLog>().StartFade();
+		referenceErrorLog.GetComponent<RectTransform>().localScale = new Vector3(0.5f, 0.5f, 1);
+
+		errorLogs.Add(referenceErrorLog);
+		foreach (GameObject e in errorLogs)
+		{
+			if (e != null)
+				e.GetComponent<ErrorLog>().StartMove();
+		}
+
+		//Debug.Log("ERROR -- " + why);
+		return;
 	}
 
 }

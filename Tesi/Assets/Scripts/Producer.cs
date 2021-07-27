@@ -33,6 +33,7 @@ public class Producer : MonoBehaviour
 	private float distance;
 
 	private bool isPaused = false;
+	private bool successfulPickUp = true;
 
     // Start is called before the first frame update
     void Start()
@@ -960,32 +961,59 @@ public class Producer : MonoBehaviour
 
 	void OnMouseDown()
 	{
-		StopAllCoroutines();
+		if (GameManager.GetCoins() >= 20)
+		{
+			GameManager.DescreaseCoins(20);
 
-		gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
-		distance = Vector3.Distance(transform.position, Camera.main.transform.position);
-		dragging = true;
+			StopAllCoroutines();
+
+			gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
+			distance = Vector3.Distance(transform.position, Camera.main.transform.position);
+			dragging = true;
+			successfulPickUp = true;
+
+		} else
+		{
+			UIManager.CoinError("Not enough coins");
+			successfulPickUp = false;
+		}
 	}
 
 	void OnMouseUp()
 	{
-		gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-		underneathTile.GetComponent<SpriteRenderer>().color = Color.white;
+		if (successfulPickUp)
+		{
+			gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+			underneathTile.GetComponent<SpriteRenderer>().color = Color.white;
 
-		this.posX = (int)(underneathTile.transform.position.x - GameManager.GetGridPosition().x);
-		this.posY = (int)(underneathTile.transform.position.y - GameManager.GetGridPosition().y);
+			int cost = 0;
+			cost = cost + (Mathf.Abs(this.posX - (int)(underneathTile.transform.position.x - GameManager.GetGridPosition().x)) * 10);
+			cost = cost + (Mathf.Abs(this.posY - (int)(underneathTile.transform.position.y - GameManager.GetGridPosition().x)) * 10);
 
-		ResetPosition();
-		MoveToDestination(GameManager.GetTileSize(), GameManager.GetGridPosition());
+			if (GameManager.GetCoins() >= cost)
+			{
+
+				this.posX = (int)(underneathTile.transform.position.x - GameManager.GetGridPosition().x);
+				this.posY = (int)(underneathTile.transform.position.y - GameManager.GetGridPosition().y);
+
+				ResetPosition();
+				MoveToDestination(GameManager.GetTileSize(), GameManager.GetGridPosition());
 
 
-		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
-		toUpdate.Add("posX_" + this.name, this.posX);
-		toUpdate.Add("posY_" + this.name, this.posY);
-		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
+				Dictionary<string, int> toUpdate = new Dictionary<string, int>();
+				toUpdate.Add("posX_" + this.name, this.posX);
+				toUpdate.Add("posY_" + this.name, this.posY);
+				Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
 
-		UpdatePanel();
+				UpdatePanel();
+			} else
+			{
+				ResetPosition();
+				MoveToDestination(GameManager.GetTileSize(), GameManager.GetGridPosition());
+				UIManager.CoinError("Not enought coins to move the collector " + this.name);
+			}
 
-		dragging = false;
+			dragging = false;
+		}
 	}
 }

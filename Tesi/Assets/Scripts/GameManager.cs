@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
 	private static List<KeyValuePair<string, string>> updates = new List<KeyValuePair<string, string>>();
     
     private Client client;
+	private static int coins = 0;
 
 	private enum State
 	{
@@ -63,10 +64,10 @@ public class GameManager : MonoBehaviour
 
 		PositionEntities();
 
-		client = new Client();
-		client.Connect();
+		//client = new Client();
+		//client.Connect();
 		
-		KronosimInitialization(client);
+		//KronosimInitialization(client);
 		
 	}
 
@@ -79,7 +80,14 @@ public class GameManager : MonoBehaviour
 			case State.Playing:
 				frame++;
 				UIManager.UpdateFrameText(frame);
-				KronosimInteraction();
+				//KronosimInteraction();
+
+				if(frame % 6 == 0)
+				{
+					coins++;
+					UIManager.UpdateCoinText(coins);
+				}
+
 				break;
 			case State.Pause:
 				UIManager.UpdateFrameText(frame);
@@ -91,7 +99,7 @@ public class GameManager : MonoBehaviour
 		
 
         if(Input.GetKeyDown("g"))
-            producers[0].GetComponent<Producer>().MoveUp();
+            collectors[0].GetComponent<Collector>().MoveUp();
     }
     
     private void InstantiateGame()
@@ -309,6 +317,18 @@ public class GameManager : MonoBehaviour
 	public static Dictionary<string, int> GetConstants()
 	{
 		return constants;
+	}
+
+	public static int GetCoins()
+	{
+		return coins;
+
+	}
+
+	public static void DescreaseCoins(int decrease)
+	{
+		coins = coins - decrease;
+		UIManager.UpdateCoinText(coins);
 	}
 
 	public void GoPause()
@@ -641,4 +661,6 @@ public class GameManager : MonoBehaviour
 		response = c.SendSetupCompleted();
 		Debug.Log(response);
 	}
+
+
 }
