@@ -69,6 +69,8 @@ public class GameManager : MonoBehaviour
 		
 		//KronosimInitialization(client);
 		
+		parser.CallPlanner("ProblemPDDL.pddl");
+		
 	}
 
 	// Update is called once per frame
@@ -498,6 +500,7 @@ public class GameManager : MonoBehaviour
 			//First, send all the updates to kronosim
 			foreach (KeyValuePair<string, string> kvp in updates)
 			{
+				Debug.Log("Sending Update: " + kvp.Key + "/" + kvp.Value);
 				string updateResponse = client.SendUpdate(kvp.Key, kvp.Value);
 				JObject jsonUpdateResponse = JObject.Parse(updateResponse);
 				if(jsonUpdateResponse["status"].ToString().Equals("success"))
@@ -517,7 +520,7 @@ public class GameManager : MonoBehaviour
 			JObject jsonRunResponse = JObject.Parse(runResponse);
 			if (jsonRunResponse["command"].ToString().Equals("ACK_RUN"))
 			{
-				JArray actions = jsonRunResponse["actions"] as JArray;
+				JArray actions = jsonRunResponse["new_actions"] as JArray;
 				foreach (JToken token in actions)
 				{
 					string action = ExtractAction(token.ToString());

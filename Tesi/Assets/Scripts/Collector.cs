@@ -144,7 +144,7 @@ public class Collector : MonoBehaviour
 
 		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
 		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
-		toUpdate.Add("posY" + this.name, this.woodAmount);
+		toUpdate.Add("posY" + this.name, this.posY);
 		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
 
 	}
@@ -174,7 +174,7 @@ public class Collector : MonoBehaviour
 
 		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
 		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
-		toUpdate.Add("posY_" + this.name, this.woodAmount);
+		toUpdate.Add("posY_" + this.name, this.posY);
 		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
 	}
 
@@ -203,7 +203,7 @@ public class Collector : MonoBehaviour
 
 		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
 		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
-		toUpdate.Add("posX_" + this.name, this.woodAmount);
+		toUpdate.Add("posX_" + this.name, this.posX);
 		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
 	}
 
@@ -232,7 +232,7 @@ public class Collector : MonoBehaviour
 
 		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
 		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
-		toUpdate.Add("posX_" + this.name, this.woodAmount);
+		toUpdate.Add("posX_" + this.name, this.posX);
 		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
 
 	}

@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System.IO;
 using Newtonsoft.Json.Linq;
 using System.Globalization;
+using System.Diagnostics;
 
 public class Parser : MonoBehaviour
 {
@@ -659,5 +660,34 @@ public class Parser : MonoBehaviour
 		Domain domainObject = Domain.Evaluate(domain);
 
 		return domainObject;
+	}
+	
+	public void CallPlanner(string problemFile)
+	{
+		// For the example
+        string path = "./Assets/optic-master/optic/release/optic/";
+
+        try
+        {
+            using(var p = Process.Start(new ProcessStartInfo
+			{
+    			FileName = path + "optic-clp", // File to execute
+    			Arguments = " -N -W1,1 ./Assets/PDDL/DomainPDDL.pddl ./Assets/PDDL/" + problemFile, // arguments to use
+    			UseShellExecute = false, // use process creation semantics
+    			RedirectStandardOutput = true, // redirect standard output to this Process object
+    			CreateNoWindow = false, // if this is a terminal app, don't show it
+    			WindowStyle = ProcessWindowStyle.Hidden // if this is a terminal app, don't show it
+			}))
+			{
+    			// Wait for the process to finish executing
+    			p.WaitForExit();
+    			// display what the process output
+    			UnityEngine.Debug.Log(p.StandardOutput.ReadToEnd());
+			}
+        }
+        catch 
+        {
+        	UnityEngine.Debug.Log("Not working");
+        }		
 	}
 }
