@@ -64,4 +64,14 @@ public class Stone : MonoBehaviour
 
 	public void CollectStone() { }
 
+	public int GetPosX()
+	{
+		return this.posX;
+	}
+
+	public int GetPosY()
+	{
+		return this.posY;
+	}
+
 }

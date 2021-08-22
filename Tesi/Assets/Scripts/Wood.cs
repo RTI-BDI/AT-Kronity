@@ -63,4 +63,14 @@ public class Wood : MonoBehaviour
     }
 
 	public void CollectWood() { }
+
+	public int GetPosX()
+	{
+		return this.posX;
+	}
+
+	public int GetPosY()
+	{
+		return this.posY;
+	}
 }

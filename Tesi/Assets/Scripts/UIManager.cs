@@ -61,7 +61,7 @@ public class UIManager : MonoBehaviour
 	private GameObject setTextSlider;
 	private static GameObject textSlider;
 
-	private static string inspectedObj = "";
+	public static string inspectedObj = "";
 
 	[SerializeField]
 	private GameObject setPlayButton;
@@ -580,12 +580,42 @@ public class UIManager : MonoBehaviour
 		textSlider.GetComponent<TMP_Text>().text = ((int)value).ToString();
 	}
 
-	public void UpdateBattery()
+	public static void UpdateBattery(KeyValuePair<GameObject, string> obj, int coins)
 	{
-		Dictionary<string, int> update = new Dictionary<string, int>();
-		update.Add("battery-amount_" + inspectedObj, int.Parse(textSlider.GetComponent<TMP_Text>().text));
+		int oldBattery = 0;
 
-		Parser.UpdateSensors(update, "SET", GameManager.GetFrame());
+		if(obj.Value == "collector")
+		{
+			oldBattery = obj.Key.GetComponent<Collector>().GetBatteryAmount();
+		} else
+		{
+			oldBattery = obj.Key.GetComponent<Producer>().GetBatteryAmount();
+		}
+
+		if(coins > (5*(Mathf.Abs(oldBattery - int.Parse(textSlider.GetComponent<TMP_Text>().text)))))
+		{
+			Dictionary<string, int> update = new Dictionary<string, int>();
+			update.Add("battery-amount_" + inspectedObj, int.Parse(textSlider.GetComponent<TMP_Text>().text));
+			Parser.UpdateSensors(update, "SET", GameManager.GetFrame());
+
+			GameManager.DescreaseCoins((5 * (Mathf.Abs(oldBattery - int.Parse(textSlider.GetComponent<TMP_Text>().text)))));
+
+			if (obj.Value == "collector")
+			{
+				obj.Key.GetComponent<Collector>().SetBatteryAmount(int.Parse(textSlider.GetComponent<TMP_Text>().text));
+			}
+			else
+			{
+				obj.Key.GetComponent<Producer>().SetBatteryAmount(int.Parse(textSlider.GetComponent<TMP_Text>().text));
+			}
+
+		} else
+		{
+			CoinError("Not enought coins to change the battery amount.");
+		}
+		
+
+		
 	}
 
 	public static void InPause()

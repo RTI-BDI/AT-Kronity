@@ -91,7 +91,10 @@ public class Parser : MonoBehaviour
         GenerateSkillSet(groundedActions);
         GenerateDesireSet(problemObject, groundedActions);
 
-        //Plan generation
+		//Plan generation (on normal plan)
+		//CallPlanner();
+
+        //Plan parsing
         string[] plainPlan = File.ReadAllLines("./Assets/JSON/PlainPlan.txt");
         plan = Plan.FromPlainToObject(plainPlan, groundedActions);
         GeneratePlanSet(plan, problemObject);
@@ -662,7 +665,8 @@ public class Parser : MonoBehaviour
 		return domainObject;
 	}
 	
-	public void CallPlanner(string problemFile)
+	//function used to call the OPTIC planner
+	public void CallPlanner()
 	{
 		// For the example
         string path = "./Assets/optic-master/optic/release/optic/";
@@ -672,7 +676,7 @@ public class Parser : MonoBehaviour
             using(var p = Process.Start(new ProcessStartInfo
 			{
     			FileName = path + "optic-clp", // File to execute
-    			Arguments = " -N -W1,1 ./Assets/PDDL/DomainPDDL.pddl ./Assets/PDDL/" + problemFile, // arguments to use
+    			Arguments = " -N -W1,1 ./Assets/PDDL/DomainPDDL.pddl ./Assets/PDDL/ProblemPDDL.pddl", // arguments to use
     			UseShellExecute = false, // use process creation semantics
     			RedirectStandardOutput = true, // redirect standard output to this Process object
     			CreateNoWindow = false, // if this is a terminal app, don't show it
@@ -689,5 +693,16 @@ public class Parser : MonoBehaviour
         {
         	UnityEngine.Debug.Log("Not working");
         }		
+	}
+
+	public void ParsePlan()
+	{
+		//Plan generation
+		string[] plainPlan = File.ReadAllLines("./Assets/JSON/PlainPlan.txt");
+		plan = Plan.FromPlainToObject(plainPlan, groundedActions);
+		GeneratePlanSet(plan, problemObject);
+
+		//TODO -- add a way to change the plan execution name
+		//GameManager.addUpdate("planset.json", File.ReadAllText("./Assets/kronosim/inputs/planset.json"););
 	}
 }

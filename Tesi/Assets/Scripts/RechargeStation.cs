@@ -63,4 +63,14 @@ public class RechargeStation : MonoBehaviour
     }
 
 	public void Recharge() { }
+
+	public int GetPosX()
+	{
+		return this.posX;
+	}
+
+	public int GetPosY()
+	{
+		return this.posY;
+	}
 }

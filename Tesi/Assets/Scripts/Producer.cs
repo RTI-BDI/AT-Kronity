@@ -116,7 +116,42 @@ public class Producer : MonoBehaviour
         }
     }
 
-    public void MoveToDestination(float tileSize, Vector2 position)
+	public void SetBatteryAmount(int newValue)
+	{
+		this.batteryAmount = newValue;
+	}
+
+	public int GetBatteryAmount()
+	{
+		return this.batteryAmount;
+	}
+
+	public int GetPosX()
+	{
+		return this.posX;
+	}
+
+	public int GetPosY()
+	{
+		return this.posY;
+	}
+
+	public int GetWoodAmount()
+	{
+		return this.woodAmount;
+	}
+
+	public int GetStoneAmount()
+	{
+		return this.stoneAmount;
+	}
+
+	public int GetChestAmount()
+	{
+		return this.chestAmount;
+	}
+
+	public void MoveToDestination(float tileSize, Vector2 position)
     {
         gameObject.transform.position = new Vector2(position.x + (posX * tileSize) - (tileSize/2), position.y + (posY * tileSize) + (tileSize/2));
     }

@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using Newtonsoft.Json;
 
 public class GameManager : MonoBehaviour
 {
@@ -66,11 +67,11 @@ public class GameManager : MonoBehaviour
 
 		//client = new Client();
 		//client.Connect();
-		
+
 		//KronosimInitialization(client);
-		
-		parser.CallPlanner("ProblemPDDL.pddl");
-		
+
+		//parser.CallPlanner();
+		Snapshot();
 	}
 
 	// Update is called once per frame
@@ -665,5 +666,156 @@ public class GameManager : MonoBehaviour
 		Debug.Log(response);
 	}
 
+	public void UpdateBattery()
+	{
+		KeyValuePair<GameObject, string> obj = SearchEntity(UIManager.inspectedObj);
+		UIManager.UpdateBattery(obj, coins);
+	}
 
+	private void Snapshot()
+	{
+		//keep goal and problem attributes
+		string pName = "";
+		string activeDomain = "";
+		string goal = "";
+
+		string jsonProblem = File.ReadAllText("./Assets/JSON/AutomatedProblem.json");
+		JObject objectProblem = JObject.Parse(jsonProblem);
+		JArray problem = objectProblem["problem"] as JArray;
+
+		pName = problem.First.Next.ToString();
+		activeDomain = problem.First.Next.Next.ToString();
+
+		foreach (JToken token in problem)
+		{
+			if(token is JArray && token.First.ToString() == "defineGoal")
+			{
+				goal = token.ToString(); 
+			}
+		}
+
+		Debug.Log(goal);
+
+		//extract from situation the new problem
+
+		string jsonStr = "";
+		jsonStr = jsonStr + "{ \"problem\" : [ \"defineProblem\", \"" + pName + "\", \"" + activeDomain + "\", ";
+		jsonStr = jsonStr + " [\"defineObjects\", [\"array\", ";
+
+		//defining objects
+		foreach (GameObject c in collectors)
+		{
+			jsonStr = jsonStr + " [ \"parameter\", \"" + c.GetComponent<Collector>().GetName() + "\", \"collector\" ],";
+		}
+
+		foreach (GameObject p in producers)
+		{
+			jsonStr = jsonStr + " [ \"parameter\", \"" + p.GetComponent<Producer>().GetName() + "\", \"producer\" ],";
+		}
+
+		foreach (GameObject w in woods)
+		{
+			jsonStr = jsonStr + " [ \"parameter\", \"" + w.GetComponent<Wood>().GetName() + "\", \"wood\" ],";
+		}
+
+		foreach (GameObject s in stones)
+		{
+			jsonStr = jsonStr + " [ \"parameter\", \"" + s.GetComponent<Stone>().GetName() + "\", \"stone\" ],";
+		}
+
+		foreach (GameObject s in storages)
+		{
+			jsonStr = jsonStr + " [ \"parameter\", \"" + s.GetComponent<Storage>().GetName() + "\", \"storage\" ],";
+		}
+
+		foreach (GameObject r in rechargeStations)
+		{
+			jsonStr = jsonStr + " [ \"parameter\", \"" + r.GetComponent<RechargeStation>().GetName() + "\", \"r_station\" ],";
+		}
+
+		//remove last comma
+		jsonStr = jsonStr.Remove(jsonStr.Length - 1);
+
+		jsonStr = jsonStr + " ] ], ";
+		jsonStr = jsonStr + " [ \"defineInit\", ";
+
+		foreach (GameObject g in collectors)
+		{
+			jsonStr = jsonStr + " [\"equal\", [ \"function\", \"posX\", [ \"array\", \"" + g.GetComponent<Collector>().GetName() + "\" ] ], \"" + g.GetComponent<Collector>().GetPosX() + "\" ], ";
+			jsonStr = jsonStr + " [\"equal\", [ \"function\", \"posY\", [ \"array\", \"" + g.GetComponent<Collector>().GetName() + "\" ] ], \"" + g.GetComponent<Collector>().GetPosY() + "\" ], ";
+			jsonStr = jsonStr + " [\"equal\", [ \"function\", \"battery-amount\", [ \"array\", \"" + g.GetComponent<Collector>().GetName() + "\" ] ], \"" + g.GetComponent<Collector>().GetBatteryAmount() + "\" ], ";
+			jsonStr = jsonStr + " [\"equal\", [ \"function\", \"wood-amount\", [ \"array\", \"" + g.GetComponent<Collector>().GetName() + "\" ] ], \"" + g.GetComponent<Collector>().GetWoodAmount() + "\" ], ";
+			jsonStr = jsonStr + " [\"equal\", [ \"function\", \"stone-amount\", [ \"array\", \"" + g.GetComponent<Collector>().GetName() + "\" ] ], \"" + g.GetComponent<Collector>().GetStoneAmount() + "\" ], ";
+			jsonStr = jsonStr + " [\"true\", [\"predicate\", \"free\", [ \"array\", \"" + g.GetComponent<Collector>().GetName() + "\" ] ] ], ";
+		}
+
+		foreach (GameObject g in producers)
+		{
+			jsonStr = jsonStr + " [\"equal\", [ \"function\", \"posX\", [ \"array\", \"" + g.GetComponent<Producer>().GetName() + "\" ] ], \"" + g.GetComponent<Producer>().GetPosX() + "\" ], ";
+			jsonStr = jsonStr + " [\"equal\", [ \"function\", \"posY\", [ \"array\", \"" + g.GetComponent<Producer>().GetName() + "\" ] ], \"" + g.GetComponent<Producer>().GetPosY() + "\" ], ";
+			jsonStr = jsonStr + " [\"equal\", [ \"function\", \"battery-amount\", [ \"array\", \"" + g.GetComponent<Producer>().GetName() + "\" ] ], \"" + g.GetComponent<Producer>().GetBatteryAmount() + "\" ], ";
+			jsonStr = jsonStr + " [\"equal\", [ \"function\", \"wood-amount\", [ \"array\", \"" + g.GetComponent<Producer>().GetName() + "\" ] ], \"" + g.GetComponent<Producer>().GetWoodAmount() + "\" ], ";
+			jsonStr = jsonStr + " [\"equal\", [ \"function\", \"stone-amount\", [ \"array\", \"" + g.GetComponent<Producer>().GetName() + "\" ] ], \"" + g.GetComponent<Producer>().GetStoneAmount() + "\" ], ";
+			jsonStr = jsonStr + " [\"equal\", [ \"function\", \"chest-amount\", [ \"array\", \"" + g.GetComponent<Producer>().GetName() + "\" ] ], \"" + g.GetComponent<Producer>().GetChestAmount() + "\" ], ";
+			jsonStr = jsonStr + " [\"true\", [\"predicate\", \"free\", [ \"array\", \"" + g.GetComponent<Producer>().GetName() + "\" ] ] ], ";
+		}
+
+		foreach (GameObject g in woods)
+		{
+			jsonStr = jsonStr + " [\"equal\", [ \"function\", \"posX\", [ \"array\", \"" + g.GetComponent<Wood>().GetName() + "\" ] ], \"" + g.GetComponent<Wood>().GetPosX() + "\" ], ";
+			jsonStr = jsonStr + " [\"equal\", [ \"function\", \"posY\", [ \"array\", \"" + g.GetComponent<Wood>().GetName() + "\" ] ], \"" + g.GetComponent<Wood>().GetPosY() + "\" ], ";
+		}
+
+		foreach (GameObject g in stones)
+		{
+			jsonStr = jsonStr + " [\"equal\", [ \"function\", \"posX\", [ \"array\", \"" + g.GetComponent<Stone>().GetName() + "\" ] ], \"" + g.GetComponent<Stone>().GetPosX() + "\" ], ";
+			jsonStr = jsonStr + " [\"equal\", [ \"function\", \"posY\", [ \"array\", \"" + g.GetComponent<Stone>().GetName() + "\" ] ], \"" + g.GetComponent<Stone>().GetPosY() + "\" ], ";
+		}
+
+		foreach (GameObject g in storages)
+		{
+			jsonStr = jsonStr + " [\"equal\", [ \"function\", \"posX\", [ \"array\", \"" + g.GetComponent<Storage>().GetName() + "\" ] ], \"" + g.GetComponent<Storage>().GetPosX() + "\" ], ";
+			jsonStr = jsonStr + " [\"equal\", [ \"function\", \"posY\", [ \"array\", \"" + g.GetComponent<Storage>().GetName() + "\" ] ], \"" + g.GetComponent<Storage>().GetPosY() + "\" ], ";
+			jsonStr = jsonStr + " [\"equal\", [ \"function\", \"wood-stored\", [ \"array\", \"" + g.GetComponent<Storage>().GetName() + "\" ] ], \"" + g.GetComponent<Storage>().GetWoodStored() + "\" ], ";
+			jsonStr = jsonStr + " [\"equal\", [ \"function\", \"stone-stored\", [ \"array\", \"" + g.GetComponent<Storage>().GetName() + "\" ] ], \"" + g.GetComponent<Storage>().GetStoneStored() + "\" ], ";
+			jsonStr = jsonStr + " [\"equal\", [ \"function\", \"chest-stored\", [ \"array\", \"" + g.GetComponent<Storage>().GetName() + "\" ] ], \"" + g.GetComponent<Storage>().GetChestStored() + "\" ], ";
+		}
+
+		foreach (GameObject g in rechargeStations)
+		{
+			jsonStr = jsonStr + " [\"equal\", [ \"function\", \"posX\", [ \"array\", \"" + g.GetComponent<RechargeStation>().GetName() + "\" ] ], \"" + g.GetComponent<RechargeStation>().GetPosX() + "\" ], ";
+			jsonStr = jsonStr + " [\"equal\", [ \"function\", \"posY\", [ \"array\", \"" + g.GetComponent<RechargeStation>().GetName() + "\" ] ], \"" + g.GetComponent<RechargeStation>().GetPosY() + "\" ], ";
+		}
+
+		jsonStr = jsonStr.Remove(jsonStr.Length - 1);
+
+		//define constants
+		int counter = 0;
+		foreach (KeyValuePair<string, int> entry in constants)
+		{
+			jsonStr = jsonStr + " [ \"equal\", [\"constant\", \"" + entry.Key + "\"], \"" + entry.Value + "\" ]";
+			if (counter != constants.Count - 1)
+			{
+				jsonStr = jsonStr + ", ";
+			}
+			counter++;
+		}
+		jsonStr = jsonStr + " ], ";
+
+		//goal still hardcoded
+		jsonStr = jsonStr + goal;
+
+		jsonStr = jsonStr + " ] }";
+
+		Debug.Log(jsonStr);
+		JObject jobject = JObject.Parse(jsonStr);
+
+		// write JSON directly to a file
+		using (StreamWriter file = File.CreateText("./Assets/JSON/Snapshot.json"))
+		using (JsonTextWriter writer = new JsonTextWriter(file))
+		{
+			writer.Formatting = Formatting.Indented;
+			jobject.WriteTo(writer);
+		}
+	}
 }
