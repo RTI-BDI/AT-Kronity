@@ -994,6 +994,12 @@ public class Producer : MonoBehaviour
 		}
 	}
 
+	public void StopAllActions()
+	{
+		StopAllCoroutines();
+		MoveToDestination(GameManager.GetTileSize(), new Vector2(this.posX, this.posY));
+	}
+
 	void OnMouseDown()
 	{
 		if (GameManager.GetCoins() >= 20)

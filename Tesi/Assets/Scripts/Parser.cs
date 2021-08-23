@@ -97,7 +97,7 @@ public class Parser : MonoBehaviour
         //Plan parsing
         string[] plainPlan = File.ReadAllLines("./Assets/JSON/PlainPlan.txt");
         plan = Plan.FromPlainToObject(plainPlan, groundedActions);
-        GeneratePlanSet(plan, problemObject);
+        GeneratePlanSet(plan, problemObject, 0);
 
 		//Servers generation
 		GenerateServers();
@@ -502,14 +502,14 @@ public class Parser : MonoBehaviour
     }
 
     //function to generate the PlanSet for Kronosim
-    public void GeneratePlanSet(Plan plan, Problem problem)
+    public void GeneratePlanSet(Plan plan, Problem problem, int planNumber)
     {
         // -- GENERAL PLAN ---
 
         string jsonStr = "";
 
         //goal_name
-        jsonStr = jsonStr + "{ \"0\": [ { \"goal_name\": \"plan_execution\", ";
+        jsonStr = jsonStr + "{ \"0\": [ { \"goal_name\": \"plan_execution" + planNumber + "\", ";
         //body
         jsonStr = jsonStr + "\"body\": [ ";
 
@@ -687,6 +687,9 @@ public class Parser : MonoBehaviour
     			p.WaitForExit();
     			// display what the process output
     			UnityEngine.Debug.Log(p.StandardOutput.ReadToEnd());
+
+				// write JSON directly to a file
+				File.WriteAllText("./Assets/JSON/PlainPlan.txt", p.StandardOutput.ReadToEnd());
 			}
         }
         catch 
@@ -695,14 +698,23 @@ public class Parser : MonoBehaviour
         }		
 	}
 
-	public void ParsePlan()
+	public void ParseProblem()
+	{
+		string jsonProblem = File.ReadAllText("./Assets/JSON/AutomatedProblem.json");
+
+		JObject objectProblem = JObject.Parse(jsonProblem);
+		JArray problem = objectProblem["problem"] as JArray;
+
+		this.problemObject = Problem.Evaluate(problem);
+	}
+
+	public void ParsePlan(int planNumber)
 	{
 		//Plan generation
 		string[] plainPlan = File.ReadAllLines("./Assets/JSON/PlainPlan.txt");
 		plan = Plan.FromPlainToObject(plainPlan, groundedActions);
-		GeneratePlanSet(plan, problemObject);
+		GeneratePlanSet(plan, problemObject, planNumber);
 
-		//TODO -- add a way to change the plan execution name
-		//GameManager.addUpdate("planset.json", File.ReadAllText("./Assets/kronosim/inputs/planset.json"););
+		GameManager.addUpdate("planset.json", File.ReadAllText("./Assets/kronosim/inputs/planset.json"));
 	}
 }

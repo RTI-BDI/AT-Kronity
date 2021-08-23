@@ -104,4 +104,9 @@ public class Client
 		string message = "{ \"command\" : \"SETUP_COMPLETED\" }";
 		return SendMessage(message);
 	}
+
+	public string SendExit() {
+		string message = "{ \"command\" : \"UTIL\", \"request\" : \"EXIT\" }";
+		return SendMessage(message);
+	}
 }

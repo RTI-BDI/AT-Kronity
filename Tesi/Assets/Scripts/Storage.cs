@@ -191,4 +191,9 @@ public class Storage : MonoBehaviour
 		StopCoroutine(action);
 	}
 
+	public void StopAllActions()
+	{
+		StopAllCoroutines();
+	}
+
 }

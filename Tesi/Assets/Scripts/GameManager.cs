@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
 
 	private static int frame;
 	private State state;
+	private int planNumber = 1;
 
 	// Start is called before the first frame update
 	void Start()
@@ -491,7 +492,7 @@ public class GameManager : MonoBehaviour
 		updates.Add(new KeyValuePair<string, string>(fileName, content));
 	}
 
-	//TODO - NO_SOLUTION missing planning phase logic
+
 	private void KronosimInteraction()
 	{
 		//If game going on...
@@ -620,8 +621,35 @@ public class GameManager : MonoBehaviour
 						wait = false;
 						break;
 					case "NO_SOLUTION":
-						//TODO --- Needs planner logic
-						Debug.Log("Planning---");
+
+						//Stop all the coroutines and bring back any moving robot
+						foreach (GameObject g in collectors)
+						{
+							g.GetComponent<Collector>().StopAllActions();
+						}
+						foreach (GameObject g in producers)
+						{
+							g.GetComponent<Producer>().StopAllActions();
+						}
+						foreach (GameObject g in storages)
+						{
+							g.GetComponent<Storage>().StopAllActions();
+						}
+
+						//Derive a new problem based on what is happening and write it in the problem config. file
+						Snapshot();
+
+						//Parse the new problem
+						parser.ParseProblem();
+
+						//Call the planner to make a new plan
+						parser.CallPlanner();
+
+						//Parse the plan
+						parser.ParsePlan(planNumber);
+						planNumber++;
+
+						//Resume the Execution
 						wait = false;
 						break;
 					default:
@@ -666,6 +694,12 @@ public class GameManager : MonoBehaviour
 		Debug.Log(response);
 	}
 
+	public void KronosimExit()
+	{
+		string response = client.SendExit();
+		Debug.Log(response);
+	}
+
 	public void UpdateBattery()
 	{
 		KeyValuePair<GameObject, string> obj = SearchEntity(UIManager.inspectedObj);
@@ -693,8 +727,6 @@ public class GameManager : MonoBehaviour
 				goal = token.ToString(); 
 			}
 		}
-
-		Debug.Log(goal);
 
 		//extract from situation the new problem
 
@@ -811,11 +843,12 @@ public class GameManager : MonoBehaviour
 		JObject jobject = JObject.Parse(jsonStr);
 
 		// write JSON directly to a file
-		using (StreamWriter file = File.CreateText("./Assets/JSON/Snapshot.json"))
+		using (StreamWriter file = File.CreateText("./Assets/JSON/AutomatedProblem.json"))
 		using (JsonTextWriter writer = new JsonTextWriter(file))
 		{
 			writer.Formatting = Formatting.Indented;
 			jobject.WriteTo(writer);
 		}
+
 	}
 }
