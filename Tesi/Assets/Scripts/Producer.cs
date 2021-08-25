@@ -389,7 +389,7 @@ public class Producer : MonoBehaviour
         myText.fontSize = 4.5f;
         myText.text = "Store Wood...";
 
-        int actionTime = 100;
+        int actionTime = 40;
 
         //Animation
         for (int i = 0; i < actionTime; i++)
@@ -486,7 +486,7 @@ public class Producer : MonoBehaviour
         myText.fontSize = 4.5f;
         myText.text = "Store Stone...";
 
-        int actionTime = 100;
+        int actionTime = 40;
 
         //Animation
         for (int i = 0; i < actionTime; i++)
@@ -583,7 +583,7 @@ public class Producer : MonoBehaviour
         myText.fontSize = 4.5f;
         myText.text = "Store Chest...";
 
-        int actionTime = 100;
+        int actionTime = 40;
 
         //Animation
         for (int i = 0; i < actionTime; i++)

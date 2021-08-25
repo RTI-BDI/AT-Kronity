@@ -174,7 +174,7 @@ public class Collector : MonoBehaviour
 
 		Dictionary<string, int> toUpdate = new Dictionary<string, int>();
 		toUpdate.Add("battery-amount_" + this.name, this.batteryAmount);
-		toUpdate.Add("posY" + this.name, this.posY);
+		toUpdate.Add("posY_" + this.name, this.posY);
 		Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
 
 	}
@@ -560,7 +560,7 @@ public class Collector : MonoBehaviour
         myText.fontSize = 4.5f;
         myText.text = "Storing Wood...";
 
-        int actionTime = 100;
+        int actionTime = 40;
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
@@ -655,7 +655,7 @@ public class Collector : MonoBehaviour
         myText.fontSize = 4.5f;
         myText.text = "Storing Stone...";
 
-        int actionTime = 100;
+        int actionTime = 40;
         //Animation
         for (int i = 0; i < actionTime; i++)
         {

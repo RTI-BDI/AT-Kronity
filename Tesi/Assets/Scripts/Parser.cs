@@ -509,7 +509,7 @@ public class Parser : MonoBehaviour
         string jsonStr = "";
 
         //goal_name
-        jsonStr = jsonStr + "{ \"0\": [ { \"goal_name\": \"plan_execution" + planNumber + "\", ";
+        jsonStr = jsonStr + "{ \"0\": [ { \"goal_name\": \"plan_execution\", ";
         //body
         jsonStr = jsonStr + "\"body\": [ ";
 

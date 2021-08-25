@@ -66,13 +66,11 @@ public class GameManager : MonoBehaviour
 
 		PositionEntities();
 
-		//client = new Client();
-		//client.Connect();
+		client = new Client();
+		client.Connect();
 
-		//KronosimInitialization(client);
+		KronosimInitialization(client);
 
-		//parser.CallPlanner();
-		Snapshot();
 	}
 
 	// Update is called once per frame
@@ -84,7 +82,7 @@ public class GameManager : MonoBehaviour
 			case State.Playing:
 				frame++;
 				UIManager.UpdateFrameText(frame);
-				//KronosimInteraction();
+				KronosimInteraction();
 
 				if(frame % 6 == 0)
 				{
@@ -458,6 +456,22 @@ public class GameManager : MonoBehaviour
 			if (s.GetComponent<Storage>().GetName().Equals(name))
 			{
 				return new KeyValuePair<GameObject, string>(s, "storage");
+			}
+		}
+
+		foreach (GameObject w in woods)
+		{
+			if (w.GetComponent<Wood>().GetName().Equals(name))
+			{
+				return new KeyValuePair<GameObject, string>(w, "wood");
+			}
+		}
+		
+		foreach (GameObject s in stones)
+		{
+			if (s.GetComponent<Stone>().GetName().Equals(name))
+			{
+				return new KeyValuePair<GameObject, string>(s, "stone");
 			}
 		}
 

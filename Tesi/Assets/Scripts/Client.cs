@@ -38,7 +38,7 @@ public class Client
 	
 	public string SendMessage(string message){
 		// Data buffer for incoming data.  
-        byte[] bytes = new byte[1024*100];
+        byte[] bytes = new byte[1024*150];
         //byte[] msg = new byte[1024*100];  
   
             // Connect the socket to the remote endpoint. Catch any errors.  
