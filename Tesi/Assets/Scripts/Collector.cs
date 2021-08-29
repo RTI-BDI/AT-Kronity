@@ -742,7 +742,7 @@ public class Collector : MonoBehaviour
 	public IEnumerator ExchangeWood(float tileSize, int batteryDecrease)
     {
 
-        int actionTime = 100;
+		int actionTime = 40;
         //Animation
         for (int i = 0; i < actionTime; i++)
         {
@@ -817,7 +817,7 @@ public class Collector : MonoBehaviour
 	public IEnumerator ExchangeStone(float tileSize, int batteryDecrease)
     {
 
-        int actionTime = 100;
+		int actionTime = 40;
         //Animation
         for (int i = 0; i < actionTime; i++)
         {

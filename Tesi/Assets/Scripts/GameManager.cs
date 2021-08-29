@@ -66,10 +66,10 @@ public class GameManager : MonoBehaviour
 
 		PositionEntities();
 
-		client = new Client();
-		client.Connect();
+		//client = new Client();
+		//client.Connect();
 
-		KronosimInitialization(client);
+		//KronosimInitialization(client);
 
 	}
 
@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
 			case State.Playing:
 				frame++;
 				UIManager.UpdateFrameText(frame);
-				KronosimInteraction();
+				//KronosimInteraction();
 
 				if(frame % 6 == 0)
 				{

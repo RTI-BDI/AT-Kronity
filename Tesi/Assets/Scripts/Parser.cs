@@ -91,7 +91,7 @@ public class Parser : MonoBehaviour
         GenerateSkillSet(groundedActions);
         GenerateDesireSet(problemObject, groundedActions);
 
-		//Plan generation (on normal plan)
+		//Plan generation 
 		//CallPlanner();
 
         //Plan parsing
@@ -104,6 +104,9 @@ public class Parser : MonoBehaviour
 
 		//Map creation
 		mapObject = ParseMapping(map);
+
+		//For Debugging 
+		InitializeSensorFile();
 	}
 
     public void WritePDDLOnFile(string PDDL, string file)
@@ -617,13 +620,64 @@ public class Parser : MonoBehaviour
 			{
 				jsonStr += ", ";
 			}
+
 			counter++;
+
+			//For Debugging
+			string sensor = "";
+			sensor += " { ";
+			sensor += "\"belief_name\" : \"" + e.Key + "\", ";
+			sensor += "\"mode\" : \"" + mode + "\", ";
+			sensor += "\"time\" : " + time + ", ";
+			sensor += "\"value\" : " + e.Value + " ";
+			sensor += " } ";
+
+
+			JObject sensorJson = JObject.Parse(sensor);
+			AddSensor(sensorJson);
 		}
 		
 		jsonStr += " ] }";
 
 		GameManager.addUpdate("sensors.json", jsonStr);
 
+	}
+
+	private void InitializeSensorFile()
+	{
+		string jsonStr = "";
+		jsonStr += "{ \"0\" : [ ";
+
+		jsonStr += " ] }";
+
+		JObject jobject = JObject.Parse(jsonStr);
+
+		// write JSON directly to a file
+		using (StreamWriter file = File.CreateText("./Assets/kronosim/inputs/sensors.json"))
+		using (JsonTextWriter writer = new JsonTextWriter(file))
+		{
+			writer.Formatting = Formatting.Indented;
+			jobject.WriteTo(writer);
+		}
+	}
+
+	private static void AddSensor(JObject sensor)
+	{
+		string jsonSensors = File.ReadAllText("./Assets/kronosim/inputs/sensors.json");
+
+		//Initial parsing
+		JObject objectSensors = JObject.Parse(jsonSensors);
+		JArray sensors = objectSensors["0"] as JArray;
+
+		sensors.Add(sensor);
+
+		// write JSON directly to a file
+		using (StreamWriter file = File.CreateText("./Assets/kronosim/inputs/sensors.json"))
+		using (JsonTextWriter writer = new JsonTextWriter(file))
+		{
+			writer.Formatting = Formatting.Indented;
+			objectSensors.WriteTo(writer);
+		}
 	}
 
 	//function to parse the mapping between Unity's methods and Kronosim's methods
