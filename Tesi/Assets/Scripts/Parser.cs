@@ -97,7 +97,14 @@ public class Parser : MonoBehaviour
         //Plan parsing
         string[] plainPlan = File.ReadAllLines("./Assets/JSON/PlainPlan.txt");
         plan = Plan.FromPlainToObject(plainPlan, groundedActions);
-        GeneratePlanSet(plan, problemObject, 0);
+
+		if (plan == null)
+		{
+			PlanningFailed();
+			return;
+		}
+
+		GeneratePlanSet(plan, problemObject);
 
 		//Servers generation
 		GenerateServers();
@@ -505,8 +512,8 @@ public class Parser : MonoBehaviour
     }
 
     //function to generate the PlanSet for Kronosim
-    public void GeneratePlanSet(Plan plan, Problem problem, int planNumber)
-    {
+    public void GeneratePlanSet(Plan plan, Problem problem)
+	{ 
         // -- GENERAL PLAN ---
 
         string jsonStr = "";
@@ -762,13 +769,24 @@ public class Parser : MonoBehaviour
 		this.problemObject = Problem.Evaluate(problem);
 	}
 
-	public void ParsePlan(int planNumber)
+	public void ParsePlan()
 	{
 		//Plan generation
 		string[] plainPlan = File.ReadAllLines("./Assets/JSON/PlainPlan.txt");
 		plan = Plan.FromPlainToObject(plainPlan, groundedActions);
-		GeneratePlanSet(plan, problemObject, planNumber);
 
-		GameManager.addUpdate("planset.json", File.ReadAllText("./Assets/kronosim/inputs/planset.json"));
+		if(plan == null)
+		{
+			PlanningFailed();
+			return;
+		}
+
+		GeneratePlanSet(plan, problemObject);
+
+	}
+
+	public static void PlanningFailed()
+	{
+		GameManager.PlanningFailed();
 	}
 }

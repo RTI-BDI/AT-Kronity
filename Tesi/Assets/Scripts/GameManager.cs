@@ -582,11 +582,48 @@ public class GameManager : MonoBehaviour
 					}
 				}
 			
-			} else
+			} else if (jsonRunResponse["command"].ToString().Equals("NO_SOLUTION"))
 			{
-				Debug.Log("Unknown Error - Run (frame " + frame + ")");
+				//Stop all the coroutines and bring back any moving robot
+				foreach (GameObject g in collectors)
+				{
+					g.GetComponent<Collector>().StopAllActions();
+				}
+				foreach (GameObject g in producers)
+				{
+					g.GetComponent<Producer>().StopAllActions();
+				}
+				foreach (GameObject g in storages)
+				{
+					g.GetComponent<Storage>().StopAllActions();
+				}
+
+				//Derive a new problem based on what is happening and write it in the problem config. file
+				Snapshot();
+
+				//Parse the new problem
+				parser.ParseProblem();
+
+				//Call the planner to make a new plan
+				parser.CallPlanner();
+
+				//Parse the plan
+				parser.ParsePlan();
+
+				//Send new Plan to Kronosim
+				string updateResponse = client.SendUpdate("planset.json", File.ReadAllText("./Assets/kronosim/inputs/planset.json"));
+				JObject jsonUpdateResponse = JObject.Parse(updateResponse);
+				if (jsonUpdateResponse["status"].ToString().Equals("success"))
+				{
+					Debug.Log("Update OK : " + jsonUpdateResponse["file"].ToString());
+				}
+				else
+				{
+					Debug.Log("Update ERROR : " + jsonUpdateResponse["status"].ToString());
+				}
+
 			}
-		//If we are waiting for a new solution from kronosim...
+			//If we are waiting for a new solution from kronosim... --> THIS SECTION SHOULD NEVER BE EXECUTED
 		} else if (state == State.Waiting)
 		{
 			bool wait = true;
@@ -660,8 +697,20 @@ public class GameManager : MonoBehaviour
 						parser.CallPlanner();
 
 						//Parse the plan
-						parser.ParsePlan(planNumber);
-						planNumber++;
+						parser.ParsePlan();
+
+						//Send new Plan to Kronosim
+						string updateResponse = client.SendUpdate("planset.json", File.ReadAllText("./Assets/kronosim/inputs/planset.json"));
+						JObject jsonUpdateResponse = JObject.Parse(updateResponse);
+						if (jsonUpdateResponse["status"].ToString().Equals("success"))
+						{
+							Debug.Log("Update OK : " + jsonUpdateResponse["file"].ToString());
+						}
+						else
+						{
+							Debug.Log("Update ERROR : " + jsonUpdateResponse["status"].ToString());
+						}
+
 
 						//Resume the Execution
 						wait = false;
@@ -864,5 +913,10 @@ public class GameManager : MonoBehaviour
 			jobject.WriteTo(writer);
 		}
 
+	}
+
+	public static void PlanningFailed()
+	{
+		Debug.Log("PLANNER FAILED");
 	}
 }

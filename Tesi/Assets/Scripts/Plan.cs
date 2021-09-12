@@ -128,6 +128,11 @@ public class Plan
             }
         }
 
+		if(tempSteps.Count == 0)
+		{
+			return null;
+		}
+
         result = new Plan(tempSteps);
 
 
