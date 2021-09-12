@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
 	}
 
 	private static int frame;
-	private State state;
+	private static State state;
 	private int planNumber = 1;
 
 	// Start is called before the first frame update
@@ -352,6 +352,11 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	public static void GoTemporaryPause()
+	{
+		state = State.Pause;
+	}
+
 	public void GoPlay()
 	{
 		state = State.Playing;
@@ -369,6 +374,11 @@ public class GameManager : MonoBehaviour
 		{
 			s.GetComponent<Storage>().Resume();
 		}
+	}
+
+	public static void Resume()
+	{
+		state = State.Playing;
 	}
 
 	private string ExtractAction(string groundedAction)
@@ -553,7 +563,17 @@ public class GameManager : MonoBehaviour
 			} else if (jsonRunResponse["command"].ToString().Equals("NEW_SOLUTION"))
 			{
 				Debug.Log("Kronosim found a new solution: ");
-				
+
+				//Check if plan is finished
+				JArray completedGoals = jsonRunResponse["completed_goals"] as JArray;
+				foreach (JToken token in completedGoals)
+				{
+					if(token.ToString() == "plan_execution")
+					{
+						Debug.Log("WIN");
+					}
+				}
+
 				//Stop all the actions
 				JArray actionsToStop = jsonRunResponse["stopped_actions"] as JArray;
 				foreach (JToken token in actionsToStop)
@@ -919,4 +939,6 @@ public class GameManager : MonoBehaviour
 	{
 		Debug.Log("PLANNER FAILED");
 	}
+
+
 }

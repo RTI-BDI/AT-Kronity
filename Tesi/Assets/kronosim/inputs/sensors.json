@@ -1,16 +1,16 @@
 {
   "0": [
     {
-      "belief_name": "Prova",
+      "belief_name": "posX_c1",
       "mode": "SET",
-      "time": 0,
-      "value": 1
+      "time": 304,
+      "value": 0
     },
     {
-      "belief_name": "Test",
+      "belief_name": "posY_c1",
       "mode": "SET",
-      "time": 0,
-      "value": 2
+      "time": 304,
+      "value": 0
     }
   ]
 }

@@ -1012,6 +1012,7 @@ public class Producer : MonoBehaviour
 			distance = Vector3.Distance(transform.position, Camera.main.transform.position);
 			dragging = true;
 			successfulPickUp = true;
+			GameManager.GoTemporaryPause();
 
 		} else
 		{
@@ -1047,6 +1048,9 @@ public class Producer : MonoBehaviour
 				Parser.UpdateSensors(toUpdate, "SET", GameManager.GetFrame());
 
 				UpdatePanel();
+				GameManager.DescreaseCoins(cost);
+
+				
 			} else
 			{
 				ResetPosition();
@@ -1054,6 +1058,7 @@ public class Producer : MonoBehaviour
 				UIManager.CoinError("Not enought coins to move the collector " + this.name);
 			}
 
+			GameManager.Resume();
 			dragging = false;
 		}
 	}

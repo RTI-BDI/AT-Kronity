@@ -935,6 +935,8 @@ public class Collector : MonoBehaviour
 			distance = Vector3.Distance(transform.position, Camera.main.transform.position);
 			dragging = true;
 			successfulPickUp = true;
+
+			GameManager.GoTemporaryPause();
 		} else
 		{
 			UIManager.CoinError("Not enough coins");
@@ -978,7 +980,7 @@ public class Collector : MonoBehaviour
 			}
 
 			dragging = false;
-			
+			GameManager.Resume();
 		}
 	}
 }
