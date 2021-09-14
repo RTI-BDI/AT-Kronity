@@ -2,49 +2,50 @@
 (problem test)
 (:domain S_Example)
 (:objects 
+c1 - collector
 w1 - wood
 w2 - wood
 s1 - stone
 s2 - stone
-st1 - storage
-st2 - storage
-c1 - collector
+st - storage
 rs1 - r_station
+rs2 - r_station
+rs3 - r_station
 )
 (:init 
-(= (posX w1) 9)
-(= (posX rs1) 6)
-(= (posY rs1) 6)
+(= (posX c1) 1)
+(= (posY c1) 0)
+(= (battery-amount c1) 98)
+(= (wood-amount c1) 0)
+(= (stone-amount c1) 0)
+(free c1)
+(= (posX w1) 3)
 (= (posY w1) 3)
 (= (posX w2) 9)
 (= (posY w2) 9)
 (= (posX s1) 3)
-(= (posY s1) 3)
-(= (posX s2) 3)
-(= (posY s2) 9)
-(= (posX st1) 3)
-(= (posY st1) 6)
-(= (wood-stored st1) 0)
-(= (stone-stored st1) 0)
-(= (chest-stored st1) 0)
-(= (posX st2) 9)
-(= (posY st2) 6)
-(= (wood-stored st2) 0)
-(= (stone-stored st2) 0)
-(= (chest-stored st2) 0)
-(= (battery-amount c1) 65)
-(= (posX c1) 0)
-(= (posY c1) 0)
-(= (wood-amount c1) 0)
-(= (stone-amount c1) 0)
-(free c1)
+(= (posY s1) 9)
+(= (posX s2) 9)
+(= (posY s2) 3)
+(= (posX st) 6)
+(= (posY st) 6)
+(= (wood-stored st) 0)
+(= (stone-stored st) 0)
+(= (chest-stored st) 0)
+(= (posX rs1) 5)
+(= (posY rs1) 5)
+(= (posX rs2) 1)
+(= (posY rs2) 1)
+(= (posX rs3) 11)
+(= (posY rs3) 11)
 (= (battery-capacity) 100)
-(= (sample-capacity) 100)
-(= (grid-size) 20)
+(= (sample-capacity) 10)
+(= (grid-size) 12)
 )
 (:goal 
 (and 
-(= (wood-stored st1) 2)
+(= (wood-stored st) 1)
+(= (stone-stored st) 1)
 )
 )
 )

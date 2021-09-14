@@ -16,25 +16,57 @@
             "==",
             [
               "READ_BELIEF",
+              "posX_c1"
+            ],
+            4
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "posY_c1"
+            ],
+            1
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "battery-amount_c1"
+            ],
+            26
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "wood-amount_c1"
+            ],
+            0
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "stone-amount_c1"
+            ],
+            0
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
+              "free_c1"
+            ],
+            true
+          ],
+          [
+            "==",
+            [
+              "READ_BELIEF",
               "posX_w1"
             ],
-            9
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posX_rs1"
-            ],
-            6
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posY_rs1"
-            ],
-            6
+            3
           ],
           [
             "==",
@@ -74,7 +106,7 @@
               "READ_BELIEF",
               "posY_s1"
             ],
-            3
+            9
           ],
           [
             "==",
@@ -82,7 +114,7 @@
               "READ_BELIEF",
               "posX_s2"
             ],
-            3
+            9
           ],
           [
             "==",
@@ -90,21 +122,13 @@
               "READ_BELIEF",
               "posY_s2"
             ],
-            9
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posX_st1"
-            ],
             3
           ],
           [
             "==",
             [
               "READ_BELIEF",
-              "posY_st1"
+              "posX_st"
             ],
             6
           ],
@@ -112,39 +136,7 @@
             "==",
             [
               "READ_BELIEF",
-              "wood-stored_st1"
-            ],
-            0
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "stone-stored_st1"
-            ],
-            0
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "chest-stored_st1"
-            ],
-            0
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posX_st2"
-            ],
-            9
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posY_st2"
+              "posY_st"
             ],
             6
           ],
@@ -152,7 +144,7 @@
             "==",
             [
               "READ_BELIEF",
-              "wood-stored_st2"
+              "wood-stored_st"
             ],
             0
           ],
@@ -160,7 +152,7 @@
             "==",
             [
               "READ_BELIEF",
-              "stone-stored_st2"
+              "stone-stored_st"
             ],
             0
           ],
@@ -168,7 +160,7 @@
             "==",
             [
               "READ_BELIEF",
-              "chest-stored_st2"
+              "chest-stored_st"
             ],
             0
           ],
@@ -176,49 +168,49 @@
             "==",
             [
               "READ_BELIEF",
-              "battery-amount_c1"
+              "posX_rs1"
             ],
-            65
+            5
           ],
           [
             "==",
             [
               "READ_BELIEF",
-              "posX_c1"
+              "posY_rs1"
             ],
-            0
+            5
           ],
           [
             "==",
             [
               "READ_BELIEF",
-              "posY_c1"
+              "posX_rs2"
             ],
-            0
+            1
           ],
           [
             "==",
             [
               "READ_BELIEF",
-              "wood-amount_c1"
+              "posY_rs2"
             ],
-            0
+            1
           ],
           [
             "==",
             [
               "READ_BELIEF",
-              "stone-amount_c1"
+              "posX_rs3"
             ],
-            0
+            11
           ],
           [
             "==",
             [
               "READ_BELIEF",
-              "free_c1"
+              "posY_rs3"
             ],
-            true
+            11
           ],
           [
             "==",
@@ -234,7 +226,7 @@
               "READ_BELIEF",
               "sample-capacity"
             ],
-            100
+            10
           ],
           [
             "==",
@@ -242,7 +234,7 @@
               "READ_BELIEF",
               "grid-size"
             ],
-            20
+            12
           ]
         ]
       ],

@@ -62,7 +62,7 @@ public class Parser : MonoBehaviour
     {
         //Read Json file to string
         string jsonDomain = File.ReadAllText("./Assets/JSON/Domain.json");
-        string jsonProblem = File.ReadAllText("./Assets/JSON/AutomatedProblem.json");
+        string jsonProblem = File.ReadAllText("./Assets/JSON/Problem.json");
 		string jsonMapping = File.ReadAllText("./Assets/JSON/MethodMapping.json");
 
         //Initial parsing
@@ -92,7 +92,7 @@ public class Parser : MonoBehaviour
         GenerateDesireSet(problemObject, groundedActions);
 
 		//Plan generation 
-		//CallPlanner();
+		CallPlanner();
 
         //Plan parsing
         string[] plainPlan = File.ReadAllLines("./Assets/JSON/PlainPlan.txt");
@@ -101,6 +101,7 @@ public class Parser : MonoBehaviour
 		if (plan == null)
 		{
 			PlanningFailed();
+			UnityEngine.Debug.Log("OK");
 			return;
 		}
 
@@ -560,7 +561,7 @@ public class Parser : MonoBehaviour
         jsonStr = jsonStr + "\"effects_at_end\": [ ], ";
 
         //post_coonditions
-        jsonStr = jsonStr + "\"post-conditions\": [ ], ";
+        jsonStr = jsonStr + "\"post_conditions\": [ ], ";
 
         //preconditions
         jsonStr = jsonStr + "\"preconditions\": [ [ \"AND\", ";
@@ -702,6 +703,7 @@ public class Parser : MonoBehaviour
 	public string MapAction(string groundedAction)
 	{
 		string result;
+		
 		bool success = mapObject.TryGetValue(groundedAction, out result);
 
 		if (success)
@@ -747,10 +749,12 @@ public class Parser : MonoBehaviour
     			// Wait for the process to finish executing
     			p.WaitForExit();
     			// display what the process output
-    			UnityEngine.Debug.Log(p.StandardOutput.ReadToEnd());
+    			string output = p.StandardOutput.ReadToEnd();
+    			
+    			UnityEngine.Debug.Log(output);
 
 				// write JSON directly to a file
-				File.WriteAllText("./Assets/JSON/PlainPlan.txt", p.StandardOutput.ReadToEnd());
+				File.WriteAllText("./Assets/JSON/PlainPlan.txt", output);
 			}
         }
         catch 
@@ -761,12 +765,13 @@ public class Parser : MonoBehaviour
 
 	public void ParseProblem()
 	{
-		string jsonProblem = File.ReadAllText("./Assets/JSON/AutomatedProblem.json");
+		string jsonProblem = File.ReadAllText("./Assets/JSON/Problem.json");
 
 		JObject objectProblem = JObject.Parse(jsonProblem);
 		JArray problem = objectProblem["problem"] as JArray;
 
 		this.problemObject = Problem.Evaluate(problem);
+		WritePDDLOnFile(problemObject.ToPDDL(), "ProblemPDDL.pddl");
 	}
 
 	public void ParsePlan()

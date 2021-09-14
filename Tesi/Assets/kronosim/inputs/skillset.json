@@ -31,16 +31,16 @@
       "goal_name": "recharge_c1_rs1"
     },
     {
-      "goal_name": "store-wood_c1_st1"
+      "goal_name": "recharge_c1_rs2"
     },
     {
-      "goal_name": "store-wood_c1_st2"
+      "goal_name": "recharge_c1_rs3"
     },
     {
-      "goal_name": "store-stone_c1_st1"
+      "goal_name": "store-wood_c1_st"
     },
     {
-      "goal_name": "store-stone_c1_st2"
+      "goal_name": "store-stone_c1_st"
     }
   ]
 }

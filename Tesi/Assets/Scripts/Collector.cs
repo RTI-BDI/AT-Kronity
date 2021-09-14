@@ -194,7 +194,7 @@ public class Collector : MonoBehaviour
 				yield return null;
 			}
 
-			gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + tileSize / actionTime);
+			gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - tileSize / actionTime);
             yield return null;
         }
 		this.batteryAmount -= batteryDecrease;

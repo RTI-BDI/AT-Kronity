@@ -66,10 +66,10 @@ public class GameManager : MonoBehaviour
 
 		PositionEntities();
 
-		//client = new Client();
-		//client.Connect();
+		client = new Client();
+		client.Connect();
 
-		//KronosimInitialization(client);
+		KronosimInitialization(client);
 
 	}
 
@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
 			case State.Playing:
 				frame++;
 				UIManager.UpdateFrameText(frame);
-				//KronosimInteraction();
+				KronosimInteraction();
 
 				if(frame % 6 == 0)
 				{
@@ -399,7 +399,6 @@ public class GameManager : MonoBehaviour
 				}
 			}
 		}
-
 		return parser.MapAction(result);
 	}
 
@@ -484,12 +483,21 @@ public class GameManager : MonoBehaviour
 				return new KeyValuePair<GameObject, string>(s, "stone");
 			}
 		}
+		
+		foreach (GameObject r in rechargeStations)
+		{
+			if (r.GetComponent<RechargeStation>().GetName().Equals(name))
+			{
+				return new KeyValuePair<GameObject, string>(r, "r_station");
+			}
+		}
 
 		return new KeyValuePair<GameObject, string>(null, "");
 	}
 
 	private void ExecuteAction(string action, GameObject entity)
 	{
+		Debug.Log(action);
 		entity.SendMessage(action);
 	}
 
@@ -578,9 +586,9 @@ public class GameManager : MonoBehaviour
 				JArray actionsToStop = jsonRunResponse["stopped_actions"] as JArray;
 				foreach (JToken token in actionsToStop)
 				{
-					string action = ExtractAction(token.ToString());
-					if(action != "plan_execution") {
-						
+					
+					if(token.ToString() != "plan_execution") {
+						string action = ExtractAction(token.ToString());
 						List<string> entitiesInvolved = ExtractEntities(token.ToString());
 						foreach (string e in entitiesInvolved)
 						{
@@ -593,6 +601,7 @@ public class GameManager : MonoBehaviour
 				foreach (JToken token in actionsToStart)
 				{
 					if(token.ToString() != "plan_execution") {
+						Debug.Log(token.ToString());
 						string action = ExtractAction(token.ToString());
 						List<string> entitiesInvolved = ExtractEntities(token.ToString());
 						foreach (string e in entitiesInvolved)
@@ -796,7 +805,7 @@ public class GameManager : MonoBehaviour
 		string activeDomain = "";
 		string goal = "";
 
-		string jsonProblem = File.ReadAllText("./Assets/JSON/AutomatedProblem.json");
+		string jsonProblem = File.ReadAllText("./Assets/JSON/Problem.json");
 		JObject objectProblem = JObject.Parse(jsonProblem);
 		JArray problem = objectProblem["problem"] as JArray;
 
@@ -926,7 +935,7 @@ public class GameManager : MonoBehaviour
 		JObject jobject = JObject.Parse(jsonStr);
 
 		// write JSON directly to a file
-		using (StreamWriter file = File.CreateText("./Assets/JSON/AutomatedProblem.json"))
+		using (StreamWriter file = File.CreateText("./Assets/JSON/Problem.json"))
 		using (JsonTextWriter writer = new JsonTextWriter(file))
 		{
 			writer.Formatting = Formatting.Indented;

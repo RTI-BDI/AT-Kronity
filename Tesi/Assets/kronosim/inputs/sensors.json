@@ -1,15 +1,69 @@
 {
   "0": [
     {
+      "belief_name": "battery-amount_c1",
+      "mode": "SET",
+      "time": 101,
+      "value": 24
+    },
+    {
       "belief_name": "posX_c1",
       "mode": "SET",
-      "time": 304,
-      "value": 0
+      "time": 101,
+      "value": 3
+    },
+    {
+      "belief_name": "battery-amount_c1",
+      "mode": "SET",
+      "time": 221,
+      "value": 22
+    },
+    {
+      "belief_name": "posX_c1",
+      "mode": "SET",
+      "time": 221,
+      "value": 2
+    },
+    {
+      "belief_name": "battery-amount_c1",
+      "mode": "SET",
+      "time": 341,
+      "value": 20
+    },
+    {
+      "belief_name": "posX_c1",
+      "mode": "SET",
+      "time": 341,
+      "value": 1
+    },
+    {
+      "belief_name": "battery-amount_c1",
+      "mode": "SET",
+      "time": 425,
+      "value": 100
+    },
+    {
+      "belief_name": "battery-amount_c1",
+      "mode": "SET",
+      "time": 541,
+      "value": 98
+    },
+    {
+      "belief_name": "posX_c1",
+      "mode": "SET",
+      "time": 541,
+      "value": 2
+    },
+    {
+      "belief_name": "posX_c1",
+      "mode": "SET",
+      "time": 608,
+      "value": 1
     },
     {
       "belief_name": "posY_c1",
       "mode": "SET",
-      "time": 304,
+      "time": 608,
       "value": 0
     }
   ]

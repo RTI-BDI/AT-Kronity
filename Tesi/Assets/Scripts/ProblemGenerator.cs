@@ -249,7 +249,7 @@ public class ProblemGenerator : MonoBehaviour
 
 				objectSprite.sprite = producerSprite;
 				break;
-			case "R-Station":
+			case "R_Station":
 				fieldTexts[0].GetComponent<TMP_Text>().text = "Name: ";
 				fieldTexts[1].GetComponent<TMP_Text>().text = "";
 				fieldTexts[2].GetComponent<TMP_Text>().text = "Position (X): ";
@@ -579,6 +579,12 @@ public class ProblemGenerator : MonoBehaviour
 			jsonStr = jsonStr + " [\"defineObjects\", [\"array\", ";
 
 			int counter = 0;
+			
+			foreach (Entity e in levelEntities)
+			{
+				jsonStr = jsonStr + " [ \"parameter\", \"" + e.name + "\", \"" + e.type + "\" ],";
+			}
+			
 			foreach (Entity e in problemEntities)
 			{
 				jsonStr = jsonStr + " [ \"parameter\", \"" + e.name + "\", \"" + e.type + "\" ]";
@@ -658,7 +664,7 @@ public class ProblemGenerator : MonoBehaviour
 			JObject jobject = JObject.Parse(jsonStr);
 
 			// write JSON directly to a file
-			using (StreamWriter file = File.CreateText("./Assets/JSON/AutomatedProblem.json"))
+			using (StreamWriter file = File.CreateText("./Assets/JSON/Problem.json"))
 			using (JsonTextWriter writer = new JsonTextWriter(file))
 			{
 				writer.Formatting = Formatting.Indented;

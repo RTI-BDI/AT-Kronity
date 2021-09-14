@@ -128,10 +128,7 @@ public class Plan
             }
         }
 
-		if(tempSteps.Count == 0)
-		{
-			return null;
-		}
+		Debug.Log("Temp Steps count " + tempSteps.Count); 
 
         result = new Plan(tempSteps);
 
