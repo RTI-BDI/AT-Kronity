@@ -497,7 +497,6 @@ public class GameManager : MonoBehaviour
 
 	private void ExecuteAction(string action, GameObject entity)
 	{
-		Debug.Log(action);
 		entity.SendMessage(action);
 	}
 
@@ -613,10 +612,11 @@ public class GameManager : MonoBehaviour
 			
 			} else if (jsonRunResponse["command"].ToString().Equals("NO_SOLUTION"))
 			{
+			
 				//Stop all the coroutines and bring back any moving robot
 				foreach (GameObject g in collectors)
 				{
-					g.GetComponent<Collector>().StopAllActions();
+					g.GetComponent<Collector>().StopAllActions();			
 				}
 				foreach (GameObject g in producers)
 				{
@@ -625,8 +625,8 @@ public class GameManager : MonoBehaviour
 				foreach (GameObject g in storages)
 				{
 					g.GetComponent<Storage>().StopAllActions();
-				}
-
+				}		
+				
 				//Derive a new problem based on what is happening and write it in the problem config. file
 				Snapshot();
 
@@ -650,106 +650,24 @@ public class GameManager : MonoBehaviour
 				{
 					Debug.Log("Update ERROR : " + jsonUpdateResponse["status"].ToString());
 				}
+				
+				//Generate new desireset
+				parser.GenerateDesireSet();
 
-			}
-			//If we are waiting for a new solution from kronosim... --> THIS SECTION SHOULD NEVER BE EXECUTED
-		} else if (state == State.Waiting)
-		{
-			bool wait = true;
-
-			while (wait)
-			{
-				string pokeResponse = client.SendPoke();
-				JObject jsonPokeResponse = JObject.Parse(pokeResponse);
-
-				switch (jsonPokeResponse["command"].ToString())
+				//Send new Desireset to Kronosim
+				updateResponse = client.SendUpdate("desireset.json", File.ReadAllText("./Assets/kronosim/inputs/desireset.json"));
+				jsonUpdateResponse = JObject.Parse(updateResponse);
+				if (jsonUpdateResponse["status"].ToString().Equals("success"))
 				{
-					case "ACK_POKE":
-						Debug.Log("Poke send even if not needed - Check (frame " + frame + ")");
-						state = State.Playing;
-						break;
-					case "WAIT":
-						Debug.Log("Kronosim asked to wait...");
-						break;
-					case "NEW_SOLUTION":
-						Debug.Log("Kronosim found a new solution: ");
-						//Stop all the actions
-						JArray actionsToStop = jsonPokeResponse["stopped_actions"] as JArray;
-						foreach (JToken token in actionsToStop)
-						{
-							string action = ExtractAction(token.ToString());
-							List<string> entitiesInvolved = ExtractEntities(token.ToString());
-							foreach (string e in entitiesInvolved)
-							{
-								StopAction(action, SearchEntity(e));
-							}
-						}
-						//Start new actions
-						JArray actionsToStart = jsonPokeResponse["new_actions"] as JArray;
-						foreach (JToken token in actionsToStart)
-						{
-							string action = ExtractAction(token.ToString());
-							if(action != "plan_execution") {
-								List<string> entitiesInvolved = ExtractEntities(token.ToString());
-								foreach (string e in entitiesInvolved)
-								{
-									ExecuteAction(action, SearchEntity(e).Key);
-								}
-							}
-						}
-
-						wait = false;
-						break;
-					case "NO_SOLUTION":
-
-						//Stop all the coroutines and bring back any moving robot
-						foreach (GameObject g in collectors)
-						{
-							g.GetComponent<Collector>().StopAllActions();
-						}
-						foreach (GameObject g in producers)
-						{
-							g.GetComponent<Producer>().StopAllActions();
-						}
-						foreach (GameObject g in storages)
-						{
-							g.GetComponent<Storage>().StopAllActions();
-						}
-
-						//Derive a new problem based on what is happening and write it in the problem config. file
-						Snapshot();
-
-						//Parse the new problem
-						parser.ParseProblem();
-
-						//Call the planner to make a new plan
-						parser.CallPlanner();
-
-						//Parse the plan
-						parser.ParsePlan();
-
-						//Send new Plan to Kronosim
-						string updateResponse = client.SendUpdate("planset.json", File.ReadAllText("./Assets/kronosim/inputs/planset.json"));
-						JObject jsonUpdateResponse = JObject.Parse(updateResponse);
-						if (jsonUpdateResponse["status"].ToString().Equals("success"))
-						{
-							Debug.Log("Update OK : " + jsonUpdateResponse["file"].ToString());
-						}
-						else
-						{
-							Debug.Log("Update ERROR : " + jsonUpdateResponse["status"].ToString());
-						}
-
-
-						//Resume the Execution
-						wait = false;
-						break;
-					default:
-						Debug.Log("Unknown Error - Poke (frame " + frame + ")");
-						break;
+					Debug.Log("Update OK : " + jsonUpdateResponse["file"].ToString());
 				}
+				else
+				{
+					Debug.Log("Update ERROR : " + jsonUpdateResponse["status"].ToString());
+				}
+
 			}
-		}
+		} 
 	}
 
 	private void KronosimInitialization(Client c)

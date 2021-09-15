@@ -13,9 +13,9 @@ rs2 - r_station
 rs3 - r_station
 )
 (:init 
-(= (posX c1) 1)
-(= (posY c1) 0)
-(= (battery-amount c1) 98)
+(= (posX c1) 3)
+(= (posY c1) 2)
+(= (battery-amount c1) 70)
 (= (wood-amount c1) 0)
 (= (stone-amount c1) 0)
 (free c1)

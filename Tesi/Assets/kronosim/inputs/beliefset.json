@@ -6,7 +6,7 @@
     },
     {
       "name": "battery-amount_c1",
-      "value": 26
+      "value": 70
     },
     {
       "name": "wood-amount_c1",
@@ -18,7 +18,7 @@
     },
     {
       "name": "posX_c1",
-      "value": 4
+      "value": 3
     },
     {
       "name": "posX_w1",
@@ -54,7 +54,7 @@
     },
     {
       "name": "posY_c1",
-      "value": 1
+      "value": 2
     },
     {
       "name": "posY_w1",

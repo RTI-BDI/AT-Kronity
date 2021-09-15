@@ -17,7 +17,7 @@
           "action": {
             "priority": 0.5,
             "deadline": 120,
-            "goal_name": "move-up_c1",
+            "goal_name": "move-left_c1",
             "arrivalTime": 120.001
           },
           "action_type": "GOAL",
@@ -27,7 +27,7 @@
           "action": {
             "priority": 0.5,
             "deadline": 120,
-            "goal_name": "move-right_c1",
+            "goal_name": "move-up_c1",
             "arrivalTime": 240.002
           },
           "action_type": "GOAL",
@@ -37,7 +37,7 @@
           "action": {
             "priority": 0.5,
             "deadline": 120,
-            "goal_name": "move-right_c1",
+            "goal_name": "collect-wood_c1_w1",
             "arrivalTime": 360.003
           },
           "action_type": "GOAL",
@@ -47,7 +47,7 @@
           "action": {
             "priority": 0.5,
             "deadline": 120,
-            "goal_name": "move-up_c1",
+            "goal_name": "move-right_c1",
             "arrivalTime": 480.004
           },
           "action_type": "GOAL",
@@ -57,7 +57,7 @@
           "action": {
             "priority": 0.5,
             "deadline": 120,
-            "goal_name": "move-right_c1",
+            "goal_name": "move-up_c1",
             "arrivalTime": 600.005
           },
           "action_type": "GOAL",
@@ -67,7 +67,7 @@
           "action": {
             "priority": 0.5,
             "deadline": 120,
-            "goal_name": "move-left_c1",
+            "goal_name": "move-right_c1",
             "arrivalTime": 720.006
           },
           "action_type": "GOAL",
@@ -77,7 +77,7 @@
           "action": {
             "priority": 0.5,
             "deadline": 120,
-            "goal_name": "move-left_c1",
+            "goal_name": "move-up_c1",
             "arrivalTime": 840.007
           },
           "action_type": "GOAL",
@@ -87,7 +87,7 @@
           "action": {
             "priority": 0.5,
             "deadline": 120,
-            "goal_name": "move-right_c1",
+            "goal_name": "move-left_c1",
             "arrivalTime": 960.008
           },
           "action_type": "GOAL",
@@ -97,7 +97,7 @@
           "action": {
             "priority": 0.5,
             "deadline": 120,
-            "goal_name": "move-left_c1",
+            "goal_name": "move-up_c1",
             "arrivalTime": 1080.009
           },
           "action_type": "GOAL",
@@ -107,7 +107,7 @@
           "action": {
             "priority": 0.5,
             "deadline": 120,
-            "goal_name": "move-up_c1",
+            "goal_name": "move-right_c1",
             "arrivalTime": 1200.01
           },
           "action_type": "GOAL",
@@ -117,88 +117,8 @@
           "action": {
             "priority": 0.5,
             "deadline": 120,
-            "goal_name": "collect-wood_c1_w1",
+            "goal_name": "move-right_c1",
             "arrivalTime": 1320.011
-          },
-          "action_type": "GOAL",
-          "execution": "PARALLEL"
-        },
-        {
-          "action": {
-            "priority": 0.5,
-            "deadline": 120,
-            "goal_name": "move-right_c1",
-            "arrivalTime": 1440.012
-          },
-          "action_type": "GOAL",
-          "execution": "PARALLEL"
-        },
-        {
-          "action": {
-            "priority": 0.5,
-            "deadline": 120,
-            "goal_name": "move-up_c1",
-            "arrivalTime": 1560.013
-          },
-          "action_type": "GOAL",
-          "execution": "PARALLEL"
-        },
-        {
-          "action": {
-            "priority": 0.5,
-            "deadline": 120,
-            "goal_name": "move-right_c1",
-            "arrivalTime": 1680.014
-          },
-          "action_type": "GOAL",
-          "execution": "PARALLEL"
-        },
-        {
-          "action": {
-            "priority": 0.5,
-            "deadline": 120,
-            "goal_name": "move-up_c1",
-            "arrivalTime": 1800.015
-          },
-          "action_type": "GOAL",
-          "execution": "PARALLEL"
-        },
-        {
-          "action": {
-            "priority": 0.5,
-            "deadline": 120,
-            "goal_name": "move-left_c1",
-            "arrivalTime": 1920.016
-          },
-          "action_type": "GOAL",
-          "execution": "PARALLEL"
-        },
-        {
-          "action": {
-            "priority": 0.5,
-            "deadline": 120,
-            "goal_name": "move-up_c1",
-            "arrivalTime": 2040.017
-          },
-          "action_type": "GOAL",
-          "execution": "PARALLEL"
-        },
-        {
-          "action": {
-            "priority": 0.5,
-            "deadline": 120,
-            "goal_name": "move-right_c1",
-            "arrivalTime": 2160.018
-          },
-          "action_type": "GOAL",
-          "execution": "PARALLEL"
-        },
-        {
-          "action": {
-            "priority": 0.5,
-            "deadline": 120,
-            "goal_name": "move-right_c1",
-            "arrivalTime": 2280.019
           },
           "action_type": "GOAL",
           "execution": "PARALLEL"
@@ -208,7 +128,7 @@
             "priority": 0.5,
             "deadline": 60,
             "goal_name": "store-wood_c1_st",
-            "arrivalTime": 2400.02
+            "arrivalTime": 1440.012
           },
           "action_type": "GOAL",
           "execution": "PARALLEL"
@@ -218,7 +138,7 @@
             "priority": 0.5,
             "deadline": 120,
             "goal_name": "move-left_c1",
-            "arrivalTime": 2460.021
+            "arrivalTime": 1500.013
           },
           "action_type": "GOAL",
           "execution": "PARALLEL"
@@ -228,7 +148,7 @@
             "priority": 0.5,
             "deadline": 120,
             "goal_name": "move-left_c1",
-            "arrivalTime": 2580.022
+            "arrivalTime": 1620.014
           },
           "action_type": "GOAL",
           "execution": "PARALLEL"
@@ -238,7 +158,7 @@
             "priority": 0.5,
             "deadline": 120,
             "goal_name": "move-left_c1",
-            "arrivalTime": 2700.023
+            "arrivalTime": 1740.015
           },
           "action_type": "GOAL",
           "execution": "PARALLEL"
@@ -248,7 +168,7 @@
             "priority": 0.5,
             "deadline": 120,
             "goal_name": "move-up_c1",
-            "arrivalTime": 2820.024
+            "arrivalTime": 1860.016
           },
           "action_type": "GOAL",
           "execution": "PARALLEL"
@@ -258,7 +178,7 @@
             "priority": 0.5,
             "deadline": 120,
             "goal_name": "move-up_c1",
-            "arrivalTime": 2940.025
+            "arrivalTime": 1980.017
           },
           "action_type": "GOAL",
           "execution": "PARALLEL"
@@ -268,7 +188,7 @@
             "priority": 0.5,
             "deadline": 120,
             "goal_name": "move-up_c1",
-            "arrivalTime": 3060.026
+            "arrivalTime": 2100.018
           },
           "action_type": "GOAL",
           "execution": "PARALLEL"
@@ -278,7 +198,7 @@
             "priority": 0.5,
             "deadline": 120,
             "goal_name": "collect-stone_c1_s1",
-            "arrivalTime": 3180.027
+            "arrivalTime": 2220.019
           },
           "action_type": "GOAL",
           "execution": "PARALLEL"
@@ -288,7 +208,7 @@
             "priority": 0.5,
             "deadline": 120,
             "goal_name": "move-right_c1",
-            "arrivalTime": 3300.028
+            "arrivalTime": 2340.02
           },
           "action_type": "GOAL",
           "execution": "PARALLEL"
@@ -298,7 +218,7 @@
             "priority": 0.5,
             "deadline": 120,
             "goal_name": "move-right_c1",
-            "arrivalTime": 3420.029
+            "arrivalTime": 2460.021
           },
           "action_type": "GOAL",
           "execution": "PARALLEL"
@@ -308,7 +228,7 @@
             "priority": 0.5,
             "deadline": 120,
             "goal_name": "move-down_c1",
-            "arrivalTime": 3540.03
+            "arrivalTime": 2580.022
           },
           "action_type": "GOAL",
           "execution": "PARALLEL"
@@ -318,7 +238,7 @@
             "priority": 0.5,
             "deadline": 120,
             "goal_name": "move-down_c1",
-            "arrivalTime": 3660.031
+            "arrivalTime": 2700.023
           },
           "action_type": "GOAL",
           "execution": "PARALLEL"
@@ -328,7 +248,7 @@
             "priority": 0.5,
             "deadline": 120,
             "goal_name": "move-right_c1",
-            "arrivalTime": 3780.032
+            "arrivalTime": 2820.024
           },
           "action_type": "GOAL",
           "execution": "PARALLEL"
@@ -338,7 +258,7 @@
             "priority": 0.5,
             "deadline": 120,
             "goal_name": "move-down_c1",
-            "arrivalTime": 3900.033
+            "arrivalTime": 2940.025
           },
           "action_type": "GOAL",
           "execution": "PARALLEL"
@@ -348,7 +268,7 @@
             "priority": 0.5,
             "deadline": 60,
             "goal_name": "store-stone_c1_st",
-            "arrivalTime": 4020.034
+            "arrivalTime": 3060.026
           },
           "action_type": "GOAL",
           "execution": "PARALLEL"
@@ -367,7 +287,7 @@
               "READ_BELIEF",
               "posX_c1"
             ],
-            1
+            3
           ],
           [
             "==",
@@ -375,7 +295,7 @@
               "READ_BELIEF",
               "posY_c1"
             ],
-            0
+            2
           ],
           [
             "==",
@@ -383,7 +303,7 @@
               "READ_BELIEF",
               "battery-amount_c1"
             ],
-            98
+            70
           ],
           [
             "==",
@@ -584,992 +504,6 @@
               "grid-size"
             ],
             12
-          ]
-        ]
-      ],
-      "preference": {
-        "computedDynamically": true,
-        "formula": [
-          0.8
-        ],
-        "reference_table": []
-      }
-    },
-    {
-      "goal_name": "move-right_c1",
-      "body": [
-        {
-          "action_type": "TASK",
-          "execution": "SEQUENTIAL",
-          "action": {
-            "computationTime": 4,
-            "n_exec": 10,
-            "period": 12,
-            "relativeDeadline": 12,
-            "server": -1
-          }
-        }
-      ],
-      "cont_conditions": [],
-      "effects_at_begin": [
-        [
-          "ASSIGN",
-          "free_c1",
-          false
-        ],
-        [
-          "DEFINE_VARIABLE",
-          "battery-amount_c1_old",
-          [
-            "READ_BELIEF",
-            "battery-amount_c1"
-          ]
-        ],
-        [
-          "DEFINE_VARIABLE",
-          "posX_c1_old",
-          [
-            "READ_BELIEF",
-            "posX_c1"
-          ]
-        ]
-      ],
-      "effects_at_end": [
-        [
-          "ASSIGN",
-          "free_c1",
-          true
-        ]
-      ],
-      "post_conditions": [
-        [
-          "AND",
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "battery-amount_c1"
-            ],
-            [
-              "-",
-              [
-                "READ_VARIABLE",
-                "battery-amount_c1_old"
-              ],
-              2
-            ]
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posX_c1"
-            ],
-            [
-              "+",
-              [
-                "READ_VARIABLE",
-                "posX_c1_old"
-              ],
-              1
-            ]
-          ]
-        ]
-      ],
-      "preconditions": [
-        [
-          "AND",
-          [
-            ">",
-            [
-              "READ_BELIEF",
-              "battery-amount_c1"
-            ],
-            10
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "free_c1"
-            ],
-            true
-          ],
-          [
-            "<",
-            [
-              "READ_BELIEF",
-              "posX_c1"
-            ],
-            [
-              "-",
-              [
-                "READ_BELIEF",
-                "grid-size"
-              ],
-              1
-            ]
-          ]
-        ]
-      ],
-      "preference": {
-        "computedDynamically": true,
-        "formula": [
-          0.8
-        ],
-        "reference_table": []
-      }
-    },
-    {
-      "goal_name": "move-up_c1",
-      "body": [
-        {
-          "action_type": "TASK",
-          "execution": "SEQUENTIAL",
-          "action": {
-            "computationTime": 4,
-            "n_exec": 10,
-            "period": 12,
-            "relativeDeadline": 12,
-            "server": -1
-          }
-        }
-      ],
-      "cont_conditions": [],
-      "effects_at_begin": [
-        [
-          "ASSIGN",
-          "free_c1",
-          false
-        ],
-        [
-          "DEFINE_VARIABLE",
-          "battery-amount_c1_old",
-          [
-            "READ_BELIEF",
-            "battery-amount_c1"
-          ]
-        ],
-        [
-          "DEFINE_VARIABLE",
-          "posY_c1_old",
-          [
-            "READ_BELIEF",
-            "posY_c1"
-          ]
-        ]
-      ],
-      "effects_at_end": [
-        [
-          "ASSIGN",
-          "free_c1",
-          true
-        ]
-      ],
-      "post_conditions": [
-        [
-          "AND",
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "battery-amount_c1"
-            ],
-            [
-              "-",
-              [
-                "READ_VARIABLE",
-                "battery-amount_c1_old"
-              ],
-              2
-            ]
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posY_c1"
-            ],
-            [
-              "+",
-              [
-                "READ_VARIABLE",
-                "posY_c1_old"
-              ],
-              1
-            ]
-          ]
-        ]
-      ],
-      "preconditions": [
-        [
-          "AND",
-          [
-            ">",
-            [
-              "READ_BELIEF",
-              "battery-amount_c1"
-            ],
-            10
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "free_c1"
-            ],
-            true
-          ],
-          [
-            "<",
-            [
-              "READ_BELIEF",
-              "posY_c1"
-            ],
-            [
-              "-",
-              [
-                "READ_BELIEF",
-                "grid-size"
-              ],
-              1
-            ]
-          ]
-        ]
-      ],
-      "preference": {
-        "computedDynamically": true,
-        "formula": [
-          0.8
-        ],
-        "reference_table": []
-      }
-    },
-    {
-      "goal_name": "move-right_c1",
-      "body": [
-        {
-          "action_type": "TASK",
-          "execution": "SEQUENTIAL",
-          "action": {
-            "computationTime": 4,
-            "n_exec": 10,
-            "period": 12,
-            "relativeDeadline": 12,
-            "server": -1
-          }
-        }
-      ],
-      "cont_conditions": [],
-      "effects_at_begin": [
-        [
-          "ASSIGN",
-          "free_c1",
-          false
-        ],
-        [
-          "DEFINE_VARIABLE",
-          "battery-amount_c1_old",
-          [
-            "READ_BELIEF",
-            "battery-amount_c1"
-          ]
-        ],
-        [
-          "DEFINE_VARIABLE",
-          "posX_c1_old",
-          [
-            "READ_BELIEF",
-            "posX_c1"
-          ]
-        ]
-      ],
-      "effects_at_end": [
-        [
-          "ASSIGN",
-          "free_c1",
-          true
-        ]
-      ],
-      "post_conditions": [
-        [
-          "AND",
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "battery-amount_c1"
-            ],
-            [
-              "-",
-              [
-                "READ_VARIABLE",
-                "battery-amount_c1_old"
-              ],
-              2
-            ]
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posX_c1"
-            ],
-            [
-              "+",
-              [
-                "READ_VARIABLE",
-                "posX_c1_old"
-              ],
-              1
-            ]
-          ]
-        ]
-      ],
-      "preconditions": [
-        [
-          "AND",
-          [
-            ">",
-            [
-              "READ_BELIEF",
-              "battery-amount_c1"
-            ],
-            10
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "free_c1"
-            ],
-            true
-          ],
-          [
-            "<",
-            [
-              "READ_BELIEF",
-              "posX_c1"
-            ],
-            [
-              "-",
-              [
-                "READ_BELIEF",
-                "grid-size"
-              ],
-              1
-            ]
-          ]
-        ]
-      ],
-      "preference": {
-        "computedDynamically": true,
-        "formula": [
-          0.8
-        ],
-        "reference_table": []
-      }
-    },
-    {
-      "goal_name": "move-right_c1",
-      "body": [
-        {
-          "action_type": "TASK",
-          "execution": "SEQUENTIAL",
-          "action": {
-            "computationTime": 4,
-            "n_exec": 10,
-            "period": 12,
-            "relativeDeadline": 12,
-            "server": -1
-          }
-        }
-      ],
-      "cont_conditions": [],
-      "effects_at_begin": [
-        [
-          "ASSIGN",
-          "free_c1",
-          false
-        ],
-        [
-          "DEFINE_VARIABLE",
-          "battery-amount_c1_old",
-          [
-            "READ_BELIEF",
-            "battery-amount_c1"
-          ]
-        ],
-        [
-          "DEFINE_VARIABLE",
-          "posX_c1_old",
-          [
-            "READ_BELIEF",
-            "posX_c1"
-          ]
-        ]
-      ],
-      "effects_at_end": [
-        [
-          "ASSIGN",
-          "free_c1",
-          true
-        ]
-      ],
-      "post_conditions": [
-        [
-          "AND",
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "battery-amount_c1"
-            ],
-            [
-              "-",
-              [
-                "READ_VARIABLE",
-                "battery-amount_c1_old"
-              ],
-              2
-            ]
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posX_c1"
-            ],
-            [
-              "+",
-              [
-                "READ_VARIABLE",
-                "posX_c1_old"
-              ],
-              1
-            ]
-          ]
-        ]
-      ],
-      "preconditions": [
-        [
-          "AND",
-          [
-            ">",
-            [
-              "READ_BELIEF",
-              "battery-amount_c1"
-            ],
-            10
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "free_c1"
-            ],
-            true
-          ],
-          [
-            "<",
-            [
-              "READ_BELIEF",
-              "posX_c1"
-            ],
-            [
-              "-",
-              [
-                "READ_BELIEF",
-                "grid-size"
-              ],
-              1
-            ]
-          ]
-        ]
-      ],
-      "preference": {
-        "computedDynamically": true,
-        "formula": [
-          0.8
-        ],
-        "reference_table": []
-      }
-    },
-    {
-      "goal_name": "move-up_c1",
-      "body": [
-        {
-          "action_type": "TASK",
-          "execution": "SEQUENTIAL",
-          "action": {
-            "computationTime": 4,
-            "n_exec": 10,
-            "period": 12,
-            "relativeDeadline": 12,
-            "server": -1
-          }
-        }
-      ],
-      "cont_conditions": [],
-      "effects_at_begin": [
-        [
-          "ASSIGN",
-          "free_c1",
-          false
-        ],
-        [
-          "DEFINE_VARIABLE",
-          "battery-amount_c1_old",
-          [
-            "READ_BELIEF",
-            "battery-amount_c1"
-          ]
-        ],
-        [
-          "DEFINE_VARIABLE",
-          "posY_c1_old",
-          [
-            "READ_BELIEF",
-            "posY_c1"
-          ]
-        ]
-      ],
-      "effects_at_end": [
-        [
-          "ASSIGN",
-          "free_c1",
-          true
-        ]
-      ],
-      "post_conditions": [
-        [
-          "AND",
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "battery-amount_c1"
-            ],
-            [
-              "-",
-              [
-                "READ_VARIABLE",
-                "battery-amount_c1_old"
-              ],
-              2
-            ]
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posY_c1"
-            ],
-            [
-              "+",
-              [
-                "READ_VARIABLE",
-                "posY_c1_old"
-              ],
-              1
-            ]
-          ]
-        ]
-      ],
-      "preconditions": [
-        [
-          "AND",
-          [
-            ">",
-            [
-              "READ_BELIEF",
-              "battery-amount_c1"
-            ],
-            10
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "free_c1"
-            ],
-            true
-          ],
-          [
-            "<",
-            [
-              "READ_BELIEF",
-              "posY_c1"
-            ],
-            [
-              "-",
-              [
-                "READ_BELIEF",
-                "grid-size"
-              ],
-              1
-            ]
-          ]
-        ]
-      ],
-      "preference": {
-        "computedDynamically": true,
-        "formula": [
-          0.8
-        ],
-        "reference_table": []
-      }
-    },
-    {
-      "goal_name": "move-right_c1",
-      "body": [
-        {
-          "action_type": "TASK",
-          "execution": "SEQUENTIAL",
-          "action": {
-            "computationTime": 4,
-            "n_exec": 10,
-            "period": 12,
-            "relativeDeadline": 12,
-            "server": -1
-          }
-        }
-      ],
-      "cont_conditions": [],
-      "effects_at_begin": [
-        [
-          "ASSIGN",
-          "free_c1",
-          false
-        ],
-        [
-          "DEFINE_VARIABLE",
-          "battery-amount_c1_old",
-          [
-            "READ_BELIEF",
-            "battery-amount_c1"
-          ]
-        ],
-        [
-          "DEFINE_VARIABLE",
-          "posX_c1_old",
-          [
-            "READ_BELIEF",
-            "posX_c1"
-          ]
-        ]
-      ],
-      "effects_at_end": [
-        [
-          "ASSIGN",
-          "free_c1",
-          true
-        ]
-      ],
-      "post_conditions": [
-        [
-          "AND",
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "battery-amount_c1"
-            ],
-            [
-              "-",
-              [
-                "READ_VARIABLE",
-                "battery-amount_c1_old"
-              ],
-              2
-            ]
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posX_c1"
-            ],
-            [
-              "+",
-              [
-                "READ_VARIABLE",
-                "posX_c1_old"
-              ],
-              1
-            ]
-          ]
-        ]
-      ],
-      "preconditions": [
-        [
-          "AND",
-          [
-            ">",
-            [
-              "READ_BELIEF",
-              "battery-amount_c1"
-            ],
-            10
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "free_c1"
-            ],
-            true
-          ],
-          [
-            "<",
-            [
-              "READ_BELIEF",
-              "posX_c1"
-            ],
-            [
-              "-",
-              [
-                "READ_BELIEF",
-                "grid-size"
-              ],
-              1
-            ]
-          ]
-        ]
-      ],
-      "preference": {
-        "computedDynamically": true,
-        "formula": [
-          0.8
-        ],
-        "reference_table": []
-      }
-    },
-    {
-      "goal_name": "move-left_c1",
-      "body": [
-        {
-          "action_type": "TASK",
-          "execution": "SEQUENTIAL",
-          "action": {
-            "computationTime": 4,
-            "n_exec": 10,
-            "period": 12,
-            "relativeDeadline": 12,
-            "server": -1
-          }
-        }
-      ],
-      "cont_conditions": [],
-      "effects_at_begin": [
-        [
-          "ASSIGN",
-          "free_c1",
-          false
-        ],
-        [
-          "DEFINE_VARIABLE",
-          "battery-amount_c1_old",
-          [
-            "READ_BELIEF",
-            "battery-amount_c1"
-          ]
-        ],
-        [
-          "DEFINE_VARIABLE",
-          "posX_c1_old",
-          [
-            "READ_BELIEF",
-            "posX_c1"
-          ]
-        ]
-      ],
-      "effects_at_end": [
-        [
-          "ASSIGN",
-          "free_c1",
-          true
-        ]
-      ],
-      "post_conditions": [
-        [
-          "AND",
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "battery-amount_c1"
-            ],
-            [
-              "-",
-              [
-                "READ_VARIABLE",
-                "battery-amount_c1_old"
-              ],
-              2
-            ]
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posX_c1"
-            ],
-            [
-              "-",
-              [
-                "READ_VARIABLE",
-                "posX_c1_old"
-              ],
-              1
-            ]
-          ]
-        ]
-      ],
-      "preconditions": [
-        [
-          "AND",
-          [
-            ">",
-            [
-              "READ_BELIEF",
-              "battery-amount_c1"
-            ],
-            10
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "free_c1"
-            ],
-            true
-          ],
-          [
-            ">",
-            [
-              "READ_BELIEF",
-              "posX_c1"
-            ],
-            0
-          ]
-        ]
-      ],
-      "preference": {
-        "computedDynamically": true,
-        "formula": [
-          0.8
-        ],
-        "reference_table": []
-      }
-    },
-    {
-      "goal_name": "move-left_c1",
-      "body": [
-        {
-          "action_type": "TASK",
-          "execution": "SEQUENTIAL",
-          "action": {
-            "computationTime": 4,
-            "n_exec": 10,
-            "period": 12,
-            "relativeDeadline": 12,
-            "server": -1
-          }
-        }
-      ],
-      "cont_conditions": [],
-      "effects_at_begin": [
-        [
-          "ASSIGN",
-          "free_c1",
-          false
-        ],
-        [
-          "DEFINE_VARIABLE",
-          "battery-amount_c1_old",
-          [
-            "READ_BELIEF",
-            "battery-amount_c1"
-          ]
-        ],
-        [
-          "DEFINE_VARIABLE",
-          "posX_c1_old",
-          [
-            "READ_BELIEF",
-            "posX_c1"
-          ]
-        ]
-      ],
-      "effects_at_end": [
-        [
-          "ASSIGN",
-          "free_c1",
-          true
-        ]
-      ],
-      "post_conditions": [
-        [
-          "AND",
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "battery-amount_c1"
-            ],
-            [
-              "-",
-              [
-                "READ_VARIABLE",
-                "battery-amount_c1_old"
-              ],
-              2
-            ]
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "posX_c1"
-            ],
-            [
-              "-",
-              [
-                "READ_VARIABLE",
-                "posX_c1_old"
-              ],
-              1
-            ]
-          ]
-        ]
-      ],
-      "preconditions": [
-        [
-          "AND",
-          [
-            ">",
-            [
-              "READ_BELIEF",
-              "battery-amount_c1"
-            ],
-            10
-          ],
-          [
-            "==",
-            [
-              "READ_BELIEF",
-              "free_c1"
-            ],
-            true
-          ],
-          [
-            ">",
-            [
-              "READ_BELIEF",
-              "posX_c1"
-            ],
-            0
           ]
         ]
       ],

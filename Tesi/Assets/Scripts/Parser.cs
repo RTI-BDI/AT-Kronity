@@ -415,6 +415,12 @@ public class Parser : MonoBehaviour
         }
     }
 
+	//Utility function
+	public void GenerateDesireSet()
+	{
+		GenerateDesireSet(problemObject, groundedActions);
+	}
+
     //Function to generate the desire of the Plan
     public void GenerateDesireSet(Problem problem, List<Action> groundedActions)
     {

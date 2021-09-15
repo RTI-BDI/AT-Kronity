@@ -914,14 +914,17 @@ public class Collector : MonoBehaviour
 
 		if (IsMovement(action))
 		{
-			MoveToDestination(GameManager.GetTileSize(), new Vector2(this.posX, this.posY));
+			ResetPosition();
+			MoveToDestination(GameManager.GetTileSize(), GameManager.GetGridPosition());
 		} 
 	}
 
 	public void StopAllActions()
 	{
 		StopAllCoroutines();
-		MoveToDestination(GameManager.GetTileSize(), new Vector2(this.posX, this.posY));
+		
+		ResetPosition();
+		MoveToDestination(GameManager.GetTileSize(), GameManager.GetGridPosition());
 	}
 
 	void OnMouseDown()
