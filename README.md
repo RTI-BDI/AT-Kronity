@@ -11,7 +11,7 @@ Andrea Traldi / RTI-BDI Project
 In some debian based distribution (e.g. Mint) you could look for the unityhub executable which you should find under `/opt/unityhub/unityhub`). 
 Check in the pop-up the correct version of the installation you required, if it's another, press "Skip installation" and another pop-up dialog should appear with the correct version you ask for. Basic Editor App should suffice, for a more complete installation, check WebGL Build, Windows, Linux build support.  
 
-4. Install Optic, which can be found [here](https://github.com/roveri-marco/optic). Put the generated `release` folder under `Tesi/Assets/optic-master/optic/` replacing the one already there. Requirements for the installation of optic: 
+4. Install Optic, which can be found [here](https://github.com/roveri-marco/optic). Put the generated `release` folder under `Tesi/Assets/optic-master/optic/` replacing (create missing folders or directly copy the repo there, so to have the same path). Requirements for the installation of optic: 
   ```
   sudo apt-get install cmake coinor-libcbc-dev coinor-libclp-dev coinor-libcoinutils-dev libbz2-dev bison flex
   sudo apt-get install libfl-dev gsl-bin libgsl-dev doxygen # could be needed... just run it to make sure
